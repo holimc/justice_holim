@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="d_board_DB">
+	<select id="getCount" parameterType="hashmap" resultType="int">
+		select count(*) from d_board_table
+		<include refid="search"></include>
+	</select>
+	<select id="getBoardList" resultType="BoardDTO" parameterType="hashmap">
+		select * from 
+			(select d_board_no, word_no, wname, prompt, meaning, detail_content, b_recommend_user, b_recommend, user_id, board_reg, rownum r from
+				(select * from d_board_table
+				<include refid="search"></include>
+				 order by d_board_no desc))
+		where r <![CDATA[>=]]>#{start} and r<![CDATA[<=]]>#{end}
+	</select>
+	<select id="getWordData" resultType="String" parameterType="int">
+		select wname from dictionary_table where word_no = #{word_no}
+	</select>
+	
+	<insert id="insertPost" parameterType="BoardDTO">
+		insert into d_board_table values(d_board_table_seq.nextval,#{word_no},#{wname},#{prompt},#{meaning},#{detail_content},null,0,#{user_id},sysdate)
+	</insert>
+	<select id="getPost" parameterType="int" resultType="BoardDTO">
+		select * from d_board_table where d_board_no = #{d_board_no}
+	</select>
+	<update id="updatePost" parameterType="BoardDTO">
+		update d_board_table
+		<trim prefix="set" suffixOverrides="," >
+			<if test="meaning!=null">meaning = #{meaning},</if>			
+			<if test="prompt!=null">prompt = #{prompt},</if>
+			<if test="detail_content!=null">detail_content = #{detail_content},</if>
+		</trim>
+		where d_board_no = #{d_board_no} and wname=#{wname}
+	</update>	
+	
+	<select id="chkMember" parameterType="hashmap" resultType="integer">
+		select count(*) from member where id = #{id} and passwd =#{passwd} 
+	</select>
+	<delete id="postDelete" parameterType="hashmap">
+		delete d_board_table where d_board_no = #{d_board_no}
+	</delete>
+	
+	<select id="confirmRecommend" parameterType="int" resultType="string">
+		select b_recommend_user from d_board_table where d_board_no=#{d_board_no}
+	</select>
+	
+	<update id="getRecommend" parameterType="hashmap">
+		update d_board_table set b_recommend_user = NVL2(b_recommend_user,(b_recommend_user||','||#{user_id}),#{user_id}),
+    	b_recommend=b_recommend+1 where d_board_no=#{d_board_no}
+	</update>
+	
+
+	
+	<sql id="search">
+		<choose>
+			<when test="category == 'all'">
+				where meaning like '%'||#{keyword}||'%'
+				OR wname like '%'||#{keyword}||'%'
+				OR prompt like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				where ${category} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+</mapper>

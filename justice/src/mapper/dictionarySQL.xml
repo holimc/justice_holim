@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dictionaryDB">
+	<select id="getCount" resultType="int">
+		select count(*) from dictionary_table
+	</select>
+	
+	<select id="getDictionaryList" resultType="dictionaryDTO" parameterType="hashmap">
+		select * from 
+			(select word_no,wname,meaning,substitute,user_id,dic_recommend_user,dic_recommend,report_count_user,report_count,rownum r from 
+        		(select * from dictionary_table order by word_no desc))
+		where r <![CDATA[>=]]>#{start} and r<![CDATA[<=]]>#{end}
+	</select>
+	
+	<insert id="insertDictionary" parameterType="dictionaryDTO">
+		insert into dictionary_table values(dictionary_table_seq.nextval, #{wname}, #{meaning}, #{substitute}, #{user_id}, null, 0, null, 0 )
+	</insert>
+	<select id="confirmRecommend" parameterType="int" resultType="string">
+		select dic_recommend_user from dictionary_table where word_no=#{word_no}
+	</select>
+	
+	<update id="getRecommend" parameterType="hashmap">
+		update dictionary_table set dic_recommend_user = NVL2(dic_recommend_user,(dic_recommend_user||','||#{user_id}),#{user_id}),
+    	dic_recommend=dic_recommend+1 where word_no=#{word_no}
+	</update>
+	
+	<select id="getUpdateDicData" parameterType="int" resultType="dictionaryDTO" >
+		select * from dictionary_table where word_no=#{word_no}
+	</select>
+	<update id="updateDictionary" parameterType="dictionaryDTO">
+		update dictionary_table set wname=#{wname}, meaning=#{meaning}, substitute=#{substitute}, report_count=0, report_count_user=null where word_no=#{word_no} 
+	</update>
+	<delete id="deleteDictionary" parameterType="int">
+		delete from dictionary_table where word_no=#{word_no}
+	</delete>
+	<select id="confirmReport" parameterType="reportDTO" resultType="int">
+		select count(*) from report_table where word_no=#{word_no} and user_id=#{user_id}
+	</select>
+	<insert id="insertReport" parameterType="reportDTO">
+		insert into report_table values(report_table_seq.nextval, #{word_no}, #{wname}, #{user_id}, #{report_reason})
+	</insert>
+	<insert id="insertReportDictionary" parameterType="reportDTO">
+		update dictionary_table set report_count_user = NVL2(report_count_user,(report_count_user||','||#{user_id}),#{user_id}),
+    	report_count=report_count+1 where word_no=#{word_no}
+	</insert>
+	<select id="getReport" resultType="reportDTO" parameterType="int">
+		select * from report_table where word_no=#{word_no} order by report_no desc
+	</select>
+	<select id="getReportList" resultType="reportDTO">
+		select word_no, wname, count(*) rpt_count from report_table group by word_no,wname order by rpt_count desc
+	</select>
+	<delete id="deleteReport" parameterType="int">
+		delete from report_table where word_no=#{word_no}
+	</delete>
+</mapper>

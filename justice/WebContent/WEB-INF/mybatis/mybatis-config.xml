@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="project.justice.member.MemberVO" alias="memberVO"/>
+		<typeAlias type="project.justice.news.NewsDTO" alias="newsDTO"/>
+		<typeAlias type="project.justice.dictionary.DictionaryDTO" alias="dictionaryDTO"/>
+		<typeAlias type="project.justice.dictionary.ReportDTO" alias="ReportDTO"/>
+		<typeAlias type="project.justice.petition.PetitionDTO" alias="petitionDTO"/>
+		<typeAlias type="project.justice.petition.PetitionDataDTO" alias="petitionDataDTO"/>		
+		<typeAlias type="project.justice.petition.AnswerDTO" alias="answerDTO"/>
+		<typeAlias type="project.justice.dictionary.BoardDTO" alias="boardDTO"/>		
+	</typeAliases>
+	<mappers>
+		<mapper resource="/mapper/memberSQL.xml"/>
+		<mapper resource="/mapper/newsSQL.xml"/>
+		<mapper resource="/mapper/dictionarySQL.xml"/>	
+		<mapper resource="/mapper/petitionSQL.xml"/>	
+		<mapper resource="/mapper/dicBoardSQL.xml"/>	
+	</mappers>
+</configuration>

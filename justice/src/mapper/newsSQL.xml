@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="news">
+	<select id="getNewsList" resultType="newsDTO">
+		select * from news_list
+	</select>
+	<select id="getCount" resultType="int">
+		select count(*) from news_list
+	</select>
+</mapper>
