@@ -11,6 +11,7 @@
 		<typeAlias type="project.justice.petition.PetitionDTO" alias="petitionDTO"/>
 		<typeAlias type="project.justice.petition.PetitionDataDTO" alias="petitionDataDTO"/>		
 		<typeAlias type="project.justice.petition.AnswerDTO" alias="answerDTO"/>
+		<typeAlias type="project.justice.petition.PetitionSubjectDTO" alias="subjectDTO"/>
 		<typeAlias type="project.justice.dictionary.BoardDTO" alias="boardDTO"/>		
 	</typeAliases>
 	<mappers>

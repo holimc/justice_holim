@@ -11,14 +11,22 @@
 <jsp:include page="../member/header.jsp"/>
 <jsp:include page="header.jsp"/>
 <body>
-<h2>${title}</h2>
+
+
 <script type="text/javascript">
 function button_click(s) {
 	var url = "https://www1.president.go.kr/petitions/"+s;
 	window.open(url);
 }
 </script>
-
+<div>
+<div style="float: left;" >
+<h2 align="left">${title}</h2>
+</div>
+<div style="float: right;">
+<button onclick="window.location.href='subject.ju'">주제별 보기</button>
+</div>
+</div>
 <table class="table">
 <tr>
 	<td>인덱스</td>

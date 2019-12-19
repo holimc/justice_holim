@@ -57,5 +57,13 @@ public class PetitionDAO {
 		PetitionDataDTO dto = sqlSession.selectOne("petition.getinfo",num);
 		return dto;
 	}
+	public List<PetitionSubjectDTO> getList(){
+		List<PetitionSubjectDTO> list = sqlSession.selectList("petition.getSubject");
+		return list;
+	}
+	public String getSubject(int num) {
+		String subject = sqlSession.selectOne("petition.getSubjectName",num);
+		return subject;
+	}
 }
 
