@@ -9,4 +9,7 @@
 	<select id="getCount" resultType="int">
 		select count(*) from news_list
 	</select>
+	<select id="getRelatedList" parameterType="string" resultType="newsDTO">
+		select * from news_list where news_category = #{news_category}
+	</select>
 </mapper>
