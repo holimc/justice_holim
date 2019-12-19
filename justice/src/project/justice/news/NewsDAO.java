@@ -14,4 +14,14 @@ public class NewsDAO implements NewsImpl {
 		List<NewsDTO> newsList = sqlSession.selectList("news.getNewsList");
 		return newsList;
 	}
+	
+	public int getCount() throws Exception{
+		int cnt = sqlSession.selectOne("news.getCount");
+		return cnt;
+	}
+	
+	public List<NewsDTO> rnewsList(String word) throws Exception{
+		List<NewsDTO> rnewsList = sqlSession.selectList("news.getRelatedList",word);
+		return rnewsList;
+	}
 }
