@@ -7,7 +7,7 @@
 </script>
 <center>
 <div id="insertRow">
-	<table>
+	<table border="1">
 		<tr>
 			<td> 추가 설명 : </td>
 			<td> <div id="row_content">${brdDTO.detail_content}</div> </td>

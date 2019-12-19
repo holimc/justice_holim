@@ -6,8 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#board_table{
+		width:100%
+	}
+</style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+	
+	// 검색버튼
 	$(function(){
 		$(document).on('click', '#searchBtn', function(){
 			var url = "boardList.ju";
@@ -20,6 +27,7 @@
 		});
 	});
 	
+	// 테이블 누르면 설명탭이 열림
 	$(function(){
 		$(document).on('click', '#board_table tr', function(){
 			//var tr = $(this);
@@ -30,13 +38,15 @@
 				url : "/justice/dboard/boardContent.ju",
 				data : {d_board_no : d_board_no},
 				success : function(data){
-					$("#"+d_board_no).html(data);
+					var text = $(data).find('#row_content');
+					$("#"+d_board_no).html(text);
 				}
 				
 			})
 		})
 	})
 	
+	//수정하기
 	$(function(){
 		$(document).on('click', '#updateBtn', function(){
 			var btn = $(this);
@@ -46,7 +56,7 @@
 			location.href=url;
 		})
 	})
-	
+	// 삭제버튼
 	$(function(){
 		$(document).on('click', '#deleteBtn', function(){
 			var btn = $(this);
@@ -56,7 +66,7 @@
 			location.href=url;
 		})
 	})
-	
+	// 추천
 	$(function(){
 		$(document).on('click', '#recommendBtn', function(){
 			var btn = $(this);
@@ -66,6 +76,68 @@
 			location.href=url;
 		})
 	})
+	
+	// 체크박스
+	
+	var check = false;
+	$(function(){
+		$("#selectAll").click(function(){
+			if($("#selectAll").prop("checked")){
+				$("input[type=checkbox]").prop("checked",true);
+			}else{
+				$("input[type=checkbox]").prop("checked",false);
+			}
+		})
+	})
+	
+	function oneCheckFunc(obj){
+		var allObj = $("[name=selectAll]");
+		var objName = $(obj).attr("name");
+	
+		if($(obj).prop("checked")){
+			checkBoxLength = $("[name="+ objName +"]").length;
+			checkedLength = $("[name="+ objName +"]:checked").length;
+	
+			if(checkBoxLength == checkedLength){
+				allObj.prop("checked", true);
+			}else{
+				allObj.prop("checked", false);
+			}
+		}else{
+			allObj.prop("checked", false);
+		}
+	}
+	
+	$(function(){
+		$("[name=selectAll]").click(function(){
+			allCheckFunc( this );
+		});
+		$("[name=chkPost]").each(function(){
+			$(this).click(function(){
+				oneCheckFunc( $(this) );
+			});
+		});
+	});
+	
+	function cancleChk(){
+		var chk = document.getElementsByName("chkPost");
+		if(check==false){
+			document.getElementById("selectAll").checked = false;
+			check = true;
+			for(var i=0; i<chk.length;i++){
+				chk[i].checked = false;
+			}
+		}else{
+			document.getElementById("selectAll").checked = false;
+			check = false;
+			for(var i=0; i<chk.length;i++){
+				chk[i].checked = false;
+			}
+		}
+	}
+	
+	
+	
 </script>
 
 </head>
@@ -111,7 +183,7 @@
 				</c:if>
 			</tr>
 			<tr>
-				<tbody id="${board_article.d_board_no}"></tbody>
+				<center><td><tbody id="${board_article.d_board_no}" class="table_content"></tbody></td></center>
 			</tr>
 		</c:forEach>
 	</table>
