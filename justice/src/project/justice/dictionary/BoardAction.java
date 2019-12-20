@@ -220,5 +220,18 @@ public class BoardAction {
 		return "/dictionary/dicBoard/insertVoting";
 	}
 	
+	
+	@RequestMapping("deleteByAdmin")
+	public String deleteByAdmin(Model model,
+			@RequestParam(value="chbox[]") List<String> chkArr, BoardDTO brdDTO) {
+		
+		int num = 0;
+		for(String i : chkArr) {
+			num = Integer.parseInt(i);
+			
+		}
+		return "/dictionary/dicBoard/deleteByAdmin";
+	}
+	
 		
 }

@@ -23,5 +23,7 @@ public interface BoardDAOImpl {
 	public int getRecommend(int d_board_no, String user_id) throws Exception;
 	// 투표게시판으로 옮기는 메서드
 	public int insertVoting(int d_board_no) throws Exception;
+	// 어드민 글삭제
+	public int deletePostAdmin() throws Exception;
 	
 }

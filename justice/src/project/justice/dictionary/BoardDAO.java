@@ -115,7 +115,16 @@ public class BoardDAO implements BoardDAOImpl {
 	// 투표게시판으로 옮기는 메서드
 	@Override
 	public int insertVoting(int d_board_no) throws Exception{
+		
 		return 0;
 	}
+	
+	@Override
+	public int deletePostAdmin() throws Exception{
+		return 0;
+	}
+	
+	
+	
 	
 }
