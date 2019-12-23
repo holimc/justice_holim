@@ -113,6 +113,26 @@
 		})
 	})
 	
+	$(function(){
+		$(document).on('click','#selVote', function(){
+			var confirm_check = confirm("선택한 글을 투표게시 하시겠습니까?");
+			if(confirm_check){
+				var chkArr = new Array();
+				$("input[id='chkPost']:checked").each(function(){
+					chkArr.push($(this).attr("data-d_board_no"));
+				})
+				$.ajax({
+					url : "insertVoting.ju",
+					type : "post",
+					data : {chbox : chkArr},
+					success : function(){
+						location.href="boardList.ju";
+					}
+				})
+			}
+			
+		})
+	})
 </script>
 
 </head>

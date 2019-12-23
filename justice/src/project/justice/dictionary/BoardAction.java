@@ -1,5 +1,6 @@
 package project.justice.dictionary;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -216,19 +217,35 @@ public class BoardAction {
 	}
 	
 	@RequestMapping("insertVoting.ju")
-	public String insertVoting() {
+	public String insertVoting(Model model,
+			@RequestParam(value="chbox[]") List chkArr,
+			HttpSession session) throws Exception{
+		String admin = (String)session.getAttribute("admin");
+		if(admin!= null) {
+			int num = 0;
+			int check = 0;
+			if(chkArr!= null) {
+				check = brdDAO.insertVoting(chkArr);
+			}
+			model.addAttribute("check",check);
+		}
+		
 		return "/dictionary/dicBoard/insertVoting";
 	}
 	
 	
 	@RequestMapping("deleteByAdmin")
 	public String deleteByAdmin(Model model,
-			@RequestParam(value="chbox[]") List<String> chkArr, BoardDTO brdDTO) {
-		
-		int num = 0;
-		for(String i : chkArr) {
-			num = Integer.parseInt(i);
-			
+			@RequestParam(value="chbox[]") List<String> chkArr,
+			HttpSession session) throws Exception {
+		String admin = (String)session.getAttribute("admin");
+		if(admin!= null) {
+			int num = 0;
+			int check = 0;
+			if(chkArr!=null) {
+				check = brdDAO.deletePostAdmin(chkArr);
+			}
+			model.addAttribute("check",check);
 		}
 		return "/dictionary/dicBoard/deleteByAdmin";
 	}

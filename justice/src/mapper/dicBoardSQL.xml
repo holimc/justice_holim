@@ -38,10 +38,16 @@
 	<select id="chkMember" parameterType="hashmap" resultType="integer">
 		select count(*) from member where id = #{id} and passwd =#{passwd} 
 	</select>
-	<delete id="postDelete" parameterType="hashmap">
+	<delete id="postDelete" parameterType="int">
 		delete d_board_table where d_board_no = #{d_board_no}
 	</delete>
 	
+	<delete id="deletePostByAdmin" parameterType="list">
+		delete d_board_table where d_board_no in
+		(<foreach collection="list" item="item" index="index" separator=",">
+			${item}
+		</foreach>)
+	</delete>
 	<select id="confirmRecommend" parameterType="int" resultType="string">
 		select b_recommend_user from d_board_table where d_board_no=#{d_board_no}
 	</select>
@@ -51,7 +57,13 @@
     	b_recommend=b_recommend+1 where d_board_no=#{d_board_no}
 	</update>
 	
-
+	<select id="confirmVoteList" parameterType="list">
+		select d_board_no from vote_table
+	</select>
+	
+	<insert id="insertVote" parameterType="BoardDTO">
+		insert into vote_table values(vote_table_seq.nextval, #{d_board_no}, #{wname},0, 0, null, sysdate, 'open')
+	</insert>
 	
 	<sql id="search">
 		<choose>

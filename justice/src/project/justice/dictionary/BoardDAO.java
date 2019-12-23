@@ -114,14 +114,38 @@ public class BoardDAO implements BoardDAOImpl {
 	}
 	// 투표게시판으로 옮기는 메서드
 	@Override
-	public int insertVoting(int d_board_no) throws Exception{
-		
-		return 0;
+	public int insertVoting(List<String> chkArr) throws Exception{
+		// 중복 체크를 위한 check
+		int check = 0;
+		// 정보를 담을 DTO 
+		BoardDTO brdDTO = null;
+		// vote_table의 단어 번호를 가져온다. 중복체크
+		List voteList = sqlSession.selectList("d_board_DB.confirmVoteList");
+		if(voteList!=null) {
+			for(int i=0; i<chkArr.size();i++) {
+				if(voteList.contains(chkArr.get(i))) {
+					
+				}
+				
+			}
+		}else {
+			for(int i=0; i<chkArr.size(); i++) {
+				int d_board_no = Integer.parseInt(chkArr.get(i));
+				brdDTO = sqlSession.selectOne("d_board_DB.getPost",d_board_no);
+				sqlSession.insert("d_board_DB.insertVote",brdDTO);
+			}
+			check = 1;
+		}
+		return check;
 	}
 	
 	@Override
-	public int deletePostAdmin() throws Exception{
-		return 0;
+	public int deletePostAdmin(List chkArr) throws Exception{
+		int check = 0;
+		if(chkArr!= null) {
+			check = sqlSession.delete("d_board_DB.deletePostByAdmin",chkArr);
+		}
+		return check;
 	}
 	
 	
