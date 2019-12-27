@@ -13,13 +13,15 @@
 		<typeAlias type="project.justice.petition.PetitionData2DTO" alias="petitionData2DTO"/>				
 		<typeAlias type="project.justice.petition.AnswerDTO" alias="answerDTO"/>
 		<typeAlias type="project.justice.petition.PetitionSubjectDTO" alias="subjectDTO"/>
-		<typeAlias type="project.justice.dictionary.BoardDTO" alias="boardDTO"/>		
+		<typeAlias type="project.justice.dictionary.BoardDTO" alias="boardDTO"/>	
+		<typeAlias type="project.justice.dictionary.VoteDTO" alias="voteDTO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mapper/memberSQL.xml"/>
 		<mapper resource="/mapper/newsSQL.xml"/>
 		<mapper resource="/mapper/dictionarySQL.xml"/>	
 		<mapper resource="/mapper/petitionSQL.xml"/>	
-		<mapper resource="/mapper/dicBoardSQL.xml"/>	
+		<mapper resource="/mapper/dicBoardSQL.xml"/>
+		<mapper resource="/mapper/voteSQL.xml"/>	
 	</mappers>
 </configuration>
