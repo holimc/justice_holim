@@ -115,26 +115,33 @@ public class BoardDAO implements BoardDAOImpl {
 	// 투표게시판으로 옮기는 메서드
 	@Override
 	public int insertVoting(List<String> chkArr) throws Exception{
-		// 중복 체크를 위한 check
+		// insert 성공 여부를 담을 check
 		int check = 0;
+		// confirmCheck 중복 검사
+		int confirmCheck = 0;
+		
 		// 정보를 담을 DTO 
 		BoardDTO brdDTO = null;
 		// vote_table의 단어 번호를 가져온다. 중복체크
 		List voteList = sqlSession.selectList("d_board_DB.confirmVoteList");
+		//voteList가  null이면 중복검사 시행 안함. 
 		if(voteList!=null) {
+			confirmCheck = 1;
 			for(int i=0; i<chkArr.size();i++) {
 				if(voteList.contains(chkArr.get(i))) {
-					
+					chkArr.remove(i);
+					i--;
 				}
-				
 			}
-		}else {
+		}else if(voteList==null) {
+			confirmCheck = 1;
+		}
+		// 중복검사 시행후 insert
+		if(confirmCheck == 1 && chkArr != null) {
 			for(int i=0; i<chkArr.size(); i++) {
-				int d_board_no = Integer.parseInt(chkArr.get(i));
-				brdDTO = sqlSession.selectOne("d_board_DB.getPost",d_board_no);
-				sqlSession.insert("d_board_DB.insertVote",brdDTO);
+				brdDTO = sqlSession.selectOne("d_board_DB.getPost", Integer.parseInt(chkArr.get(i)));
+				check = sqlSession.insert("d_board_DB.insertVote", brdDTO);
 			}
-			check = 1;
 		}
 		return check;
 	}

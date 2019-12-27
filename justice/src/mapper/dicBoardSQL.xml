@@ -57,7 +57,7 @@
     	b_recommend=b_recommend+1 where d_board_no=#{d_board_no}
 	</update>
 	
-	<select id="confirmVoteList" parameterType="list">
+	<select id="confirmVoteList" resultType="String">
 		select d_board_no from vote_table
 	</select>
 	
