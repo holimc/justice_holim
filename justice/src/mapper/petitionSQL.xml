@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="petition">
 	<select id="seleteAll" resultType="petitionDTO">
-		select * from petition
+		select * from petition where p_date>sysdate
 	</select>
 	<select id="seletecheck" resultType="petitionDTO"
 		parameterType="int">
@@ -30,7 +30,7 @@
 	<select id="availablePetition" resultType="petitionDTO" parameterType="hashmap">
 		select * from(
 		select p_no,p_subject,p_title,p_date,p_person,p_check,ROW_NUMBER()
-		OVER(ORDER BY p_date) AS RNUM from petition where p_date>sysdate )
+		OVER(ORDER BY p_date) AS RNUM from petition where p_date>sysdate)
 		WHERE RNUM BETWEEN #{firstIndex} AND #{lastIndex}
 	</select>
 	<select id="getinfo" resultType="petitionDataDTO" parameterType="int">
@@ -42,6 +42,18 @@
 	</select>
 	<select id="getSubjectName" resultType="String" parameterType="int">
 		select p_subject from petition_subject where s_id=#{s_id}	
+	</select>
+	<select id="getPetitionBySubject" resultType="petitionDTO" parameterType="int">
+		select * from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate
+	</select>
+	<select id="getPetitionBySubject1" resultType="petitionDTO" parameterType="hashmap">
+		select * from(	
+		select p_no,p_subject,p_title,p_date,p_person,p_check,ROW_NUMBER()
+		OVER(ORDER BY p_date) AS RNUM from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate)
+		WHERE RNUM BETWEEN #{firstIndex} AND #{lastIndex}
+	</select>
+	<select id="getSubjectPage" resultType="int" parameterType="int">
+		select count(*) from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate
 	</select>
 </mapper>
 

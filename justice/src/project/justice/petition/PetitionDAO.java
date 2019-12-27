@@ -65,5 +65,36 @@ public class PetitionDAO {
 		String subject = sqlSession.selectOne("petition.getSubjectName",num);
 		return subject;
 	}
+	public List<PetitionDTO> getPetitionBySubject(int num) {
+		List<PetitionDTO> dto = null;
+		if(num!=0) {
+		dto = sqlSession.selectList("petition.getPetitionBySubject",num); 
+		}
+		else {
+			dto = sqlSession.selectList("petition.seleteAll");
+		}
+		return dto;
+	}
+	public List<PetitionDTO> getPetitionBySubject(int num,int page){
+		int lastIndex = page*pagesize;
+		int firstIndex= (page-1)*pagesize+1;
+		List<PetitionDTO> dto = null;
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("firstIndex", firstIndex);
+		map.put("lastIndex", lastIndex);
+		if(num!=0) {
+			map.put("s_id", num);
+			dto = sqlSession.selectList("petition.getPetitionBySubject1",map);
+		}
+		else {
+			dto = sqlSession.selectList("petition.availablePetition",map);
+		}
+		return dto;
+	}
+	public int subjectPage(int num) {
+		int tmp = sqlSession.selectOne("petition.getSubjectPage",num);
+		int page = tmp%pagesize==0? tmp/pagesize : tmp/pagesize+1;		
+		return page;
+	}
 }
 
