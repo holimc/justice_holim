@@ -3,5 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dictionary_vote">
-	
+	<select id="getCountVote" parameterType="hashmap" resultType="int">
+		select count(*) from vote_table
+	</select>
+	<select id="getBoardList" resultType="voteDTO" parameterType="hashmap">
+		select * from 
+			(select vote_no, d_board_no, wname, agree, disagree, voter_id, vote_reg, vote_close, rownum r from
+				(select * from vote_table order by vote_close desc) order by vote_no)
+		where r <![CDATA[>=]]>#{start} and r<![CDATA[<=]]>#{end}
+	</select>
+	<select id="getVoteData" parameterType="int" resultType="voteDTO">
+		select * from vote_table where vote_no = #{vote_no}
+	</select>
 </mapper>

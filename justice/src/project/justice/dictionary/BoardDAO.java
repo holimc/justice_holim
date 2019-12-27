@@ -140,7 +140,7 @@ public class BoardDAO implements BoardDAOImpl {
 		if(confirmCheck == 1 && chkArr != null) {
 			for(int i=0; i<chkArr.size(); i++) {
 				brdDTO = sqlSession.selectOne("d_board_DB.getPost", Integer.parseInt(chkArr.get(i)));
-				check = sqlSession.insert("d_board_DB.insertVote", brdDTO);
+					check = sqlSession.insert("d_board_DB.insertVote", brdDTO);
 			}
 		}
 		return check;
