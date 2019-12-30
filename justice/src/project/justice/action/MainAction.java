@@ -1,5 +1,8 @@
 package project.justice.action;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +16,7 @@ import project.justice.member.MemberDAO;
 import project.justice.member.MemberVO;
 import project.justice.petition.PetitionDAO;
 import project.justice.petition.PetitionDTO;
+import project.justice.petition.PetitionDataDTO;
 
 
 //test
@@ -24,7 +28,19 @@ public class MainAction {
 	PetitionDAO petitionDAO = null;	
 	@RequestMapping("main.ju")
 	public String main(Model model) {
-		List<PetitionDTO> list=null;
+		List<PetitionDataDTO> list=null;
+		try {
+			list = petitionDAO.getMain2();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("list", list);
+		return "main/main2";
+	}
+	@RequestMapping("main2.ju")
+	public String main2(Model model) {
+		List<PetitionDataDTO> list=null;
 		try {
 			list = petitionDAO.getMain();
 		} catch (Exception e) {
@@ -32,11 +48,23 @@ public class MainAction {
 			e.printStackTrace();
 		}
 		model.addAttribute("list", list);
-		return "member/main";
+		return "main/main";
+	}
+	@RequestMapping("main3.ju")
+	public String main3(Model model) {
+		try {
+			List<PetitionDTO> list = petitionDAO.notAnswer();
+			model.addAttribute("list", list);
+			Timestamp time = new Timestamp(System.currentTimeMillis());
+			model.addAttribute("Time", time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return "main/main3";
 	}
 	@RequestMapping("login.ju")
 	public String login() {		
-		return "member/login";
+		return "main/login";
 	}
 	@RequestMapping("loginPro.ju")
 	public String loginPro(MemberVO vo,HttpSession session,Model model) {

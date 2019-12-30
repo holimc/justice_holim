@@ -96,8 +96,12 @@ public class PetitionDAO {
 		int page = tmp%pagesize==0? tmp/pagesize : tmp/pagesize+1;		
 		return page;
 	}
-	public List<PetitionDTO> getMain(){
-		List<PetitionDTO> list = sqlSession.selectList("petition.getMain");
+	public List<PetitionDataDTO> getMain(){
+		List<PetitionDataDTO> list = sqlSession.selectList("petition.getMain");
+		return list;
+	}
+	public List<PetitionDataDTO> getMain2(){
+		List<PetitionDataDTO> list = sqlSession.selectList("petition.getMain2");
 		return list;
 	}
 }

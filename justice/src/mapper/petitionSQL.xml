@@ -55,10 +55,15 @@
 	<select id="getSubjectPage" resultType="int" parameterType="int">
 		select count(*) from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate
 	</select>
-	<select id="getMain" resultType="petitionDTO">
+	<select id="getMain" resultType="petitionDataDTO">
 	select * from
-	(select p.*,ROW_NUMBER()OVER(order by p2.p_data1-p2.p_data2 desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
-	where RNUM BETWEEN 1 AND 5	
+	(select p.*,p2.p_data2,p2.p_data1,ROW_NUMBER()OVER(order by p2.p_data1-p2.p_data2 desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
+	where RNUM BETWEEN 1 AND 10
+	</select>
+	<select id="getMain2" resultType="petitionDataDTO">
+	select * from
+	(select p.*,p2.p_data2,p2.p_data1,ROW_NUMBER()OVER(order by p.p_person-p2.p_data1 desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
+	where RNUM BETWEEN 1 AND 10	
 	</select>
 </mapper>
 
