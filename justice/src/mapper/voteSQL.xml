@@ -9,10 +9,35 @@
 	<select id="getBoardList" resultType="voteDTO" parameterType="hashmap">
 		select * from 
 			(select vote_no, d_board_no, wname, agree, disagree, voter_id, vote_reg, vote_close, rownum r from
-				(select * from vote_table order by vote_close desc) order by vote_no)
+				(select * from vote_table order by vote_close desc, vote_no desc))
 		where r <![CDATA[>=]]>#{start} and r<![CDATA[<=]]>#{end}
 	</select>
 	<select id="getVoteData" parameterType="int" resultType="voteDTO">
 		select * from vote_table where vote_no = #{vote_no}
 	</select>
+	
+	<select id="getVotingUserList" parameterType="int" resultType="String">
+		select voter_id from vote_table where vote_no = #{vote_no}
+	</select>
+	
+	<update id="votingPost" parameterType="hashmap">
+		update vote_table set ${type} = ${type} + 1, voter_id = NVL2(voter_id,(voter_id||','||#{user_id}),#{user_id})
+		where vote_no=#{vote_no} 
+	</update>
+	
+	<delete id="deleteVote" parameterType="list">
+		delete vote_table where vote_no in
+		(<foreach collection="list" item="item" index="index" separator=",">
+			${item}
+		</foreach>)
+	</delete>
+	
+	<insert id="insertDictionary" parameterType="boardDTO">
+		insert into dictionary_table values(dictionary_table_seq.nextval,#{wname},#{meaning},#{prompt},#{user_id},null,0,null,0)
+	</insert>
+	
+	<update id="closingVote" parameterType="int">
+		update vote_table set vote_close='close' where vote_no = #{vote_no}
+	</update>
+	
 </mapper>

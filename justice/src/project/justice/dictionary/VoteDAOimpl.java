@@ -11,9 +11,9 @@ public interface VoteDAOimpl {
 	// d_board_no 를 통해 내용물 가져오기
 	public HashMap getVoteContent(int vote_no) throws Exception;
 	// admin이 투표 삭제
-	public int deleteVote() throws Exception;
+	public int deleteVote(List<String> chkArr) throws Exception;
 	// admin 이 투표 마감
-	public int closeVote() throws Exception;
+	public int closeVote(List<String> chkArr) throws Exception;
 	// 투표하기
-	public int votingPost() throws Exception;
+	public int votingPost(HashMap hm) throws Exception;
 }

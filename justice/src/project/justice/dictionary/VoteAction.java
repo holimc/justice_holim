@@ -79,16 +79,63 @@ public class VoteAction {
 	
 	
 	@RequestMapping("voteClose.ju")
-	public String voteClose(Model model) {
+	public String voteClose(Model model,
+			@RequestParam(value="chbox[]") List<String> chkArr,
+			HttpSession session) throws Exception {
+		String admin = (String)session.getAttribute("admin");
+		if(admin!= null) {
+			int check = 0;
+			if(chkArr!=null) {
+				check = vtDAO.closeVote(chkArr);
+			}
+			model.addAttribute("check", check);
+		}
 		return "dictionary/votePage/voteClose";
 	}
 	@RequestMapping("voteDelete.ju")
-	public String voteDelete(Model model) {
+	public String voteDelete(Model model,
+			@RequestParam(value="chbox[]") List<String> chkArr,
+			HttpSession session) throws Exception {
+		String admin = (String)session.getAttribute("admin");
+		if(admin!= null) {
+			int check = 0;
+			if(chkArr!=null) {
+				check = vtDAO.deleteVote(chkArr);
+			}
+			model.addAttribute("check",check);
+		}
+		
+		
 		return "dictionary/votePage/voteDelete";
 	}
 	@RequestMapping("votePro.ju")
-	public String votePro(Model model) {
+	public String votePro(Model model, String type, HttpSession session, int vote_no) throws Exception {
+		int check = 0;
+		String memId = (String)session.getAttribute("memId");
+		String voteStatus = vtDAO.getVoteStatus(vote_no);
+		
+		// 투표가 닫혀있으면 check -4
+		if(voteStatus.equals("open")) {
+			// type이 없이 pro에 접근시 check = -2
+			if(type==null || vote_no == 0) {
+				check = -2;
+			}else {
+				// 세션이 없을시 check = -1
+				if(memId==null) {
+					check = -1;
+				}else {
+					HashMap hm = new HashMap();
+					hm.put("user_id", memId);
+					hm.put("type", type);
+					hm.put("vote_no", vote_no);
+					// 정상적으로 DAO가 실행되면 1, 실행에러 0, 중복시 -3
+					check = vtDAO.votingPost(hm);
+				}
+			}
+		}else {
+			check = -4;
+		}
+		model.addAttribute("check",check);
 		return "dictionary/votePage/votePro";
 	}
-	
 }

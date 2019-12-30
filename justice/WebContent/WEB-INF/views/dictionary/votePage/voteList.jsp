@@ -6,6 +6,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#selectAll").click(function(){
+			if($("#selectAll").prop("checked")){
+				$("input[type=checkbox]").prop("checked",true);
+			}else{
+				$("input[type=checkbox]").prop("checked",false);
+			}
+		})
+	})
+	$(function(){
+		$("#chkPost").click(function(){
+			$("#selectAll").prop("checked", false);
+		})
+	})
+	// 선택 삭제, 선택 마감
+	
+	$(function(){
+		$(document).on('click','#selVoteDelete', function(){
+			var confirm_check = confirm("선택한 글을 지우시겠습니까?");
+			
+			if(confirm_check){
+				var chkArr = new Array();
+				$("input[id='chkPost']:checked").each(function(){
+					chkArr.push($(this).attr("data-vote_no"));
+				})
+				$.ajax({
+					url : "voteDelete.ju",
+					type : "post" ,
+					data : { chbox : chkArr } ,
+					success : function(){
+						location.href="voteList.ju";
+					}
+				})
+			}
+			
+		})
+	})
+	
+	$(function(){
+		$(document).on('click','#selVoteClosing', function(){
+			var confirm_check = confirm("선택한 투표를 마감 하시겠습니까?");
+			if(confirm_check){
+				var chkArr = new Array();
+				$("input[id='chkPost']:checked").each(function(){
+					chkArr.push($(this).attr("data-vote_no"));
+				})
+				$.ajax({
+					url : "voteClose.ju",
+					type : "post",
+					data : {chbox : chkArr},
+					success : function(){
+						location.href="voteList.ju";
+					}
+				})
+			}
+			
+		})
+	})
+</script>
 </head>
 <body>
 <c:if test="${count==0 }">
@@ -28,7 +89,7 @@
 		<c:forEach items="${voteList}" var="vote" varStatus="status">
 			<tr>
 				<c:if test="${admin!=null}">
-					<td><input type="checkbox" id="chkPost" value="${board_article.d_board_no}" data-d_board_no="${board_article.d_board_no}" onclick="event.cancelBubble=true"/></td>
+					<td><input type="checkbox" id="chkPost" value="${vote.vote_no}" data-vote_no="${vote.vote_no}" onclick="event.cancelBubble=true"/></td>
 				</c:if>
 				<td onclick="event.cancelBubble=true">${number-status.index }</td>
 				<td id="open_content">
