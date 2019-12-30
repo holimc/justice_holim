@@ -12,8 +12,8 @@
 			<ul class="nav flex-column">
 				<li></li>
 				<li class="nav-item"><a class="nav-link active" href="main.ju">	전날 대비 증가된 청원수 TOP 5 </a></li>
-				<li class="nav-item"><a class="nav-link" href="#"> 곧 종료되는 청원 </a></li>
-				<li class="nav-item"><a class="nav-link" href="#">목록1</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">곧 종료되는 청원 </a></li>
+				<li class="nav-item"><a class="nav-link" href="#">청원 돌파</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">목록2</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">목록3</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">목록4</a></li>
