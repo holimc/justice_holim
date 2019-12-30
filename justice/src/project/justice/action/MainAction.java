@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import project.justice.member.MemberDAO;
 import project.justice.member.MemberVO;
+import project.justice.petition.PetitionDAO;
+import project.justice.petition.PetitionDTO;
 
 
 //test
@@ -18,8 +20,18 @@ import project.justice.member.MemberVO;
 public class MainAction {
 	@Autowired
 	MemberDAO memberDAO = null;
+	@Autowired
+	PetitionDAO petitionDAO = null;	
 	@RequestMapping("main.ju")
-	public String main() {
+	public String main(Model model) {
+		List<PetitionDTO> list=null;
+		try {
+			list = petitionDAO.getMain();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("list", list);
 		return "member/main";
 	}
 	@RequestMapping("login.ju")

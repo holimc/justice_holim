@@ -14,7 +14,7 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" href="answer.ju">답변된 청원</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="main2.ju">진행중 청원</a>
+				<li class="nav-item"><a class="nav-link" href="subject.ju">진행중 청원</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="main.ju">미답변된 청원</a>
 				</li>

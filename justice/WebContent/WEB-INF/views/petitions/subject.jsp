@@ -10,6 +10,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script type="text/javascript">
+function button_click(s) {
+	var url = "https://www1.president.go.kr/petitions/"+s;
+	window.open(url);
+}
+</script>
 <jsp:include page="../member/header.jsp"></jsp:include>
 <jsp:include page="header.jsp"/>
 <h2>주제별 조회</h2>
