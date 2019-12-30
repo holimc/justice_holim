@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="petition">
 	<select id="seleteAll" resultType="petitionDTO">
-		select * from petition
+		select * from petition where p_date>sysdate
 	</select>
 	<select id="seletecheck" resultType="petitionDTO"
 		parameterType="int">
@@ -29,14 +29,41 @@
 	</select>
 	<select id="availablePetition" resultType="petitionDTO" parameterType="hashmap">
 		select * from(
-		select p_no,p_subject,p_title,p_date,p_person,p_check,ROW_NUMBER()
-		OVER(ORDER BY p_date) AS RNUM from petition where p_date>sysdate )
+		select p.*,ROW_NUMBER()
+		OVER(ORDER BY p_date) AS RNUM from petition p where p_date>sysdate)
 		WHERE RNUM BETWEEN #{firstIndex} AND #{lastIndex}
 	</select>
 	<select id="getinfo" resultType="petitionDataDTO" parameterType="int">
-		select p1.*,p2.p_data,p2.p_data1,p2.p_update
-		 from petition p1, petition_data p2 where p1.p_no = #{p_no} and p1.p_no=p2.p_no	
-		 
+		select p1.*,p2.p_data,p2.p_data1,p2.p_update,p2.p_data2
+		 from petition p1, petition_data p2 where p1.p_no = #{p_no} and p1.p_no=p2.p_no			 
+	</select>
+	<select id="getSubject" resultType="subjectDTO">
+		select * from petition_subject	
+	</select>
+	<select id="getSubjectName" resultType="String" parameterType="int">
+		select p_subject from petition_subject where s_id=#{s_id}	
+	</select>
+	<select id="getPetitionBySubject" resultType="petitionDTO" parameterType="int">
+		select * from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate
+	</select>
+	<select id="getPetitionBySubject1" resultType="petitionDTO" parameterType="hashmap">
+		select * from(	
+		select p_no,p_subject,p_title,p_date,p_person,p_check,ROW_NUMBER()
+		OVER(ORDER BY p_date) AS RNUM from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate)
+		WHERE RNUM BETWEEN #{firstIndex} AND #{lastIndex}
+	</select>
+	<select id="getSubjectPage" resultType="int" parameterType="int">
+		select count(*) from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate
+	</select>
+	<select id="getMain" resultType="petitionDataDTO">
+	select * from
+	(select p.*,p2.p_data2,p2.p_data1,ROW_NUMBER()OVER(order by p2.p_data1-p2.p_data2 desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
+	where RNUM BETWEEN 1 AND 10
+	</select>
+	<select id="getMain2" resultType="petitionDataDTO">
+	select * from
+	(select p.*,p2.p_data2,p2.p_data1,ROW_NUMBER()OVER(order by p.p_person-p2.p_data1 desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
+	where RNUM BETWEEN 1 AND 10	
 	</select>
 </mapper>
 

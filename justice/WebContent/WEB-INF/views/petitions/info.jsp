@@ -9,9 +9,9 @@
 <jsp:include page="header.jsp"/>
 </head>
 <body>
-변동량 : ${info.p_data1-info.p_data}<br/>
+변동량 : ${info.p_person-info.p_data2}<br/>
 초기 데이터 : ${info.p_data}<br/>
-전날 데이터 : ${info.p_data1}<br/>
+전날 데이터 : ${info.p_data2}<br/>
 현재 데이터 : ${info.p_person}<br/>
 </body>
 </html>

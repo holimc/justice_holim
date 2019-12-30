@@ -6,8 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#board_table{
+		width:100%
+	}
+</style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+	
+	
+	
+	// 검색버튼
 	$(function(){
 		$(document).on('click', '#searchBtn', function(){
 			var url = "boardList.ju";
@@ -20,23 +29,21 @@
 		});
 	});
 	
-	$(function(){
-		$(document).on('click', '#board_table tr', function(){
-			//var tr = $(this);
-			//var td = tr.children();
-			var d_board_no = $(this).find("#d_board_no").val();
-			$.ajax({
-				type : 'post',
-				url : "/justice/dboard/boardContent.ju",
-				data : {d_board_no : d_board_no},
-				success : function(data){
-					$("#"+d_board_no).html(data);
-				}
-				
-			})
+	$(document).ready(function(){
+		$(".detail_content").hide();
+		$(document).on('click', '#open_content', function(){
+			var tr = $(this).parent();
+			var d_board_no = tr.find("#d_board_no").val();
+			if($("#"+d_board_no).is(":visible")){
+				$("#"+d_board_no).slideUp();
+			}else{
+				$("#"+d_board_no).slideDown();
+			}
+			
 		})
 	})
-	
+
+	//수정하기
 	$(function(){
 		$(document).on('click', '#updateBtn', function(){
 			var btn = $(this);
@@ -46,7 +53,7 @@
 			location.href=url;
 		})
 	})
-	
+	// 삭제버튼
 	$(function(){
 		$(document).on('click', '#deleteBtn', function(){
 			var btn = $(this);
@@ -56,7 +63,7 @@
 			location.href=url;
 		})
 	})
-	
+	// 추천
 	$(function(){
 		$(document).on('click', '#recommendBtn', function(){
 			var btn = $(this);
@@ -64,6 +71,66 @@
 			var num = tr.find("#d_board_no").val();
 			url = "boardRecommend.ju?d_board_no=" + num;
 			location.href=url;
+		})
+	})
+	
+	// 체크박스
+	
+	$(function(){
+		$("#selectAll").click(function(){
+			if($("#selectAll").prop("checked")){
+				$("input[type=checkbox]").prop("checked",true);
+			}else{
+				$("input[type=checkbox]").prop("checked",false);
+			}
+		})
+	})
+	$(function(){
+		$("#chkPost").click(function(){
+			$("#selectAll").prop("checked", false);
+		})
+	})
+	
+	$(function(){
+		$(document).on('click','#selDelete', function(){
+			var confirm_check = confirm("선택한 글을 지우시겠습니까?");
+			
+			if(confirm_check){
+				var chkArr = new Array();
+				$("input[id='chkPost']:checked").each(function(){
+					chkArr.push($(this).attr("data-d_board_no"));
+				})
+				$.ajax({
+					url : "deleteByAdmin.ju",
+					type : "post" ,
+					data : { chbox : chkArr } ,
+					success : function(){
+						location.href="boardList.ju";
+					}
+				})
+			}
+			
+		})
+	})
+	
+	$(function(){
+		$(document).on('click','#selVote', function(){
+			var confirm_check = confirm("선택한 글을 투표게시 하시겠습니까?");
+			if(confirm_check){
+				var chkArr = new Array();
+				$("input[id='chkPost']:checked").each(function(){
+					chkArr.push($(this).attr("data-d_board_no"));
+				})
+				$.ajax({
+					url : "insertVoting.ju",
+					type : "post",
+					data : {chbox : chkArr},
+					success : function(){
+						location.href="boardList.ju";
+					}
+				})
+			}
+			
 		})
 	})
 </script>
@@ -77,9 +144,9 @@
 	<center>글 개수 : ${count}</center>
 	<center>
 	<table id="board_table">
-		<tr>
+		<tr onclick="event.cancelBubble=true">
 			<c:if test="${admin!=null }">
-			<td><input type="checkbox" id="selectAll" /> </td>
+			<td> <input type="checkbox" id="selectAll" /> </td>
 			</c:if>
 			<td>번호</td>
 			<td>단어명</td>
@@ -90,16 +157,16 @@
 		</tr>
 		<c:forEach items="${boardList}" var="board_article" varStatus="status">
 			<tr>
-				<input type="hidden" value="${board_article.d_board_no}" id="d_board_no"/>
+				<input type="hidden" value="${board_article.d_board_no}" id="d_board_no" onclick="event.cancelBubble=true"/>
 				<c:if test="${admin!=null}">
-					<td><input type="checkbox" id="chkPost" value="${board_article.d_board_no}"/></td>
+					<td><input type="checkbox" id="chkPost" value="${board_article.d_board_no}" data-d_board_no="${board_article.d_board_no}" onclick="event.cancelBubble=true"/></td>
 				</c:if>
-				<td>${number-status.index }</td>
-				<td>${board_article.wname }</td>
-				<td>${board_article.prompt }</td>
-				<td>${board_article.meaning }</td>
-				<td>${board_article.b_recommend }</td>
-				<td>${board_article.board_reg }</td>
+				<td onclick="event.cancelBubble=true">${number-status.index }</td>
+				<td id="open_content">${board_article.wname }</td>
+				<td id="open_content">${board_article.prompt }</td>
+				<td id="open_content">${board_article.meaning }</td>
+				<td onclick="event.cancelBubble=true">${board_article.b_recommend }</td>
+				<td onclick="event.cancelBubble=true">${board_article.board_reg }</td>
 				<c:if test="${memId != null }">
 				<td>
 					<input type="button" value="추천" id="recommendBtn"/>
@@ -110,8 +177,8 @@
 				</td>
 				</c:if>
 			</tr>
-			<tr>
-				<tbody id="${board_article.d_board_no}"></tbody>
+			<tr class="detail_content" id="${board_article.d_board_no}">
+				<td text-align:center>${board_article.detail_content}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -137,8 +204,8 @@
 	<td><a href="boardWrite.ju">글쓰기</a></td>
 	<td><a href="boardList.ju">목록</a></td>
 	<c:if test="${admin!=null}">
-		<td><a href="adminDelete.ju">선택 삭제</a></td>
-		<td><a href="insertVotion.ju">선택 투표게시</a> </td>
+		<td><a href="#" onclick="return false;" id="selDelete">선택 삭제</a></td>
+		<td><a href="#" onclick="return false;" id="selVote">선택 투표게시</a> </td>
 		<td><input type="button" value="선택해제"/></td>
 	</c:if>
 </tr>
