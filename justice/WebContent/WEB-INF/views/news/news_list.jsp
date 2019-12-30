@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <script src= https://code.jquery.com/jquery-3.4.1.min.js></script>    
-<!-- test -->
+<!-- test! -->
 <body>
 
 	<center><b>${news_keword}최신 뉴스</b></center>	
