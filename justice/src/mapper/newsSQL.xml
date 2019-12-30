@@ -6,10 +6,11 @@
 	<select id="getNewsList" resultType="newsDTO">
 		select * from news_list
 	</select>
-	<select id="getCount" resultType="int">
+	<select id="getCount" resultType="int"> 
 		select count(*) from news_list
-	</select>
+ 	</select>
 	<select id="getRelatedList" parameterType="string" resultType="newsDTO">
-		select * from news_list where news_category = #{news_category}
+		 select * from (select * from NEWS_LIST where news_category=#{news_category} ORDER BY NEWS_INDEX DESC) where rownum between 1 and 5 
+		 <!--select * from news_list where news_category = #{news_category}-->
 	</select>
 </mapper>

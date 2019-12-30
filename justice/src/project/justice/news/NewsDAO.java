@@ -24,4 +24,6 @@ public class NewsDAO implements NewsImpl {
 		List<NewsDTO> rnewsList = sqlSession.selectList("news.getRelatedList",word);
 		return rnewsList;
 	}
+	
+
 }

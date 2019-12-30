@@ -6,9 +6,11 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	   http://www.springframework.org/schema/beans/spring-beans.xsd
 	   http://www.springframework.org/schema/context
-	   http://www.springframework.org/schema/context/spring-context-4.3.xsd
-	  ">
- <context:component-scan base-package="project.justice.news"/>	  
+	   http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+ 
+ 	<context:component-scan base-package="project.justice.news"/>	  
+ 	<context:component-scan	base-package="project.justice.rjava"/>
+ 	
  <bean id="dto" class="project.justice.news.NewsDTO"/>
  <bean id="dao" class="project.justice.news.NewsDAO">
  	<property name="sqlSession" ref="sqlSession"> </property>
