@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <script src= https://code.jquery.com/jquery-3.4.1.min.js></script>    
-
+<!-- test -->
 <body>
 
 	<center><b>${news_keword}최신 뉴스</b></center>	
@@ -24,7 +24,7 @@
 		<button onclick='search("test26","&sid2=240")' id ="test26" name="field" value="도로/교통">교통/건축/국토</button>
 		<button onclick='search("test27","&sid2=245")' id ="test27" name="field" value="생활/문화일반">문화/예술/체육/언론</button>
 		
-
+	 
 		${wd}
 <br/>
 <script>
