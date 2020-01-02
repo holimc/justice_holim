@@ -57,13 +57,13 @@ function button_click2(s) {
 </c:forEach>
 </table>
 <c:if test="${startPage!=1}">
-	<a href="main3.ju?num=${startPage-10}">이전</a>
+	<a href="answer.ju?num=${startPage-10}">이전</a>
 </c:if>
 <c:forEach begin="${startPage}" end="${lastPage}" var="i">
-	<a href="main3.ju?num=${i}">${i}</a>
+	<a href="answer.ju?num=${i}">${i}</a>
 </c:forEach>
 <c:if test="${lastPage!=pageAll}">
-	<a href="main3.ju?num=${lastPage+1}">다음</a>
+	<a href="answer.ju?num=${lastPage+1}">다음</a>
 </c:if>
 </body>
 </html>
