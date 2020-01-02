@@ -73,7 +73,7 @@ public class MainAction {
 			int check = memberDAO.userCheck(vo);
 			if(check==1) {
 				session.setAttribute("memId", vo.getId());
-				// admin 세션값 추가
+				// admin �꽭�뀡媛� 異붽�
 				int adminCheck = memberDAO.adminCheck(vo);
 				if(adminCheck==1) {
 					session.setAttribute("admin", vo.getId());
@@ -152,14 +152,14 @@ public class MainAction {
 		}
 		return "member/deleteMemberPro";
 	}
-	// 어드민 페이지
+	// �뼱�뱶誘� �럹�씠吏�
 	@RequestMapping("adminpage.ju")
 	public String adminpage(HttpSession session, Model model) {
 		String admin = (String)session.getAttribute("admin");
-		// check 기본값 0
+		// check 湲곕낯媛� 0
 		int check = 0;
 		if(admin== null) {
-			// admin 외의 인원 접근시 check = -1
+			// admin �쇅�쓽 �씤�썝 �젒洹쇱떆 check = -1
 			check = -1;
 		}else if(admin != null){
 			check = 1;
@@ -203,7 +203,7 @@ public class MainAction {
 		}else if(admin != null) {
 			check = 1;
 			try {
-				// update가 정상적으로 실행 됐는지 여부를 보낸다. 0이면 실패 1이면 정상종료 
+				// update媛� �젙�긽�쟻�쑝濡� �떎�뻾 �릱�뒗吏� �뿬遺�瑜� 蹂대궦�떎. 0�씠硫� �떎�뙣 1�씠硫� �젙�긽醫낅즺 
 				int updateCheck = 0;
 				updateCheck= memberDAO.updateMemberByAdmin(vo);
 				model.addAttribute("updateCheck", updateCheck);

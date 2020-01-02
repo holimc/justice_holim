@@ -2,21 +2,40 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <script src= https://code.jquery.com/jquery-3.4.1.min.js></script>    
-
+<!-- test! -->
 <body>
 
 	<center><b>${news_keword}최신 뉴스</b></center>	
 		<button onclick='search("test12")' id ="test12" name="field" value="정치속보">정치속보</button>
-		<button onclick='search("test12")' id ="test12" name="field" value="청와대">청와대</button>
------------------------------------------------------<br/>
+		<button onclick='search("test13","&sid2=264")' id ="test13" name="field" value="청와대">청와대</button>
+		<button onclick='search("test14","&sid2=265")' id ="test14" name="field" value="국회/정당">국회/정당</button>
+		<button onclick='search("test15","&sid2=267")' id ="test15" name="field" value="국방/외교">국방/외교</button>
+		<button onclick='search("test16","&sid2=268")' id ="test16" name="field" value="북한">북한</button>
+		<button onclick='search("test17","&sid2=269")' id ="test17" name="field" value="정치일반">정치/일반</button>
+	<br>
+		<button onclick='search("test18","&sid2=269")' id ="test18" name="field" value="정치일반">정치개혁</button>
+		<button onclick='search("test19","&sid2=267")' id ="test19" name="field" value="국방/외교">외교/통일/국방</button>
+		<button onclick='search("test20","&sid2=251")' id ="test20" name="field" value="노동">일자리</button>
+		<button onclick='search("test21","&sid2=256")' id ="test21" name="field" value="지역">농산어촌</button>
+		<button onclick='search("test22","&sid2=59b")' id ="test22" name="field" value="인권/복지">보건복지</button>
+		<button onclick='search("test23","&sid2=250")' id ="test23" name="field" value="교육">육아/교육</button>
+		<button onclick='search("test24","&sid2=252")' id ="test24" name="field" value="환경">안전/환경</button>
+		<button onclick='search("test25","&sid2=266")' id ="test25" name="field" value="행정">행정</button>
+		<button onclick='search("test26","&sid2=240")' id ="test26" name="field" value="도로/교통">교통/건축/국토</button>
+		<button onclick='search("test27","&sid2=245")' id ="test27" name="field" value="생활/문화일반">문화/예술/체육/언론</button>
+		
+	 
+		${wd}
+<br/>
 <script>
-function search(v){
+function search(v,add_url){
 	var field_choice = document.getElementById(v).value;
 	//alert(field_choice);
 	$.ajax({
 		type: "post",
-		url : "/justice/news/news_list_Ajax.ju",
-		data : {keyword:field_choice},
+		url : "/justice/news/news_list_Ajax.ju", 
+	 	
+		data : {keyword:field_choice, add_url:add_url},
 		
 		success:function(data){
 			data = data.trim();
@@ -30,7 +49,7 @@ function search(v){
 		사회 : 사건사고, 교육, 노동, 환경, 언론, 인권/복지, 지역, 인물, 사회 일반
 	생활/문화 : 여행/레저, 자동차/시승기, 도로/교통, 건강정보, 공연/전시, 책 , 종교, 생활/문화 일반 
 		
-	
+
 	정치개혁 > 정치(정치일반) 
 	외교/통일/국방 > 정치(국방외교)
 	일자리 > 사회(노동)
@@ -50,20 +69,6 @@ function search(v){
 	
 	 -->
 	<!--전체 정치개혁 외교/통일/국방  일자리 미래 성장돌겨 농산어촌 보건복지 육아/교육 안전/환경 저출산/고령화대책 행정 반려동물 교통/건축/국토 경제민주화 인권/성평등 문화/예술/체육/언론 기타-->
-	<button onclick='search("test01")' id ="test01" name="field" value="정치개혁">정치개혁</button>
-	<button onclick="search('test02')" id ="test02" name="field" value="외교/통일/국방">외교/통일/국방</button>
-	<button onclick="search('test03')" id ="test03" name="field" value="일자리">일자리</button>
-	<button onclick="search('test04')" id ="test04" name="field" value="미래">미래</button>
-	<button onclick="search('test05')" id ="test05" name="field" value="성장독려">성장독려</button>
-	<button onclick="search('test06')" id ="test06" name="field" value="농산어촌">농산어촌</button>
-	<button onclick="search('test07')" id ="test07" name="field" value="보건복지">보건복지</button>
-	<button onclick="search('test08')" id ="test08" name="field" value="육아교육">육아교육</button>
-	<button onclick="search('test09')" id ="test09" name="field" value="안전/환경">안전/환경</button>
-	<button onclick="search('test10')" id ="test10" name="field" value="저출산/고령화대책">저출산/고령화대책</button>
-	<button onclick="search('test11')" id ="test11" name="field" value="화해">행정</button>
-	
-	
-
 
 <div id = "rlist"></div>	      
 	
@@ -85,13 +90,13 @@ function search(v){
 		<c:forEach var="newslist" items="${lst}">
 			<tr>
 				<td>
-					 <a href="${newslist.news_url}">${newslist.news_title}</a> <!-- redirect로 변경 -->
+					<!-- <a href="${newslist.news_url}">${newslist.news_title}</a>  -->
 				</td>
 				<td>
-					 ${newslist.news_date}
+					 <!-- ${newslist.news_date} -->
 				</td>			
 				<td>
-					 ${newslist.news_press}
+					 <!-- ${newslist.news_press} -->
 				</td>
 			</tr>
 		</c:forEach>

@@ -11,8 +11,12 @@ public class NewsDTO {
 	private String news_keyword;
 	private String news_connectionword;
 	
-	
-
+	public String getNews_add_url() {
+		return news_add_url;
+	}
+	public void setNews_add_url(String news_add_url) {
+		this.news_add_url = news_add_url;
+	}
 	public String getNews_title() {
 		return news_title;
 	}
@@ -61,5 +65,14 @@ public class NewsDTO {
 	public void setNews_reporter(String news_reporter) {
 		this.news_reporter = news_reporter;
 	}
+	
 
+	//add_url저장 메서드 
+	String news_add_url = null;
+	public void setAdd_url(String add_url) {
+		this.news_add_url=add_url;
+	}
+	public String getAdd_url() {
+		return news_add_url;
+	}
 }

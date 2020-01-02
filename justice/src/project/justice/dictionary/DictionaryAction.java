@@ -261,7 +261,22 @@ public class DictionaryAction {
 		return "dictionary/dictionary/showReportPro";
 	}
 	
+	@RequestMapping("test.ju")
+	public String test() {
+		
+		return "dictionary/dictionary/test";
+	}
 	
+	@RequestMapping("dicToolTip")
+	public String dicToolTip(Model model,String keyword) {
+		keyword = keyword.replace(" ", "");
+		if(keyword!=null && keyword!="") {
+			List toolTipList = dicDAO.showToolTip(keyword);
+			model.addAttribute("toolTipList",toolTipList);
+		}
+		model.addAttribute("keyword",keyword);
+		return "dictionary/dictionary/dicToolTip";
+	}
 	
 	
 	

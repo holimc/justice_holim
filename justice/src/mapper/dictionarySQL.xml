@@ -54,4 +54,13 @@
 	<delete id="deleteReport" parameterType="int">
 		delete from report_table where word_no=#{word_no}
 	</delete>
+	<select id="getToolTipList" parameterType="String" resultType="dictionaryDTO">
+		select * from 
+			(select word_no, wname, meaning, substitute, user_id, dic_recommend_user, dic_recommend, report_count_user,report_count, rownum r from dictionary_table where wname like '%'||#{keyword}||'%' order by word_no)
+		where r<![CDATA[>=]]>1 and r<![CDATA[<=]]>5
+	</select>
+
+	
+	
+	
 </mapper>

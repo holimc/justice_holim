@@ -135,6 +135,11 @@ public class DictionaryDAO implements DictionaryDAOImpl {
 		}
 		return list;
 	}
+	
+	public List showToolTip(String keyword) {
+		List tooltipList = sqlSession.selectList("dictionaryDB.getToolTipList", keyword);
+		return tooltipList;
+	}
 
 	
 	
