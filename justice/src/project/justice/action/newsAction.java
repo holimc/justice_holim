@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import project.justice.news.NewsDAO;
 import project.justice.news.NewsDTO;
-import project.justice.rjava.RjavaAction;
 
 @Controller
 @RequestMapping("/news/")
@@ -51,50 +50,50 @@ public class newsAction {
 			System.out.println(keyword);
 			System.out.println(add_url);
 			
-			//error ºÎ¤ÑºÐ 
+			//error ï¿½Î¤Ñºï¿½ 
 			
-			if(add_url.equals("&sid2=264")) { //Ã»¿Í´ë
+			if(add_url.equals("&sid2=264")) { //Ã»ï¿½Í´ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=264')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=265")) {//±¹È¸/Á¤´ç
+			}else if(add_url.equals("&sid2=265")) {//ï¿½ï¿½È¸/ï¿½ï¿½ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=265')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=267")) {//±¹¹æ/¿Ü±³ 
+			}else if(add_url.equals("&sid2=267")) {//ï¿½ï¿½ï¿½ï¿½/ï¿½Ü±ï¿½ 
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=267')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=268")) {//ºÏÇÑ
+			}else if(add_url.equals("&sid2=268")) {//ï¿½ï¿½ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=268')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=269")) {//Á¤Ä¡/ÀÏ¹Ý
+			}else if(add_url.equals("&sid2=269")) {//ï¿½ï¿½Ä¡/ï¿½Ï¹ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=269')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=251")) {//ÀÏÀÚ¸®
+			}else if(add_url.equals("&sid2=251")) {//ï¿½ï¿½ï¿½Ú¸ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=251')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=256")) {//³ó»ê¾îÃÌ
+			}else if(add_url.equals("&sid2=256")) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=256')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=59b")) {//º¸°Çº¹Áö
+			}else if(add_url.equals("&sid2=59b")) {//ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=59b')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=250")) {//À°¾Æ±³À°
+			}else if(add_url.equals("&sid2=250")) {//ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=250')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=250")) {//¾ÈÀü/È¯°æ
+			}else if(add_url.equals("&sid2=250")) {//ï¿½ï¿½ï¿½ï¿½/È¯ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=252')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=266")) {//ÇàÁ¤
+			}else if(add_url.equals("&sid2=266")) {//ï¿½ï¿½ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=266')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=240")) {//±³Åë/°ÇÃà/±¹Åä
+			}else if(add_url.equals("&sid2=240")) {//ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=103&sid2=240')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=245")) {//¹®È­/¿¹¼ú/Ã¼À°/¾ð·Ð
+			}else if(add_url.equals("&sid2=245")) {//ï¿½ï¿½È­/ï¿½ï¿½ï¿½ï¿½/Ã¼ï¿½ï¿½/ï¿½ï¿½ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=103&sid2=245')");
 				r.eval("remDr$navigate(url)");
 			}
 
-			else {//Á¤Ä¡ ¼Óº¸
+			else {//ï¿½ï¿½Ä¡ ï¿½Óºï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LSD&mid=sec&sid1=100')");
 				r.eval("remDr$navigate(url)");
 			}
@@ -113,8 +112,8 @@ public class newsAction {
 			
 			
 			
-			//r.eval("wd_html<-renderTags(wd)"); //htmlÄÚµå·Î ¹Ù²ãÁÖ´Â ÄÚµå 
-			//String wd = r.eval("wd_html$html").asString(); //HTML¸¸ ²¨³»¼­ º¸¿©ÁÖ´Â
+			//r.eval("wd_html<-renderTags(wd)"); //htmlï¿½Úµï¿½ï¿½ ï¿½Ù²ï¿½ï¿½Ö´ï¿½ ï¿½Úµï¿½ 
+			//String wd = r.eval("wd_html$html").asString(); //HTMLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½
 			//model.addAttribute("wd",wd);
 			///
 
