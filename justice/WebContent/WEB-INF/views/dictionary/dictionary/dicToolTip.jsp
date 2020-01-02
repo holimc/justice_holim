@@ -11,13 +11,21 @@
 <body>
 <c:if test="${fn:length(toolTipList)!=0 }">
 	<table>
-		<c:forEach items="toolTipList" var="dicDTO" status="count">
-		<tr></tr>
+		<tr>${keyword}</tr>
+		<c:forEach items="${toolTipList}" var="dicDTO" varStatus="status">
+			<tr>
+				<td>${status.count}.</td>
+				<td>[${dicDTO.substitute}]</td>
+				<td>= ${dicDTO.meaning}.</td>
+			</tr>
 		</c:forEach>
 	</table>
 </c:if>
 <c:if test="${fn:length(toolTipList)==0 }">
-없
+	<table>
+		<tr>${keyword}</tr>
+		<tr>해당 단어는 아직 사전에 등재되지 않은 단어입니다.</tr>
+	</table>
 </c:if>
 </body>
 </html>
