@@ -136,6 +136,6 @@ public class newsAction {
 		}
 		return "news/news_categoryAll";
 	}	
-	
+//test	
 
 }
