@@ -12,7 +12,7 @@
 <jsp:include page="../member/header.jsp"/>
 <div class="container-fluid">
 <div class="row">
-<jsp:include page="../member/side.jsp"/>
+<jsp:include page="side.jsp"/>
 <div id="container">
 <h2>국민청원 한눈에보기</h2>
 <h4>청원수 돌파/미답변</h4>

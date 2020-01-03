@@ -18,20 +18,22 @@ function button_click(s) {
 <jsp:include page="../member/header.jsp"/>
 <div class="container-fluid">
 <div class="row">
-<jsp:include page="../member/side.jsp"/>
+<jsp:include page="side.jsp"/>
 <div id="container">
 <h2>국민청원 한눈에보기</h2>
 <h4>전날 대비 청원수 증가 TOP 10</h4>
 <table class="table">
-<tr>
-	<td>인덱스</td>
-	<td>주제</td>
-	<td>제목</td>
-	<td>청원바로가기</td>
-	<td>청원 만료일</td>
-	<td>참여인원</td>
-	<td>증가수</td>
-</tr>
+ <thead class="thead-light">
+	<tr>
+	<th>인덱스</th>
+	<th>주제</th>
+	<th>제목</th>
+	<th>청원바로가기</th>
+	<th>청원 만료일</th>
+	<th>참여인원</th>
+	<th>증가수</th>
+	</tr>
+</thead>
 <c:forEach var="i" items="${list}">
 <tr>
 	<td>${i.p_no}</td>

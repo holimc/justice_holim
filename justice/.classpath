@@ -38,5 +38,10 @@
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/spring/WebContent/WEB-INF/lib/JRI-0.9-7.jar"/>
+	<classpathentry kind="lib" path="/spring/WebContent/WEB-INF/lib/JRIEngine-0.9-7.jar"/>
+	<classpathentry kind="lib" path="/spring/WebContent/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="/spring/WebContent/WEB-INF/lib/REngine-0.9-7.jar"/>
+	<classpathentry kind="lib" path="/spring/WebContent/WEB-INF/lib/Rserve-0.6-8.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

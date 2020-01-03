@@ -62,6 +62,7 @@ public class MainAction {
 		}		
 		return "main/main3";
 	}
+	
 	@RequestMapping("login.ju")
 	public String login() {		
 		return "main/login";

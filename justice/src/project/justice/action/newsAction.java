@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import project.justice.news.NewsDAO;
 import project.justice.news.NewsDTO;
-import project.justice.rjava.RjavaAction;
 
 @Controller
 @RequestMapping("/news/")
@@ -52,54 +51,53 @@ public class newsAction {
 			r.eval("source('C://Users//pc//Documents//R//test2.R')");
 
 			
-			//error ºÎ¤ÑºĞ 
+			//error å ì‹¸ã…¡ë¸ì˜™ 
 			
-			if(add_url.equals("&sid2=264")) { //Ã»¿Í´ë
+			if(add_url.equals("&sid2=264")) { //ì²­å ì‹¶ëŒì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=264')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=265")) {//±¹È¸/Á¤´ç
+			}else if(add_url.equals("&sid2=265")) {//å ì™ì˜™íšŒ/å ì™ì˜™å ì™ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=265')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=267")) {//±¹¹æ/¿Ü±³ 
+			}else if(add_url.equals("&sid2=267")) {//å ì™ì˜™å ì™ì˜™/å ìŒ¤ê¹ì˜™ 
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=267')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=268")) {//ºÏÇÑ
+			}else if(add_url.equals("&sid2=268")) {//å ì™ì˜™å ì™ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=268')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=269")) {//Á¤Ä¡/ÀÏ¹İ
+			}else if(add_url.equals("&sid2=269")) {//å ì™ì˜™ì¹˜/å ì‹¹ë±„ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=269')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=251")) {//ÀÏÀÚ¸®
+			}else if(add_url.equals("&sid2=251")) {//å ì™ì˜™å ìŒ˜ëªŒì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=251')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=256")) {//³ó»ê¾îÃÌ
+			}else if(add_url.equals("&sid2=256")) {//å ì™ì˜™å ì™ì˜™å ì™ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=256')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=59b")) {//º¸°Çº¹Áö
+			}else if(add_url.equals("&sid2=59b")) {//å ì™ì˜™å ì‹¤ë¸ì˜™å ì™ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=59b')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=250")) {//À°¾Æ±³À°
+			}else if(add_url.equals("&sid2=250")) {//å ì™ì˜™å ì‹£ê¹ì˜™å ì™ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=250')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=250")) {//¾ÈÀü/È¯°æ
+			}else if(add_url.equals("&sid2=250")) {//å ì™ì˜™å ì™ì˜™/í™˜å ì™ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=252')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=266")) {//ÇàÁ¤
+			}else if(add_url.equals("&sid2=266")) {//å ì™ì˜™å ì™ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=100&sid2=266')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=240")) {//±³Åë/°ÇÃà/±¹Åä
+			}else if(add_url.equals("&sid2=240")) {//å ì™ì˜™å ì™ì˜™/å ì™ì˜™å ì™ì˜™/å ì™ì˜™å ì™ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=103&sid2=240')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=245")) {//¹®È­/¿¹¼ú/Ã¼À°/¾ğ·Ğ
+			}else if(add_url.equals("&sid2=245")) {//å ì™ì˜™í™”/å ì™ì˜™å ì™ì˜™/ì²´å ì™ì˜™/å ì™ì˜™å ï¿½
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=103&sid2=245')");
 				r.eval("remDr$navigate(url)");
 			}
 
-			else {//Á¤Ä¡ ¼Óº¸
+			else {//å ì™ì˜™ì¹˜ å ìŒˆë¸ì˜™
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LSD&mid=sec&sid1=100')");
 				r.eval("remDr$navigate(url)");
 			}
-			
 			//String query1 = "category<-("+add_url+")";
 			//r.eval(query1);
 			//r.eval("url<-paste(category_url,category,sep='')");
