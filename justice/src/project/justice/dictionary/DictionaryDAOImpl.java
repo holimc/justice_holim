@@ -4,9 +4,9 @@ import java.util.List;
 public interface DictionaryDAOImpl {
 
 	// 사전 숫자 가져오기
-	public int getDictionaryCount() throws Exception;
+	public int getDictionaryCount(String category, String keyword) throws Exception;
 	// 리스트 읽어오기
-	public List getDictionary(int start, int end) throws Exception;
+	public List getDictionary(int start, int end,String category, String keyword) throws Exception;
 	// 글 읽어오기
 	public DictionaryDTO getDictionaryContent(int word_no) throws Exception;
 	// (관리자가) 단어 신규 등록

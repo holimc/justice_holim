@@ -24,7 +24,6 @@
 			url = url + "?category=" + category;
 			var keyword = $("#keyword").val();
 			url = url + "&keyword=" + keyword
-			alert(category + " / " + keyword);
 			location.href=url;
 		});
 	});

@@ -65,7 +65,7 @@ public class MainAction {
 	
 	@RequestMapping("login.ju")
 	public String login() {		
-		return "main/login";
+		return "member/login";
 	}
 	@RequestMapping("loginPro.ju")
 	public String loginPro(MemberVO vo,HttpSession session,Model model) {

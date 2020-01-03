@@ -3,14 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dictionaryDB">
-	<select id="getCount" resultType="int">
+	<select id="getCount" parameterType="hashmap" resultType="int">
 		select count(*) from dictionary_table
+		<include refid="search"></include>
 	</select>
 	
 	<select id="getDictionaryList" resultType="dictionaryDTO" parameterType="hashmap">
 		select * from 
 			(select word_no,wname,meaning,substitute,user_id,dic_recommend_user,dic_recommend,report_count_user,report_count,rownum r from 
-        		(select * from dictionary_table order by word_no desc))
+        		(select * from dictionary_table
+        		<include refid="search"></include>
+        		 order by word_no desc))
 		where r <![CDATA[>=]]>#{start} and r<![CDATA[<=]]>#{end}
 	</select>
 	
@@ -60,7 +63,18 @@
 		where r<![CDATA[>=]]>1 and r<![CDATA[<=]]>5
 	</select>
 
-	
+	<sql id="search">
+		<choose>
+			<when test="category == 'all'">
+				where meaning like '%'||#{keyword}||'%'
+				OR wname like '%'||#{keyword}||'%'
+				OR substitute like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				where ${category} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
 	
 	
 </mapper>

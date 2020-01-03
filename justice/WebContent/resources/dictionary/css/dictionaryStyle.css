@@ -1,0 +1,13 @@
+@charset "UTF-8";
+#tooltip{
+  position:absolute;
+  background-color:#222;
+  color:white;
+  border-radius:3px;
+  padding:4px;
+  transform:scale(0);
+  transition:transform .2s;
+}
+#tooltip.show{
+  transform:scale(1);
+}
