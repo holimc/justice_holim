@@ -9,8 +9,8 @@
 		window.open(pop_url,pop_option);
 	}
 </script>
-	<strong>${method}</strong> 관련 최신 뉴스 <br/>
-		
+
+	<strong>${method}</strong> 관련 뉴스 <br/>
 		<table border="1">
 		<tr>
 			<td>기사 제목</td> <!-- news_url -->
@@ -19,7 +19,6 @@
 		</tr>	
 		
 		<h4> 관련 기사 글 갯수 ${cnt1} </h4>
-		<a href="/justice/news/news_categoryAll.ju">더보기</a>
 		<c:if test="${cnt1<=0}">
 			<h4> 관련 기사가 없습니다</h4>
 		</c:if>
@@ -39,4 +38,3 @@
 		</c:forEach>
 		</c:if>
 		</table>
-		

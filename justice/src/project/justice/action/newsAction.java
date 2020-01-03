@@ -3,6 +3,7 @@ package project.justice.action;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.rosuda.REngine.Rserve.RConnection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +41,16 @@ public class newsAction {
 	}	
 	
 	@RequestMapping("news_list_Ajax.ju")
-	public String rnews_list(Model model, HttpServletRequest request) {
+	public String rnews_list(Model model, HttpServletRequest request,HttpSession session) {
 		RConnection r=null;
 		try {
 			String keyword = request.getParameter("keyword");
+			session.setAttribute("keyword_save",keyword);
 			String add_url = request.getParameter("add_url");
-			
+			int cnt1 = dao.getCategoryCount(keyword);
 			r = new RConnection();
 			r.eval("source('C://Users//pc//Documents//R//test2.R')");
-			System.out.println(keyword);
-			System.out.println(add_url);
+
 			
 			//error 부ㅡ분 
 			
@@ -98,31 +99,13 @@ public class newsAction {
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LSD&mid=sec&sid1=100')");
 				r.eval("remDr$navigate(url)");
 			}
-//			
-			
 			
 			//String query1 = "category<-("+add_url+")";
-			
-			//System.out.println(query1);
 			//r.eval(query1);
 			//r.eval("url<-paste(category_url,category,sep='')");
 			r.eval("source('C://Users//pc//Documents//R//test4.R')");
-
-			
-			
-			
-			
-			
-			//r.eval("wd_html<-renderTags(wd)"); //html코드로 바꿔주는 코드 
-			//String wd = r.eval("wd_html$html").asString(); //HTML만 꺼내서 보여주는
-			//model.addAttribute("wd",wd);
-			///
-
-			
-			
-			
-			
 			List rlst = dao.rnewsList(keyword);
+			model.addAttribute("cnt1",cnt1);
 			model.addAttribute("add_url",add_url);
 			model.addAttribute("rlst",rlst);
 			model.addAttribute("method",keyword);
@@ -134,6 +117,27 @@ public class newsAction {
 		}
 		return "news/news_list_Ajax";
 	}
+	
+	
+	@RequestMapping("news_categoryAll.ju")
+	public String news_categoryAll_list(Model model,HttpServletRequest request,HttpSession session) {
+		try {
+			//String keyword = request.getParameter("keyword");
+			String keyword_save = (String)session.getAttribute("keyword_save");
+			//System.out.println(keyword_save); //null
+			String add_url = request.getParameter("add_url");
+			int cnt1 = dao.getCategoryCount(keyword_save);
+			List rlst = dao.getCategoryNews(keyword_save);
+			//System.out.println(rlst.size());
+			model.addAttribute("cnt1",cnt1);
+			model.addAttribute("add_url",add_url);
+			model.addAttribute("rlst",rlst);
+			model.addAttribute("method",keyword_save);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "news/news_categoryAll";
+	}	
 	
 
 }

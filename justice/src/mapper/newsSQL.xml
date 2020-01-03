@@ -6,11 +6,21 @@
 	<select id="getNewsList" resultType="newsDTO">
 		select * from news_list
 	</select>
+	<!-- 전체 기사 갯수 가져오기 -->
 	<select id="getCount" resultType="int"> 
 		select count(*) from news_list
  	</select>
+ 	<!-- 카테고리별 기사 갯수 가져오기 -->
+ 	<select id="getCategoryCount" resultType="int"> 
+		select count(*) from news_list where news_category=#{news_category}
+ 	</select>
+ 	<!-- 최신 5개 기사만 가져오기 -->
 	<select id="getRelatedList" parameterType="string" resultType="newsDTO">
 		 select * from (select * from NEWS_LIST where news_category=#{news_category} ORDER BY NEWS_INDEX DESC) where rownum between 1 and 5 
 		 <!--select * from news_list where news_category = #{news_category}-->
+	</select>
+	<!-- 해당 카테고리 기사 전부 가져오기 -->
+	<select id="getCategoryNews" parameterType="string" resultType="newsDTO">
+		select * from news_list where news_category=#{news_category}
 	</select>
 </mapper>

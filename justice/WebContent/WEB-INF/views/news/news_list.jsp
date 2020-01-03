@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <script src= https://code.jquery.com/jquery-3.4.1.min.js></script>    
-<!-- test! -->
 <body>
-
 	<center><b>${news_keword}최신 뉴스</b></center>	
 		<button onclick='search("test12")' id ="test12" name="field" value="정치속보">정치속보</button>
 		<button onclick='search("test13","&sid2=264")' id ="test13" name="field" value="청와대">청와대</button>
@@ -24,83 +22,69 @@
 		<button onclick='search("test26","&sid2=240")' id ="test26" name="field" value="도로/교통">교통/건축/국토</button>
 		<button onclick='search("test27","&sid2=245")' id ="test27" name="field" value="생활/문화일반">문화/예술/체육/언론</button>
 		
-	 
 		${wd}
 <br/>
+<style>
+	.wrap-loading{
+		width : 65%;
+		height: 65%;
+		top : 0px;
+		left: 0px;
+		position: fixed;
+	    display: block;
+		opacity: 0.7;
+		background-color: #fff;
+		z-index: 99;
+		text-align: center; 
+	}
+	.wrap-loading div{
+		 position: absolute;
+		 top: 50%;
+		 left: 50%;
+		 z-index:100;
+	}
+	.display-none{
+		display:none;
+	}
+</style>
+
+<div class="wrap-loading display-none">
+	<div><img src="https://trello-attachments.s3.amazonaws.com/5db12affa0b2ce123ce89f59/5e0ee2c50145582c43ac5b5b/77b5611f4d74c48d0dc036ff8c8b2ebd/loading2.gif"/></div>
+</div>
+
 <script>
 function search(v,add_url){
 	var field_choice = document.getElementById(v).value;
-	//alert(field_choice);
+
 	$.ajax({
 		type: "post",
 		url : "/justice/news/news_list_Ajax.ju", 
-	 	
 		data : {keyword:field_choice, add_url:add_url},
-		
 		success:function(data){
 			data = data.trim();
 			$("#rlist").html(data);			
 		},
-	});
-}
-</script>	
-	<!--정치 : 청와대, 국회/정당, 행정, 국방/외교, 북한, 정치일반
-		경졔 : 부동산, 금융, 증권, 산업/재계, 글로벌경제, 경제일반, 중기/벤처
-		사회 : 사건사고, 교육, 노동, 환경, 언론, 인권/복지, 지역, 인물, 사회 일반
-	생활/문화 : 여행/레저, 자동차/시승기, 도로/교통, 건강정보, 공연/전시, 책 , 종교, 생활/문화 일반 
+		beforeSend: function(){
+			//이미지 보여주기 처리 
+			$('.wrap-loading').removeClass('display-none');
+		}
+		,complete: function(){
+			//이미지 감추기 처리 
+			$('.wrap-loading').addClass('display-none');
+		}
+		,error:function(e){
+			//에러일때 처리 
+		}
 		
+	});
 
-	정치개혁 > 정치(정치일반) 
-	외교/통일/국방 > 정치(국방외교)
-	일자리 > 사회(노동)
-	미래 > 사회(일반)
-	성장동력 >경제(산업/재계)
-	농산어촌 > 사회(지역)
-	보건복지 > 사회(인권/복지)
-	육아/교육 > 사회(교육)
-	안전/환경 > 사회(사건사고)(환경)
-	저출산/고령화 > 사회 일반)
-	행정 > 정치(행정)
-	반려동물 > 사회(일반)
-	교통/건축/국토 > 생활/문화(도로/교통)
-	경제민주화 > 경제(경제일반)
-	인권/성평등> 사회(인권/복지)
-	문화/생활 > 생활문화  
-	
-	 -->
-	<!--전체 정치개혁 외교/통일/국방  일자리 미래 성장돌겨 농산어촌 보건복지 육아/교육 안전/환경 저출산/고령화대책 행정 반려동물 교통/건축/국토 경제민주화 인권/성평등 문화/예술/체육/언론 기타-->
+}
+</script>
 
 <div id = "rlist"></div>	      
-	
+
 <br/>-----------------------------------------------------
 
-	
-	 	<table border="1">
-		<tr>
-			<td>title</td> <!-- news_url -->
-			<td>news_date</td> <!-- news_date -->
-			<td>언론사</td> <!--news_press  -->
-		</tr>	
-		
-		<h4> 전체 기사 글 갯수 ${cnt} </h4>
-		<c:if test="${cnt<=0}">
-			<h4> 관련 기사가 없습니다</h4>
-		</c:if>
-		<c:if test="${cnt>0}">
-		<c:forEach var="newslist" items="${lst}">
-			<tr>
-				<td>
-					<!-- <a href="${newslist.news_url}">${newslist.news_title}</a>  -->
-				</td>
-				<td>
-					 <!-- ${newslist.news_date} -->
-				</td>			
-				<td>
-					 <!-- ${newslist.news_press} -->
-				</td>
-			</tr>
-		</c:forEach>
-		</c:if>
+<h4> db전체 기사 글 갯수 ${cnt} </h4>
 
-		</table>
 </body>
