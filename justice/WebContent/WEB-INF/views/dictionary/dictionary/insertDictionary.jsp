@@ -6,19 +6,46 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link href="<c:url value="/resources/dictionary/css/dictionaryStyle.css"/>" rel="stylesheet" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	function chkForm(){
+		if($("#wname").val()==""){
+			alert("단어 명을 써주세요");
+			$("#wname").focus();
+			return false;
+		}
+		if($("#substitute").val()==""){
+			alert("대체어를 써주세요");
+			$("#substitute").focus();
+			return false;
+		}
+		if($("#meaning").val()==""){
+			alert("뜻을 써주세요");
+			$("#meaning").focus();
+			return false;
+		}
+	}
+</script>
 </head>
-<!-- 유효성검사 javascript 구현필요 -->
+<jsp:include page="../../member/header.jsp" />
+
+<div class="container-fluid">
+<div class="row">
+<jsp:include page="../dictionary_view/dic_side.jsp"/>
 <body>
 <c:if test="${check==1}">
-<form action="insertDictionaryPro.ju">
-	<table border="1">
-		<tr><td>단어명 : <input type="text" name="wname"></td></tr>
-		<tr><td>대체어 : <input type="text" name="substitute"></td></tr>
-		<tr><td>단어뜻 : <input type="text" name="meaning"></td></tr>
-		<tr><input type="hidden" name="user_id" value="${admin}"></td></tr>
-		<tr><input type="submit" value="단어 등록" /> </tr>
+	<div id="container">
+	<table class="table">
+		<form action="insertDictionaryPro.ju" onsubmit="return chkForm()">
+				<tr><td>단어명 : <input type="text" name="wname" id="wname"></td></tr>
+				<tr><td>순화어 : <input type="text" name="substitute" id="substitute"></td></tr>
+				<tr><td>단어뜻 : <input type="text" name="meaning" id="meaning"></td></tr>
+				<input type="hidden" name="user_id" value="${admin}">
+				<tr><td><input type="submit" class="myButton" value="단어 등록" /></td></tr>
+		</form>
 	</table>
-</form>
+	</div>
 </c:if>
 <c:if test="${check==0}">
 	<script>
@@ -26,6 +53,8 @@
 		window.location.href="list.ju";
 	</script>
 </c:if>
+</div>
+</div>
 
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import project.justice.member.MemberDAO;
 import project.justice.member.MemberVO;
@@ -164,25 +165,52 @@ public class MainAction {
 		}
 		return "member/deleteMemberPro";
 	}
-	@RequestMapping("adminpage.ju")
-	public String adminpage(HttpSession session, Model model) {
-		String admin = (String)session.getAttribute("admin");
-		int check = 0;
-		if(admin== null) {
-			check = -1;
-		}else if(admin != null){
-			check = 1;
-			try {
-				List list = memberDAO.showMember();
-				model.addAttribute("memberList",list);
-			}catch (Exception e) {
-				e.printStackTrace();
+	//admin page
+		@RequestMapping("adminpage.ju")
+		public String adminpage(@RequestParam(defaultValue="1") String pageNum,
+				@RequestParam(defaultValue="id")String category,
+				@RequestParam(defaultValue="")String keyword,
+				HttpSession session, Model model) throws Exception {
+			String admin = (String)session.getAttribute("admin");
+			// check 초기값 0
+			int check = 0;
+			
+			//세션이 없으면 0; 
+			if(admin== null) {
+				check = -1;
+			}else if(admin != null){
+				check = 1;
+				
+				int pageSize = 10;
+				int currentPage = Integer.parseInt(pageNum);
+				int start = (currentPage - 1) * pageSize + 1 ;
+				int end = currentPage * pageSize;
+				int count = 0;
+				int number = 0;
+				
+				count = memberDAO.getmemberCount(category,keyword);
+				if(count>0) {
+					List list = memberDAO.showMember(start,end,category,keyword);
+					model.addAttribute("memberList",list);
+					int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+					int startPage = (int)(currentPage/10)*10+1;
+					int pageBlock = 10;
+					int endPage = startPage + pageBlock-1;
+					if(endPage>pageCount) {
+						endPage = pageCount;
+					}
+					model.addAttribute("pageCount",pageCount);
+					model.addAttribute("pageCount", pageCount);
+					model.addAttribute("startPage", startPage );
+					model.addAttribute("endPage", endPage );
+				}
+				model.addAttribute("count",count);
 			}
+			
+			model.addAttribute("check", check);
+			
+			return "member/adminPage";
 		}
-		model.addAttribute("check", check);
-		
-		return "member/adminPage";
-	}
 	
 	@RequestMapping("adminUpdate.ju")
 	public String adminUpdate(String id, Model model, HttpSession session) {

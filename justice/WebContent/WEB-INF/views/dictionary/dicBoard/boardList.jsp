@@ -6,11 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	#board_table{
-		width:100%
-	}
-</style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	
@@ -85,7 +80,7 @@
 		})
 	})
 	$(function(){
-		$("#chkPost").click(function(){
+		$(".chkPost").click(function(){
 			$("#selectAll").prop("checked", false);
 		})
 	})
@@ -132,17 +127,30 @@
 			
 		})
 	})
+	$(function(){
+		$(document).on('click','#releaseChk', function(){
+			$("#selectAll").prop("checked", false);
+			$(".chkPost").prop("checked", false);
+		})
+	})
 </script>
+
 
 </head>
 <body>
+<jsp:include page="../../member/header.jsp" />
+
+<div class="container-fluid">
+<div class="row">
+<jsp:include page="../dictionary_view/dic_side.jsp"/>
+
 <c:if test="${count==0 }">
 	<h1>해당 게시판에 글이 존재하지 않습니다.</h1>
 </c:if>
 <c:if test="${count>0}">
-	<center>글 개수 : ${count}</center>
+<div id="container">
 	<center>
-	<table id="board_table">
+	<table class="table">
 		<tr onclick="event.cancelBubble=true">
 			<c:if test="${admin!=null }">
 			<td> <input type="checkbox" id="selectAll" /> </td>
@@ -158,7 +166,7 @@
 			<tr>
 				<input type="hidden" value="${board_article.d_board_no}" id="d_board_no" onclick="event.cancelBubble=true"/>
 				<c:if test="${admin!=null}">
-					<td><input type="checkbox" id="chkPost" value="${board_article.d_board_no}" data-d_board_no="${board_article.d_board_no}" onclick="event.cancelBubble=true"/></td>
+					<td><input type="checkbox" id="chkPost" class="chkPost" value="${board_article.d_board_no}" data-d_board_no="${board_article.d_board_no}" onclick="event.cancelBubble=true"/></td>
 				</c:if>
 				<td onclick="event.cancelBubble=true">${number-status.index }</td>
 				<td id="open_content">${board_article.wname }</td>
@@ -205,7 +213,7 @@
 	<c:if test="${admin!=null}">
 		<td><a href="#" onclick="return false;" id="selDelete">선택 삭제</a></td>
 		<td><a href="#" onclick="return false;" id="selVote">선택 투표게시</a> </td>
-		<td><input type="button" value="선택해제"/></td>
+		<td><a href="#" onclick="return false;" id="releaseChk">선택 해제</a></td>
 	</c:if>
 </tr>
 <div>
@@ -219,6 +227,9 @@
 	<input type="button" value="검색" id="searchBtn">
 </div>
 </center>
+</div>
+</div>
+</div>
 
 </body>
 </html>

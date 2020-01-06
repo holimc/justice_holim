@@ -15,7 +15,7 @@
 	</script>
 </c:if>
 <c:if test="${adminChk==1 }">
-	<table border="1">
+	<table class="table">
 		<tr>
 			<td>신고자</td>
 			<td>단어명</td>

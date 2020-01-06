@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,9 +51,13 @@
 			<td>세부 설명 : ${brdDTO.detail_content}</td>
 		</tr>
 		<tr>
-			<td><input type="button" value="좋아요" id="agree"/> ${vtDTO.agree }
-				<input type="button" value="싫어요" id="disagree"/> ${vtDTO.disagree }
-			</td>
+			<c:if test="${vtDTO.vote_close=='open'}">
+			<td><input type="button" value="추천" id="agree"/> ${vtDTO.agree }
+				<input type="button" value="비추천" id="disagree"/> ${vtDTO.disagree }</td>
+			</c:if>
+			<c:if test="${vtDTO.vote_close=='close'}">
+				<td> 추천수 : ${vtDTO.agree} / 비추천수 : ${vtDTO.disagree } </td>
+			</c:if>
 		</tr>
 	</table>
 </body>

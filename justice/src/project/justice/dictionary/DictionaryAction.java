@@ -190,20 +190,16 @@ public class DictionaryAction {
 	
 	// 신고
 	@RequestMapping("reportDictionary.ju")
-	public String reportDictionary(Model model, int word_no,HttpSession session) {
+	public String reportDictionary(Model model, int word_no,HttpSession session) throws Exception {
 		String user_id = (String)session.getAttribute("memId");
 		int chkLogin =0;
 		if(user_id != null) {
 			chkLogin=1;
 			model.addAttribute("user_id",user_id);
-			try {
-				DictionaryDTO dicDTO = dicDAO.getUpdateDictionary(word_no);
-				model.addAttribute("dicDTO", dicDTO);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			model.addAttribute("chkLogin",chkLogin);
+			DictionaryDTO dicDTO = dicDAO.getUpdateDictionary(word_no);
+			model.addAttribute("dicDTO", dicDTO);
 		}
+		model.addAttribute("chkLogin",chkLogin);
 		return "dictionary/dictionary/reportDictionary";
 	}
 	//신고

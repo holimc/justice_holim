@@ -10,7 +10,7 @@ public interface MemberImpl {
 	public void updateMember(MemberVO vo) throws Exception;
 	public int deleteMember(String id,String passwd) throws Exception;
 	public int adminCheck(MemberVO vo) throws Exception;
-	public List showMember() throws Exception;
+	public List showMember(int start, int end, String category, String keyword) throws Exception;
 	public int deleteMemberByAdmin(String id) throws Exception;
 	public int updateMemberByAdmin(MemberVO vo) throws Exception;
 }

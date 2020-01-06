@@ -44,7 +44,7 @@
 <c:if test="${user_id== null}">
 	<script>
 		alert("로그인후 이용해주세요");
-		location.href="boardList.ju";
+		history.go(-1);
 	</script>
 </c:if>
 <c:if test="${user_id!=null}">
