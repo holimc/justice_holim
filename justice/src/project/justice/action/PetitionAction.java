@@ -23,7 +23,7 @@ public class PetitionAction {
 	@RequestMapping("main.ju")
 	public String main(Model model) {
 		try {
-			String title = "�떟蹂��릺吏� �븡�� 泥��썝";
+			String title = "미답변된 청원";
 			List<PetitionDTO> list = petitionDAO.notAnswer();
 			model.addAttribute("startPage", 1);
 			model.addAttribute("list", list);
@@ -38,7 +38,7 @@ public class PetitionAction {
 		if(page==null)
 			page="1";
 		try {
-			String title = "吏꾪뻾以묒씤 泥��썝";
+			String title = "진행중 청원";
 			List<PetitionDTO> list = petitionDAO.available(page);
 			int pageAll = petitionDAO.checkPage();
 			int lastPage = 0;
@@ -69,7 +69,7 @@ public class PetitionAction {
 		if(num==null)
 			num="1";
 		try {
-			String title = "�떟蹂��맂 泥��썝";
+			String title = "답변된 청원";
 			List<AnswerDTO> list = petitionDAO.answerAll(num);
 			int pageAll = petitionDAO.checklastPage();
 			int lastPage = 0;
