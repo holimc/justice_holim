@@ -26,7 +26,7 @@ public class InfoAction {
 		return "petitions/info";
 	}
 	@RequestMapping("subject.ju")
-	public String subject(String cg,String pg,Model model) throws Exception{
+	public String subject(String cg,String pg,Model model,String order) throws Exception{
 		String subject = null;		
 		List<PetitionSubjectDTO> list = petitionDAO.getList();
 		int pageAll=0;
@@ -43,11 +43,14 @@ public class InfoAction {
 		if(pg==null) {
 			pg="1";
 		}
+		if(order==null) {
+			order="1";
+		}
 		int tmp = Integer.parseInt(pg);
 		subject=petitionDAO.getSubject(num2);
 		model.addAttribute("subject", subject);
 		model.addAttribute("list", list);
-		List<PetitionDTO> list2 = petitionDAO.getPetitionBySubject(num2,tmp);
+		List<PetitionDTO> list2 = petitionDAO.getPetitionBySubject(num2,tmp,order);
 		model.addAttribute("list2", list2);
 		int lastPage = 0;
 		int startPage = 0;
@@ -65,6 +68,7 @@ public class InfoAction {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("pageAll", pageAll);
 		model.addAttribute("cg", cg);
+		model.addAttribute("order", order);
 
 		return "petitions/subject";
 	}

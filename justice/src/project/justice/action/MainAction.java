@@ -16,6 +16,7 @@ import project.justice.member.MemberDAO;
 import project.justice.member.MemberVO;
 import project.justice.petition.PetitionDAO;
 import project.justice.petition.PetitionDTO;
+import project.justice.petition.PetitionData2DTO;
 import project.justice.petition.PetitionDataDTO;
 
 
@@ -51,6 +52,19 @@ public class MainAction {
 		return "main/main";
 	}
 	@RequestMapping("main3.ju")
+	public String main4(Model model) {
+		List<PetitionData2DTO> list=null;
+		try {
+			list = petitionDAO.getMain3();
+			model.addAttribute("list", list);
+			Timestamp time = new Timestamp(System.currentTimeMillis());
+			model.addAttribute("Time", time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return "main/main3";
+	}
+	@RequestMapping("main4.ju")
 	public String main3(Model model) {
 		try {
 			List<PetitionDTO> list = petitionDAO.notAnswer();
@@ -60,7 +74,7 @@ public class MainAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		return "main/main3";
+		return "main/main4";
 	}
 	
 	@RequestMapping("login.ju")
@@ -72,8 +86,7 @@ public class MainAction {
 		try {
 			int check = memberDAO.userCheck(vo);
 			if(check==1) {
-				session.setAttribute("memId", vo.getId());
-				// admin �꽭�뀡媛� 異붽�
+				session.setAttribute("memId", vo.getId());			
 				int adminCheck = memberDAO.adminCheck(vo);
 				if(adminCheck==1) {
 					session.setAttribute("admin", vo.getId());
@@ -122,7 +135,6 @@ public class MainAction {
 			}
 			model.addAttribute("check", check);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "member/changeMember";
@@ -152,14 +164,11 @@ public class MainAction {
 		}
 		return "member/deleteMemberPro";
 	}
-	// �뼱�뱶誘� �럹�씠吏�
 	@RequestMapping("adminpage.ju")
 	public String adminpage(HttpSession session, Model model) {
 		String admin = (String)session.getAttribute("admin");
-		// check 湲곕낯媛� 0
 		int check = 0;
 		if(admin== null) {
-			// admin �쇅�쓽 �씤�썝 �젒洹쇱떆 check = -1
 			check = -1;
 		}else if(admin != null){
 			check = 1;
@@ -203,7 +212,6 @@ public class MainAction {
 		}else if(admin != null) {
 			check = 1;
 			try {
-				// update媛� �젙�긽�쟻�쑝濡� �떎�뻾 �릱�뒗吏� �뿬遺�瑜� 蹂대궦�떎. 0�씠硫� �떎�뙣 1�씠硫� �젙�긽醫낅즺 
 				int updateCheck = 0;
 				updateCheck= memberDAO.updateMemberByAdmin(vo);
 				model.addAttribute("updateCheck", updateCheck);
