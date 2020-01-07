@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -122,7 +123,6 @@ public class BoardAction {
 		// 글쓴이거나, admin일때. 1
 		if(memId.equals(brdDTO.getUser_id()) || admin != null) {
 			check = 1;
-			System.out.println("hello");
 		}else{
 			// 글쓴이도 아니고 admin도 아닐때
 			check = -1;
@@ -137,11 +137,7 @@ public class BoardAction {
 		String memId = (String)session.getAttribute("memId");
 		String admin = (String)session.getAttribute("admin");
 		String user_id = brdDTO.getUser_id();
-		
 		int check = 0;
-		
-		System.out.println(memId);
-		System.out.println(user_id);
 		if(memId.equals(user_id) || admin!= null) {
 			check = 1;
 			int updateChk = brdDAO.updatePost(brdDTO);
@@ -153,14 +149,12 @@ public class BoardAction {
 		
 		return "/dictionary/dicBoard/boardUpdatePro";
 	}
-	
 	@RequestMapping("boardDelete.ju")
 	public String boardDelete(Model model, HttpSession session, int d_board_no) throws Exception {
 		String memId = (String)session.getAttribute("memId");
 		String admin = (String)session.getAttribute("admin");
 		brdDTO = brdDAO.getUpdatePost(d_board_no);
 		String user_id = brdDTO.getUser_id();
-		System.out.println(user_id);
 		int check = 0;
 		if(memId!= null) {
 			if(memId.equals(user_id) || admin!= null) {

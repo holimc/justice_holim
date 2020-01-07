@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="<c:url value="/resources/dictionary/css/dictionaryStyle.css"/>" rel="stylesheet" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -34,12 +35,18 @@
 </head>
 <input type="hidden" value="${vtDTO.vote_no}" id="vote_no"/>
 <body>
-	<table>
+<jsp:include page="../../member/header.jsp" />
+
+<div class="container-fluid">
+<div class="row">
+<jsp:include page="../dictionary_view/dic_side.jsp"/>
+<div id="container">
+	<table class="table">
 		<tr>
-			<td>단어 명 : ${brdDTO.wname} </td>
+			<td>단어명 : ${brdDTO.wname} </td>
 		</tr>
 		<tr>
-			<td>대체 어 : ${brdDTO.prompt }</td>
+			<td>순화어 : ${brdDTO.prompt }</td>
 		</tr>
 		<tr>
 			<td>뜻 : ${brdDTO.meaning}</td>
@@ -52,13 +59,14 @@
 		</tr>
 		<tr>
 			<c:if test="${vtDTO.vote_close=='open'}">
-			<td><input type="button" value="추천" id="agree"/> ${vtDTO.agree }
-				<input type="button" value="비추천" id="disagree"/> ${vtDTO.disagree }</td>
+			<td><input type="button" value="추천" id="agree" class="myButton"/> ${vtDTO.agree }
+				<input type="button" value="비추천" id="disagree" class="myButton"/> ${vtDTO.disagree }</td>
 			</c:if>
 			<c:if test="${vtDTO.vote_close=='close'}">
-				<td> 추천수 : ${vtDTO.agree} / 비추천수 : ${vtDTO.disagree } </td>
+				<td> <input type="button" value="추천수" class="myButton"/> : ${vtDTO.agree} / <input type="button" value="비추천" class="myButton"/> : ${vtDTO.disagree } </td>
 			</c:if>
 		</tr>
 	</table>
+</div>
 </body>
 </html>
