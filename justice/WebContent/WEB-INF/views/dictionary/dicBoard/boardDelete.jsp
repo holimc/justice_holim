@@ -42,7 +42,7 @@
 <c:if test="${check==1 }">
 <div id="container">
 	<center>
-	<table class="table">
+	<table class="table" style="width:500px">
 	<input type="hidden" name="d_board_no" id="d_board_no" value="${d_board_no}"/>
 	<tr><td><div>게시글을 삭제하시려면 비밀번호를 입력해주세요 </div></td></tr>
 	<tr><td><input type="password" name="passwd" id="passwd"/> <input type="button" value="삭제" id="delBtn" class="myButton"/></td></tr>

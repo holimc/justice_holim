@@ -43,11 +43,11 @@
 <c:if test="${adminChk==1}">
 <div id="container">
 	<form action="updateDictionaryPro.ju" method="post" onclick="return chkForm();">
-		<table class="table">
+		<table class="table" style="width:600px">
 		<input type="hidden" name="word_no" id="word_no" value="${dicDTO.word_no}" readonly/>
 		<tr><td>단어명 : <input type="text" style="width:500px" name="wname" id="wname" value="${dicDTO.wname}"/> <br/></td></tr>
-		<tr><td>순화어: <input type="text" style="width:500px" name="substitute" id="substitute" value="${dicDTO.substitute }"/></td></tr>
-		<tr><td>단어 뜻 : <input type="text" style="width:500px" name="meaning" id="meaning" value="${dicDTO.meaning }"/><br/></td></tr>
+		<tr><td>순화어 : <input type="text" style="width:500px" name="substitute" id="substitute" value="${dicDTO.substitute }"/></td></tr>
+		<tr><td>단어뜻 : <input type="text" style="width:500px" name="meaning" id="meaning" value="${dicDTO.meaning }"/><br/></td></tr>
 		<tr><td><input type="submit" class="myButton" value="수정"/></td></tr>
 		</table>
 	</form>

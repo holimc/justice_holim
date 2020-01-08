@@ -36,11 +36,11 @@
 <body>
 <c:if test="${check==1}">
 	<div id="container">
-	<table class="table">
+	<table class="table" style="width:600px">
 		<form action="insertDictionaryPro.ju" onsubmit="return chkForm()">
-				<tr><td>단어명 : <input type="text" name="wname" id="wname"></td></tr>
-				<tr><td>순화어 : <input type="text" name="substitute" id="substitute"></td></tr>
-				<tr><td>단어뜻 : <input type="text" name="meaning" id="meaning"></td></tr>
+				<tr><td>단어명 : <input type="text" name="wname" id="wname" style="width:500px"></td></tr>
+				<tr><td>순화어 : <input type="text" name="substitute" id="substitute" style="width:500px"></td></tr>
+				<tr><td>단어뜻 : <input type="text" name="meaning" id="meaning" style="width:500px"></td></tr>
 				<input type="hidden" name="user_id" value="${admin}">
 				<tr><td><input type="submit" class="myButton" value="단어 등록" /></td></tr>
 		</form>

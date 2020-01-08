@@ -65,6 +65,8 @@
 			<c:if test="${vtDTO.vote_close=='close'}">
 				<td> <input type="button" value="추천수" class="myButton"/> : ${vtDTO.agree} / <input type="button" value="비추천" class="myButton"/> : ${vtDTO.disagree } </td>
 			</c:if>
+			<td><input type="button" class="myButton" value="목록으로" onclick="history.go(-1)"/></td>
+			
 		</tr>
 	</table>
 </div>

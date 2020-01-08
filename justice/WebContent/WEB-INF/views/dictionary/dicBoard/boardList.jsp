@@ -23,7 +23,7 @@
 <c:if test="${count>0}">
 <div id="container">
 	<center>
-	<table class="table">
+	<table class="table" style="width:1300px">
 		<tr onclick="event.cancelBubble=true">
 			<c:if test="${admin!=null }">
 			<td> <input type="checkbox" id="selectAll" /> </td>
@@ -57,7 +57,7 @@
 				</td>
 				</c:if>
 			</tr>
-			<tr class="detail_content" id="${board_article.d_board_no}">
+			<tr class="detail_content" id="${board_article.d_board_no}" style="background-color: #FAFAFA;" border="1">
 				<td colspan="7" colspan="7" margin-left="auto" margin-right="auto" text-align="center"><span>${board_article.detail_content}</span></td>
 			</tr>
 		</c:forEach>

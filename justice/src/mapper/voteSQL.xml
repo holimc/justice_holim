@@ -40,4 +40,10 @@
 		update vote_table set vote_close='close' where vote_no = #{vote_no}
 	</update>
 	
+	<select id="getOpenVoteList" resultType="voteDTO">
+		select * from vote_table where vote_close='open'
+	</select>
+	
+	
+	
 </mapper>

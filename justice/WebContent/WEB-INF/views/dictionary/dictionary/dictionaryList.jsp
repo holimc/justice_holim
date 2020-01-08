@@ -157,7 +157,7 @@
 <c:if test="${admin!=null}">
 <table>
 	<tr>
-		<td><a href="insertDictionary.ju">단어 추가</a> &nbsp; <a href="showReport.ju">신고 리스트 확인</a></td>
+		<td><a href="insertDictionary.ju" class="text_button">단어 추가</a> &nbsp; <a href="showReport.ju" class="text_button">신고 리스트 확인</a></td>
 	</tr>
 </table>
 </c:if>

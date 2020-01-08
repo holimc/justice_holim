@@ -82,7 +82,7 @@
 <c:if test="${count>0}">
 	<center>글 개수 : ${count}</center>
 	<center>
-	<table id="vote_table" class="table">
+	<table id="vote_table" class="table" style="width:1300px">
 		<tr onclick="event.cancelBubble=true">
 			<c:if test="${admin!=null }">
 			<td> <input type="checkbox" id="selectAll" /> </td>
@@ -127,11 +127,11 @@
 <br>
 <center>
 <tr>
-	<td><a href="voteList.ju">목록</a></td>
+	<td><a href="voteList.ju" class="text_button">목록</a></td>
 	<c:if test="${admin!=null}">
-		<td><a href="#" onclick="return false;" id="selVoteClosing">선택 투표 마감</a></td>
-		<td><a href="#" onclick="return false;" id="selVoteDelete">선택 투표 삭제</a> </td>
-		<td><input type="button" value="선택해제"/></td>
+		<td><a href="#" onclick="return false;" id="selVoteClosing" class="text_button">선택 투표 마감</a></td>
+		<td><a href="#" onclick="return false;" id="selVoteDelete" class="text_button">선택 투표 삭제</a> </td>
+		<td><input type="button" value="선택해제" class="myButton"/></td>
 	</c:if>
 </tr>
 </center>
