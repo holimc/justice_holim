@@ -14,8 +14,7 @@
 <div class="row">
 <jsp:include page="side.jsp"/>
 <div id="container">
-<h2>국민청원 한눈에보기</h2>
-<h4>청원수 돌파/미답변</h4>
+<h2>청원수 돌파/미답변</h2>
 <script type="text/javascript">
 function button_click(s) {
 	var url = "https://www1.president.go.kr/petitions/"+s;

@@ -121,5 +121,9 @@ public class PetitionDAO {
 		List<PetitionData2DTO> list = sqlSession.selectList("petition.getMain3");
 		return list;
 	}
+	public List<PetitionDTO> getToday(){
+		List<PetitionDTO> list = sqlSession.selectList("petition.getToday");
+		return list;
+	}
 }
 

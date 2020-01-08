@@ -2,16 +2,25 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<script src="/justice/views/htmlwidgets.js"></script>
+<script src='/justice/views/lib/jquery.min.js'></script>
+<link href='/justice/views/lib/crosstalk.css'rel="stylesheet">
+<script src="/justice/views/plotly.js"></script>
+<script src="/justice/views/lib/crosstalk.min.js"></script>
+<script src='/justice/views/lib/plotly-latest.min.js'></script>
+<script src='/justice/views/lib/typedarray.min.js'></script>
+<link href='/justice/views/lib/plotly-htmlwidgets.css'rel="stylesheet">
+
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Info</title>
 <jsp:include page="../member/header.jsp"/>
 <jsp:include page="header.jsp"/>
 </head>
 <body>
-변동량 : ${info.p_person-info.p_data2}<br/>
-초기 데이터 : ${info.p_data}<br/>
-전날 데이터 : ${info.p_data2}<br/>
-현재 데이터 : ${info.p_person}<br/>
+<div class="container" >
+
+${lines}
+</div>
 </body>
 </html>
