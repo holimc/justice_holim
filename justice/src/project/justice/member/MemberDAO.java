@@ -1,5 +1,6 @@
 package project.justice.member;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -47,12 +48,6 @@ public class MemberDAO implements MemberImpl{
 		check = sqlSession.selectOne("member.adminCheck",vo);
 		return check;
 	}
-	// admin이 회원 정보 관리를 위해 list 받기 위한 메서드
-	public List showMember() throws Exception{
-		List list = null;
-		list = sqlSession.selectList("member.getMemberList");
-		return list;
-	}
 	// admin이 계정 삭제
 	public int deleteMemberByAdmin(String id) throws Exception{
 		int check = 0;
@@ -72,14 +67,24 @@ public class MemberDAO implements MemberImpl{
 		}		
 		return check;		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+	public int getmemberCount(String category, String keyword) {
+		HashMap searchMap = new HashMap();
+		searchMap.put("category", category );
+		searchMap.put("keyword", keyword );
+		int count = sqlSession.selectOne("member.getMemberCount",searchMap);
+		return count;
+	}
+	// admin이 회원 정보 관리를 위해 list 받기 위한 메서드
+	public List showMember(int start, int end, String category, String keyword) throws Exception{
+		List list = null;
+		HashMap listMap = new HashMap();
+		listMap.put("start", start);
+		listMap.put("end", end );
+		listMap.put("category", category );
+		listMap.put("keyword", keyword );
+		list = sqlSession.selectList("member.getMemberList",listMap);
+		return list;
+	}
 	
 
 }

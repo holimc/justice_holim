@@ -23,21 +23,21 @@
 				</li>
 				<li class="nav-item"><a class="nav-link" href="/justice/petitions/subject.ju">국민청원</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#">단어</a>
+				<li class="nav-item"><a class="nav-link" href="/justice/dictionary/list.ju">단어</a>
 				</li>
 			</ul>
 			<c:if test="${memId==null}">
-				<button onclick="location.href='login.ju'">로그인</button>
-				<button onclick="location.href='registForm.ju'">회원가입</button>
+				<button onclick="location.href='/justice/login.ju'">로그인</button>
+				<button onclick="location.href='/justice/registForm.ju'">회원가입</button>
 			</c:if>
 			<c:if test="${memId!=null && admin == null}">
-				<button onclick="location.href='logout.ju'">로그아웃</button>
-				<button onclick="location.href='memberEdit2.ju'">회원정보 수정</button>
+				<button onclick="location.href='/justice/logout.ju'">로그아웃</button>
+				<button onclick="location.href='/justice/memberEdit2.ju'">회원정보 수정</button>
 			</c:if>
 			<!-- 관리자 추가 -->
 			<c:if test="${memId!=null && admin != null}">
-				<button onclick="location.href='logout.ju'">로그아웃</button>
-				<button onclick="location.href='adminpage.ju'">관리자페이지</button>
+				<button onclick="location.href='/justice/logout.ju'">로그아웃</button>
+				<button onclick="location.href='/justice/adminpage.ju'">관리자페이지</button>
 			</c:if>
 		</div>
 

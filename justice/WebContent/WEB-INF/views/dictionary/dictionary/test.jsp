@@ -1,54 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="<c:url value="/resources/dictionary/css/dictionaryStyle.css"/>" rel="stylesheet" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-	function selectText() {
-		var selectionText = "";
-		if(document.getSelection) {
-			selectionText = document.getSelection();
-		}else if (document.selection) {
-			selectionText = document.selection.createRange().text;
-		}
-		alert(selectionText);
-		return selectionText;
-	}
-	
-	$(function(){
-		$(document).mouseup(function(){
-			var text = selectText();
-			if(text!=null && text!=""){
-				alert(text);
-				$.ajax({
-					type : 'post',
-					url : '/justice/dictionary/dicToolTip.ju?keyword='+text,
-					success : function(data){
-						alert("호롤ㄹㄹㄹ");
-					}
-				})
-			}else{
-				alert("빈클릭");
-			}
-			
-		})
-	})
-	
-	/* document.onmouseup = function() {
-		var text = selectText();
-		if(text!=null || text!=""){
-			document.getElementById("console").innerHTML = text;
-		}else{
-			alert("널값발싸");
-		}
-	} */
-</script>
+<script src='<c:url value="/resources/dictionary/js/dictionaryJavaScript.js"/>'></script>
 </head>
 <body>
 <div>
+.
 【판시사항】
 <br>
 [1] 대부업 등의 등록 및 금융이용자 보호에 관한 법률 제2조 제1호에서 규정한 ‘금전의 대부’는 그 개념요소로서 거래의 수단이나 방법 여하를 불문하고 적어도 기간을 두고 장래에 일정한 액수의 금전을 돌려받을 것을 전제로 금전을 교부함으로써 신용을 제공하는 행위를 필수적으로 포함하고 있어야 하는지 여부(적극) / 재화 또는 용역을 할인하여 매입하는 거래를 통해 금전을 교부하는 경우, 금전의 교부에 관해 위와 같은 대부의 개념요소를 인정하기 어려운 경우까지 이를 같은 법상 금전의 대부로 보는 것은 죄형법정주의의 원칙에 위배되는지 여부(적극)
@@ -148,6 +112,6 @@
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div id="console"></div>
+<div id="tooltip"></div>
 </body>
 </html>

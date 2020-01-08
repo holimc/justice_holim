@@ -7,9 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="<c:url value="/resources/dictionary/css/dictionaryStyle.css"/>" rel="stylesheet" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
+<jsp:include page="../../member/header.jsp" />
+
+<div class="container-fluid">
+<div class="row">
+<jsp:include page="../dictionary_view/dic_side.jsp"/>
 <c:if test="${check==0 }">
 	<script>
 		alert("에러가 발생했습니다.");
@@ -23,9 +29,10 @@
 	</script>
 </c:if>
 <c:if test="${check==1 }">
+<div id="container">
 	<center>
 	<form action="boardUpdatePro.ju">
-		<table>
+		<table class="table">
 			<tr>
 				<input type="hidden" name="user_id" value="${brdDTO.user_id}"/>
 				<input type="hidden" name="d_board_no" value="${brdDTO.d_board_no}"/>
@@ -48,15 +55,17 @@
 			</tr>
 			<tr>
 				<td>
-				<input type="submit" value="수정하기"/>
-				<input type="button" value="돌아가기"/>
+				<input type="submit" value="수정하기" class="myButton"/>
+				<input type="button" value="돌아가기" class="myButton"/>
 				</td>
 			</tr>
 		</table>
 	</center>
 	</form>
+</div>
 </c:if>
-
+</div>
+</div>
 
 </body>
 </html>

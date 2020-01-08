@@ -15,7 +15,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>graphic</title>
 </head>
 <body>
 <jsp:include page="../member/header.jsp"/>

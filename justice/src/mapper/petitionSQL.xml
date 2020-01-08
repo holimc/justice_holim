@@ -52,18 +52,33 @@
 		OVER(ORDER BY p_date) AS RNUM from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate)
 		WHERE RNUM BETWEEN #{firstIndex} AND #{lastIndex}
 	</select>
+	<select id="getPetitionBySubject2" resultType="petitionDTO" parameterType="hashmap">
+		select * from(	
+		select p_no,p_subject,p_title,p_date,p_person,p_check,ROW_NUMBER()
+		OVER(ORDER BY <if test="order==1">p_date</if><if test="order==2">p_person desc</if><if test="order==3">p_date desc</if> ) 
+		AS RNUM from petition where <if test="s_id!=0">p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and</if> p_date>sysdate)
+		WHERE RNUM BETWEEN #{firstIndex} AND #{lastIndex}
+	</select>
 	<select id="getSubjectPage" resultType="int" parameterType="int">
 		select count(*) from petition where p_subject=(select p_subject from petition_subject where s_id=#{s_id}) and p_date>sysdate
 	</select>
 	<select id="getMain" resultType="petitionDataDTO">
 	select * from
-	(select p.*,p2.p_data2,p2.p_data1,ROW_NUMBER()OVER(order by p2.p_data1-p2.p_data2 desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
+	(select p.*,p2.p_data,p2.p_data2,p2.p_data1,ROW_NUMBER()OVER(order by p2.p_data-p2.p_data1 desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
 	where RNUM BETWEEN 1 AND 10
 	</select>
 	<select id="getMain2" resultType="petitionDataDTO">
 	select * from
-	(select p.*,p2.p_data2,p2.p_data1,ROW_NUMBER()OVER(order by p.p_person-p2.p_data1 desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
+	(select p.*,p2.p_data,p2.p_data2,p2.p_data1,ROW_NUMBER()OVER(order by p.p_person-p2.p_data desc) AS RNUM  from petition p,petition_data p2 where p.p_no=p2.p_no and  p_date>sysdate)
 	where RNUM BETWEEN 1 AND 10	
+	</select>
+	<select id="getMain3" resultType="petitionData2DTO">
+	select * from
+	(select p.*,p2.p_data2,p2.p_data,ROW_NUMBER()OVER(order by p.p_person-p2.p_data2 desc) AS RNUM  from petition p,petition_data2 p2 where p.p_no=p2.p_no and  p_date>sysdate)
+	where RNUM BETWEEN 1 AND 10	
+	</select>
+	<select id="getToday" resultType="petitionDTO">
+		select * from petition where p_date>sysdate+29 order by p_no desc	
 	</select>
 </mapper>
 

@@ -15,6 +15,25 @@ function button_click(s) {
 	var url = "https://www1.president.go.kr/petitions/"+s;
 	window.open(url);
 }
+function orderChange(){
+	var order = document.getElementById("order");
+	var orderValue = order.options[order.selectedIndex].value;
+	var page = getParameterByName("pg");
+	if(page==""){
+		page=1;
+		}
+	var subject = getParameterByName("cg");
+	if(subject==""){
+		subject=0;
+		}
+	window.location.href="subject.ju?pg="+page+"&cg="+subject+"&order="+orderValue
+}
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 </script>
 <script>
 	function newPopup(url){
@@ -35,7 +54,13 @@ function button_click(s) {
 </c:forEach>
 
 </table>
-<h4>${subject}</h4>
+<h4 style="display:inline">${subject}</h4>
+<select id="order" onchange="orderChange()" style="float: right">
+	<option value="1" <c:if test="${order==1}"> selected</c:if>> 오래된순 정렬</option>
+	<option value="2" <c:if test="${order==2}"> selected</c:if>>추천수 정렬</option>
+	<option value="3" <c:if test="${order==3}"> selected</c:if>>최신순 정렬</option>
+	
+</select>
 <table class="table">
 <button href="#" onclick="newPopup('/justice/news/news_list.ju')">관련 news</button>
 	<td>인덱스</td>
@@ -51,7 +76,7 @@ function button_click(s) {
 <c:forEach var="i" items="${list2}">
 <tr>
 	<td>${i.p_no}</td>
-	<td>${i.p_subject}</td>
+	<td style="width: 10%">${i.p_subject}</td>
 	<td style="width: 60%"><a href="info.ju?num=${i.p_no}">${i.p_title}</a></td>
 	<td style="width: 10%"><button onclick="button_click(${i.p_no})" class="btn btn-secondary">청원바로가기</button></td>
 	<td><fmt:formatDate value="${i.p_date}" pattern="yyyy-MM-dd"/></td>
@@ -68,7 +93,7 @@ function button_click(s) {
 <ul class="pagination">
 	<li class="page-item">
 		<c:if test="${startPage!=1}">
-      		<a class="page-link" href="subject.ju?pg=${startPage-10}&cg=${cg}" aria-label="Previous">
+      		<a class="page-link" href="subject.ju?pg=${startPage-10}&cg=${cg}&order=${order}" aria-label="Previous">
         	<span aria-hidden="true">&laquo;</span>        
       		</a>
       	</c:if>
@@ -76,12 +101,12 @@ function button_click(s) {
 
 <c:forEach begin="${startPage}" end="${lastPage}" var="i">
 	<li class="page-item">
-		<a href="subject.ju?pg=${i}&cg=${cg}" class="page-link">${i}</a>
+		<a href="subject.ju?pg=${i}&cg=${cg}&order=${order}" class="page-link">${i}</a>
 	</li>
 </c:forEach>
 <c:if test="${lastPage!=pageAll}">
 	<li class="page-item">
-		<a class="page-link" href="subject.ju?pg=${lastPage+1}&cg=${cg}" aria-label="Next">
+		<a class="page-link" href="subject.ju?pg=${lastPage+1}&cg=${cg}&order=${order}" aria-label="Next">
         	<span aria-hidden="true">&raquo;</span>
       	</a>
 	</li>

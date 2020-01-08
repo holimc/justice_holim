@@ -20,10 +20,9 @@ function button_click(s) {
 <div class="row">
 <jsp:include page="side.jsp"/>
 <div id="container">
-<h2>국민청원 한눈에보기</h2>
-<h4>전날 대비 청원수 증가 TOP 10</h4>
+<h2>일주일 대비 청원수 증가  TOP 10</h2>
 <table class="table">
- <thead class="thead-light">
+<thead class="thead-light">
 	<tr>
 	<th>인덱스</th>
 	<th>주제</th>
@@ -37,12 +36,12 @@ function button_click(s) {
 <c:forEach var="i" items="${list}">
 <tr>
 	<td>${i.p_no}</td>
-	<td>${i.p_subject}</td>
+	<td style="width: 10%">${i.p_subject}</td>
 	<td style="width: 40%"><a href="petitions/info.ju?num=${i.p_no}">${i.p_title}</a></td>
 	<td style="width: 10%"><button onclick="button_click(${i.p_no})" class="btn btn-secondary">청원</button></td>
 	<td><fmt:formatDate value="${i.p_date}" pattern="yyyy-MM-dd"/></td>
 	<td>${i.p_person}명</td>
-	<td>${i.p_data1-i.p_data2}</td>		
+	<td>${i.p_person-i.p_data2}</td>		
 </tr>
 </c:forEach>
 </table>

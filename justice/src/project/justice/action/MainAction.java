@@ -1,8 +1,4 @@
 package project.justice.action;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,69 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import project.justice.member.MemberDAO;
 import project.justice.member.MemberVO;
-import project.justice.petition.PetitionDAO;
-import project.justice.petition.PetitionDTO;
-import project.justice.petition.PetitionDataDTO;
-
 
 //test
 @Controller
 public class MainAction {
 	@Autowired
 	MemberDAO memberDAO = null;
-	@Autowired
-	PetitionDAO petitionDAO = null;	
-	@RequestMapping("main.ju")
-	public String main(Model model) {
-		List<PetitionDataDTO> list=null;
-		try {
-			list = petitionDAO.getMain2();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		model.addAttribute("list", list);
-		return "main/main2";
-	}
-	@RequestMapping("main2.ju")
-	public String main2(Model model) {
-		List<PetitionDataDTO> list=null;
-		try {
-			list = petitionDAO.getMain();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		model.addAttribute("list", list);
-		return "main/main";
-	}
-	@RequestMapping("main3.ju")
-	public String main3(Model model) {
-		try {
-			List<PetitionDTO> list = petitionDAO.notAnswer();
-			model.addAttribute("list", list);
-			Timestamp time = new Timestamp(System.currentTimeMillis());
-			model.addAttribute("Time", time);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-		return "main/main3";
-	}
+	
 	
 	@RequestMapping("login.ju")
 	public String login() {		
-		return "main/login";
+		return "member/login";
 	}
 	@RequestMapping("loginPro.ju")
 	public String loginPro(MemberVO vo,HttpSession session,Model model) {
 		try {
 			int check = memberDAO.userCheck(vo);
 			if(check==1) {
-				session.setAttribute("memId", vo.getId());
-				// admin �꽭�뀡媛� 異붽�
+				session.setAttribute("memId", vo.getId());			
 				int adminCheck = memberDAO.adminCheck(vo);
 				if(adminCheck==1) {
 					session.setAttribute("admin", vo.getId());
@@ -122,7 +77,6 @@ public class MainAction {
 			}
 			model.addAttribute("check", check);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "member/changeMember";
@@ -152,28 +106,52 @@ public class MainAction {
 		}
 		return "member/deleteMemberPro";
 	}
-	// �뼱�뱶誘� �럹�씠吏�
-	@RequestMapping("adminpage.ju")
-	public String adminpage(HttpSession session, Model model) {
-		String admin = (String)session.getAttribute("admin");
-		// check 湲곕낯媛� 0
-		int check = 0;
-		if(admin== null) {
-			// admin �쇅�쓽 �씤�썝 �젒洹쇱떆 check = -1
-			check = -1;
-		}else if(admin != null){
-			check = 1;
-			try {
-				List list = memberDAO.showMember();
-				model.addAttribute("memberList",list);
-			}catch (Exception e) {
-				e.printStackTrace();
+	//admin page
+		@RequestMapping("adminpage.ju")
+		public String adminpage(@RequestParam(defaultValue="1") String pageNum,
+				@RequestParam(defaultValue="id")String category,
+				@RequestParam(defaultValue="")String keyword,
+				HttpSession session, Model model) throws Exception {
+			String admin = (String)session.getAttribute("admin");
+			// check 초기값 0
+			int check = 0;
+			
+			//세션이 없으면 0; 
+			if(admin== null) {
+				check = -1;
+			}else if(admin != null){
+				check = 1;
+				
+				int pageSize = 10;
+				int currentPage = Integer.parseInt(pageNum);
+				int start = (currentPage - 1) * pageSize + 1 ;
+				int end = currentPage * pageSize;
+				int count = 0;
+				int number = 0;
+				
+				count = memberDAO.getmemberCount(category,keyword);
+				if(count>0) {
+					List list = memberDAO.showMember(start,end,category,keyword);
+					model.addAttribute("memberList",list);
+					int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+					int startPage = (int)(currentPage/10)*10+1;
+					int pageBlock = 10;
+					int endPage = startPage + pageBlock-1;
+					if(endPage>pageCount) {
+						endPage = pageCount;
+					}
+					model.addAttribute("pageCount",pageCount);
+					model.addAttribute("pageCount", pageCount);
+					model.addAttribute("startPage", startPage );
+					model.addAttribute("endPage", endPage );
+				}
+				model.addAttribute("count",count);
 			}
+			
+			model.addAttribute("check", check);
+			
+			return "member/adminPage";
 		}
-		model.addAttribute("check", check);
-		
-		return "member/adminPage";
-	}
 	
 	@RequestMapping("adminUpdate.ju")
 	public String adminUpdate(String id, Model model, HttpSession session) {
@@ -203,7 +181,6 @@ public class MainAction {
 		}else if(admin != null) {
 			check = 1;
 			try {
-				// update媛� �젙�긽�쟻�쑝濡� �떎�뻾 �릱�뒗吏� �뿬遺�瑜� 蹂대궦�떎. 0�씠硫� �떎�뙣 1�씠硫� �젙�긽醫낅즺 
 				int updateCheck = 0;
 				updateCheck= memberDAO.updateMemberByAdmin(vo);
 				model.addAttribute("updateCheck", updateCheck);

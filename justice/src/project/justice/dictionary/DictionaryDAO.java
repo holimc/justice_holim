@@ -13,15 +13,20 @@ public class DictionaryDAO implements DictionaryDAOImpl {
 	}
 	
 	// 사전 숫자 가져오기
-	public int getDictionaryCount() throws Exception{
-		int count = sqlSession.selectOne("dictionaryDB.getCount");
+	public int getDictionaryCount(String category, String keyword) throws Exception{
+		HashMap params = new HashMap();
+		params.put("category", category );
+		params.put("keyword", keyword );
+		int count = sqlSession.selectOne("dictionaryDB.getCount",params);
 		return count;
 	}
 	// 리스트 읽어오기
-	public List getDictionary(int start, int end) throws Exception{
+	public List getDictionary(int start, int end,String category, String keyword) throws Exception{
 		HashMap params = new HashMap();
 		params.put("start", start);
 		params.put("end", end);
+		params.put("category", category );
+		params.put("keyword", keyword );
 		List list = sqlSession.selectList("dictionaryDB.getDictionaryList",params);
 		return list;
 	}

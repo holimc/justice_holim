@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/dictionary/")
@@ -25,7 +26,11 @@ public class DictionaryAction {
 	
 	// 리스트
 	@RequestMapping("list.ju")
-	public String dictionaryList(String pageNum, Model model,HttpSession session) {
+	public String dictionaryList(@RequestParam(defaultValue="1") String pageNum,
+			@RequestParam(defaultValue="wname") String category,
+			@RequestParam(defaultValue="") String keyword,
+			Model model,HttpSession session) {
+		
 		if(session.getAttribute("admin")!= null) {
 			String admin = (String)session.getAttribute("admin");
 			model.addAttribute("admin",admin);
@@ -33,10 +38,6 @@ public class DictionaryAction {
 		
 		int pageSize = 10;
 		model.addAttribute("pageSize",pageSize);
-		
-		if(pageNum == null) {
-			pageNum = "1";
-		}
 		model.addAttribute("pageNum", pageNum);
 		
 		int currentPage = Integer.parseInt(pageNum);
@@ -46,9 +47,9 @@ public class DictionaryAction {
 		int number = 0;
 		List dictionaryList = null;
 		try {
-			count = dicDAO.getDictionaryCount();
+			count = dicDAO.getDictionaryCount(category, keyword);
 			if(count>0) {
-				dictionaryList = dicDAO.getDictionary(startRow, endRow);
+				dictionaryList = dicDAO.getDictionary(startRow, endRow, category, keyword);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -189,20 +190,16 @@ public class DictionaryAction {
 	
 	// 신고
 	@RequestMapping("reportDictionary.ju")
-	public String reportDictionary(Model model, int word_no,HttpSession session) {
+	public String reportDictionary(Model model, int word_no,HttpSession session) throws Exception {
 		String user_id = (String)session.getAttribute("memId");
 		int chkLogin =0;
 		if(user_id != null) {
 			chkLogin=1;
 			model.addAttribute("user_id",user_id);
-			try {
-				DictionaryDTO dicDTO = dicDAO.getUpdateDictionary(word_no);
-				model.addAttribute("dicDTO", dicDTO);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			model.addAttribute("chkLogin",chkLogin);
+			DictionaryDTO dicDTO = dicDAO.getUpdateDictionary(word_no);
+			model.addAttribute("dicDTO", dicDTO);
 		}
+		model.addAttribute("chkLogin",chkLogin);
 		return "dictionary/dictionary/reportDictionary";
 	}
 	//신고
@@ -269,8 +266,17 @@ public class DictionaryAction {
 	
 	@RequestMapping("dicToolTip")
 	public String dicToolTip(Model model,String keyword) {
-		keyword = keyword.replace(" ", "");
 		if(keyword!=null && keyword!="") {
+			String regexp = "[^가-힣]";
+			keyword = keyword.replaceAll(regexp, "");
+			keyword = keyword.replace(" ", "");
+		}
+		
+		if(keyword.length()>10) {
+			model.addAttribute("lengthError","error");
+		}
+		
+		if(keyword!=null && keyword!="" && keyword.length()>0 && keyword.length()<10 ) {
 			List toolTipList = dicDAO.showToolTip(keyword);
 			model.addAttribute("toolTipList",toolTipList);
 		}

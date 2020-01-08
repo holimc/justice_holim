@@ -64,6 +64,16 @@
 			return false;
 		}
 	}
+	$(function(){
+		$(document).on('click','#searchBtn',function(){
+			var url = "adminpage.ju";
+			var category = $("#category").val();
+			url = url + "?category=" + category;
+			var keyword = $("#keyword").val();
+			url = url + "&keyword=" + keyword
+			location.href=url;
+		})
+	})
 	
 </script>
 
@@ -83,7 +93,7 @@
 </c:if>
 <c:if test="${check==1 }">
 <center>
-	<table>
+	<table class="table">
 		<tr>
 			<td>아이디</td>
 			<td>비밀번호</td>
@@ -111,7 +121,33 @@
 		</c:forEach>
 		
 	</table>
+	<c:if test="${count>0}">
+		<c:if test="${startPage>10}">
+	        <a href="adminpage.ju?pageNum=${startPage-10}">[이전]</a>
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+	        <a href="adminpage.ju?pageNum=${i}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${endPage < pageCount }">
+	        <a href="adminpage.ju?pageNum=${startPage+10}">[다음]</a>
+	    </c:if>
+	</c:if>
+		<table name="search">
+			<tr>
+				<td>
+					<select name="category" id="category">
+						<option value="id">아이디</option>
+						<option value="name">이름</option>
+						<option value="passwd">비밀번호</option>
+						<option value="email">이메일</option>
+					</select>
+					<input type="text" name="keyword" id="keyword" />
+					<input type="button" class="myButton" value="검색" id="searchBtn">
+				</td>
+			</tr>
+		</table>
 </center>
+
 </c:if>
 
 

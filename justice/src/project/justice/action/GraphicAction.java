@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 public class GraphicAction {
 	@RequestMapping("graphic.ju")
@@ -26,5 +27,6 @@ public class GraphicAction {
 
 		r.close();
 		return "main/graphic";
-	}	
+	}
+	
 }
