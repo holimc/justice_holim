@@ -1,5 +1,6 @@
 package project.justice.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import project.justice.news.NewsDAO;
 import project.justice.news.NewsDTO;
+
+import project.justice.news.PageMaker;
 
 @Controller
 @RequestMapping("/news/")
@@ -22,7 +26,6 @@ public class newsAction {
 	private NewsDAO dao = null;
 	@Autowired
 	private NewsDTO dto = null;
-
 	
 	@RequestMapping("news_list.ju")
 	public String news_list(Model model,HttpServletRequest request) {
@@ -32,6 +35,7 @@ public class newsAction {
 			
 			model.addAttribute("cnt",cnt);
 			model.addAttribute("lst",lst);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,7 +97,6 @@ public class newsAction {
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=103&sid2=245')");
 				r.eval("remDr$navigate(url)");
 			}
-
 			else {//占쏙옙치 占쌈븝옙
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LSD&mid=sec&sid1=100')");
 				r.eval("remDr$navigate(url)");
@@ -107,7 +110,6 @@ public class newsAction {
 			model.addAttribute("add_url",add_url);
 			model.addAttribute("rlst",rlst);
 			model.addAttribute("method",keyword);
-			
 		}catch(Exception e) {			
 			e.printStackTrace();
 		}finally {
@@ -118,24 +120,60 @@ public class newsAction {
 	
 	
 	@RequestMapping("news_categoryAll.ju")
-	public String news_categoryAll_list(Model model,HttpServletRequest request,HttpSession session) {
+	public String news_categoryAll_list(//@RequestParam(defaultValue="1")String pagenum,
+			Model model,HttpServletRequest request,HttpSession session,@RequestParam(defaultValue="1")String pagenum) {
 		try {
-			//String keyword = request.getParameter("keyword");
 			String keyword_save = (String)session.getAttribute("keyword_save");
-			//System.out.println(keyword_save); //null
 			String add_url = request.getParameter("add_url");
 			int cnt1 = dao.getCategoryCount(keyword_save);
 			List rlst = dao.getCategoryNews(keyword_save);
-			//System.out.println(rlst.size());
+	
+
+			PageMaker pagemaker = new PageMaker();
+
+			String contentnum = request.getParameter("contentnum");
+			if(contentnum == null) {
+				contentnum = "10"; 
+			}
+			 
+			int cpagenum = Integer.parseInt(pagenum);
+			int ccontentnum = Integer.parseInt(contentnum);
+
+			pagemaker.setTotalcount(cnt1);
+			pagemaker.setPagenum(cpagenum-1); //현재 페이지를 페이지 객체에 지정 . -1를 해야 쿼리에서 사용 가능
+			pagemaker.setContentnum(ccontentnum); // 한 페이지에 몇개씩 게시글을 보여줄지 정함
+			pagemaker.setCurrentblock(cpagenum);//현제 페이지 블록이 몇번인지 현제 페이지 번호를 통해 지정 
+			
+			
+			pagemaker.setLastblock(pagemaker.getTotalcount());//마지막 블록 번호를 전체 게시글 수를 통해 정함 ;
+
+			pagemaker.prevnext(cpagenum);//현재 페이지 번호로 화살표를 나타낼지 정함
+			pagemaker.setStartPage(pagemaker.getCurrentblock()); // 시작 페이지를 페이지 블록 번호 정함
+			System.out.println("cpagenum>>"+cpagenum);
+			System.out.println("currentblock>>"+pagemaker.getCurrentblock());
+			System.out.println("Lastblock>>"+pagemaker.getCurrentblock());
+			System.out.println("startpage>>"+pagemaker.getStartPage());
+			System.out.println("전체페이지수>>"+ pagemaker.calcpage(pagemaker.getTotalcount(),pagemaker.getContentnum()));
+			pagemaker.setEndPage(pagemaker.getLastblock(),pagemaker.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현제 페이지 블록으로 정함
+			
+			List<NewsDTO> testlist = new ArrayList();
+
+			
+			testlist = dao.testlist(keyword_save,pagemaker.getPagenum()*10+1,pagemaker.getContentnum()+pagemaker.getPagenum()*10+1);
+			
+			model.addAttribute("list",testlist);
+			model.addAttribute("page",pagemaker);
 			model.addAttribute("cnt1",cnt1);
 			model.addAttribute("add_url",add_url);
 			model.addAttribute("rlst",rlst);
 			model.addAttribute("method",keyword_save);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "news/news_categoryAll";
 	}	
-//test	
+
+	
 
 }

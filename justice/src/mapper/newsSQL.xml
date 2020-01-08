@@ -16,11 +16,25 @@
  	</select>
  	<!-- 최신 5개 기사만 가져오기 -->
 	<select id="getRelatedList" parameterType="string" resultType="newsDTO">
-		 select * from (select * from NEWS_LIST where news_category=#{news_category} ORDER BY NEWS_INDEX DESC) where rownum between 1 and 5 
+		 select * from (select * from NEWS_LIST where news_category=#{news_category} ORDER BY NEWS_INDEX DESC) where rownum between 1 and 5
 		 <!--select * from news_list where news_category = #{news_category}-->
 	</select>
 	<!-- 해당 카테고리 기사 전부 가져오기 -->
 	<select id="getCategoryNews" parameterType="string" resultType="newsDTO">
 		select * from news_list where news_category=#{news_category}
 	</select>
+	<!-- 페이지네이션 -->
+	<select id = "testlist" parameterType="hashmap" resultType="newsDTO"> <!-- 해당 페이지에 들어갈 것만 호출  -->
+
+		 select * from(select news_index,news_category,news_title,news_url,news_date,news_press,news_keyword,ROWNUM R from (select * from news_list where news_category= #{keyword_save} ORDER BY NEWS_INDEX DESC))where r &gt;= #{pagenum} AND R &lt; #{contentnum}
+	
+		  <!--  select * from(select news_index,news_category,news_title,news_url,news_date,news_press,news_keyword,ROWNUM R from (select * from news_list where news_category= #{keyword_save} ORDER BY NEWS_INDEX DESC))where r between #{pagenum} and #{contentnum}-->
+		  <!--  select * from (select * from NEWS_LIST ORDER BY NEWS_INDEX DESC) where news_index between #{pagenum} and #{contentnum}-->
+	</select>  
+	
+		<!-- select * from news_list order by news_index desc limit #{pagenum},#{contentnum} --> 
+	<select id="testcount" resultType="int">
+	 	select count(*) from test
+	</select>
+	
 </mapper>

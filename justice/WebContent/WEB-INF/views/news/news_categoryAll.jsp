@@ -9,32 +9,60 @@
 		window.open(pop_url,pop_option);
 	}
 </script>
-
+<script>
+	function page(idx){
+		var pagenum= idx;
+		var contentnum = $("#contentnum option:selected").val();
+		location.href="${pageContext.request.contextPath}/news/news_categoryAll.ju?pagenum="+pagenum+"&contentnum="+contentnum; 
+	}
+</script>
 	<strong>${method}</strong> 관련 뉴스 <br/>
-		<table border="1">
-		<tr>
-			<td>기사 제목</td> <!-- news_url -->
-			<td>언론사</td> <!-- news_date -->
-			<td>시간</td> <!--news_press  -->
-		</tr>	
-		
 		<h4> 관련 기사 글 갯수 ${cnt1} </h4>
 		<c:if test="${cnt1<=0}">
 			<h4> 관련 기사가 없습니다</h4>
 		</c:if>
 		<c:if test="${cnt1>0}">
-		<c:forEach var="newslist" items="${rlst}">
-			<tr>
-				<td>
-					<a href="#" onclick="newPopup('${newslist.news_url}')">${newslist.news_title}</a>
-				</td>
-				<td>
-					 ${newslist.news_date}
-				</td>			
-				<td>
-					 ${newslist.news_press}
-				</td>
-			</tr>
-		</c:forEach>
-		</c:if>
-		</table>
+		<select name="contentnum" id="contentnum">
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+		</select> 
+		
+		<table>
+			<thread>
+			<table border="1">
+				<tr>
+					<td>기사 제목</td>  
+					<td>언론사</td>
+					<td>시간</td> 
+					<td>연관단어</td>
+				</tr>
+			</thread>
+			<tbody>
+				<c:forEach var="k" items="${list}">
+					<tr>
+						<td><a href="#" onclick="newPopup('${k.news_url}')">${k.news_title}</a></td>
+						<td>${k.news_date}</td>	
+						<td>${k.news_press}</td>
+						<td>${k.news_keyword}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			</table>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+					<c:if test="${page.prev}">
+						<a style="text-decoration : none;" href="javascript:page(${page.getStartPage()-1});">&laquo;</a>
+					</c:if>
+					<c:forEach begin="${page.getStartPage()}" end="${page.getEndPage()}" var="idx">
+						<a style="text-decoration:none;"href="javascript:page(${idx});">${idx}</a>
+					</c:forEach>
+					<c:if test="${page.next}">
+						<a style="text-decoration:none;" href="javascript:page(${page.getEndPage()+1});">&raquo;</a>
+					</c:if>
+					
+					</td>
+				</tr>
+			</tfoot>
+			</c:if>

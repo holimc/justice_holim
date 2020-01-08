@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <script src= https://code.jquery.com/jquery-3.4.1.min.js></script>    
 <body>
-	<center><b>${news_keword}최신 뉴스</b></center>	
-		<button onclick='search("test12")' id ="test12" name="field" value="정치속보">정치속보</button>
+	<center><b>${news_keword}최신 뉴스</b></center>	 <h4> 현재 기사 글  ${cnt} 개</h4>
+	<!-- <button onclick='search("test12")' id ="test12" name="field" value="정치속보">정치속보</button> -->
 		<button onclick='search("test13","&sid2=264")' id ="test13" name="field" value="청와대">청와대</button>
 		<button onclick='search("test14","&sid2=265")' id ="test14" name="field" value="국회/정당">국회/정당</button>
 		<button onclick='search("test15","&sid2=267")' id ="test15" name="field" value="국방/외교">국방/외교</button>
@@ -75,16 +75,12 @@ function search(v,add_url){
 		,error:function(e){
 			//에러일때 처리 
 		}
-		
 	});
 
+	
 }
 </script>
 
 <div id = "rlist"></div>	      
-
-<br/>-----------------------------------------------------
-
-<h4> db전체 기사 글 갯수 ${cnt} </h4>
 
 </body>

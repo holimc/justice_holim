@@ -18,7 +18,6 @@
 			<td>시간</td> <!--news_press  -->
 		</tr>	
 		
-		<h4> 관련 기사 글 갯수 ${cnt1} </h4>
 		<a href="/justice/news/news_categoryAll.ju">더보기</a>
 		<c:if test="${cnt1<=0}">
 			<h4> 관련 기사가 없습니다</h4>

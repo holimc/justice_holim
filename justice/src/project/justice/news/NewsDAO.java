@@ -1,7 +1,9 @@
 package project.justice.news;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 
 public class NewsDAO implements NewsImpl {
@@ -36,5 +38,18 @@ public class NewsDAO implements NewsImpl {
 		return category_cnt;
 	}
 	
+	public List<NewsDTO> testlist(String keyword_save, @Param("pagenum") int pagenum, @Param("contentnum") int contentnum){
+		HashMap map = new HashMap();
+		map.put("keyword_save",keyword_save);
+		map.put("pagenum", pagenum);
+		map.put("contentnum",contentnum);
+		List<NewsDTO> testlist = sqlSession.selectList("news.testlist",map);
+
+		return testlist;
+	}
+	public int testcount(){
+
+		return 1;
+	}
 
 }

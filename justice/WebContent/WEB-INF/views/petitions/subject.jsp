@@ -16,6 +16,13 @@ function button_click(s) {
 	window.open(url);
 }
 </script>
+<script>
+	function newPopup(url){
+		var pop_url = url
+		var pop_option = "top=10,left=10,width=500,height=600, status=no, menubar=no, toolbar=no, resizable=no"
+		window.open(pop_url,pop_option);
+	}
+</script>
 <jsp:include page="../member/header.jsp"></jsp:include>
 <jsp:include page="header.jsp"/>
 <h2>주제별 조회</h2>
@@ -26,10 +33,11 @@ function button_click(s) {
 	<td><a href="subject.ju?cg=${i.s_id}">${i.p_subject}</a></td>
 	<c:if test="${i.s_id%5==4}"></tr></c:if>
 </c:forEach>
+
 </table>
 <h4>${subject}</h4>
 <table class="table">
-<tr>
+<button href="#" onclick="newPopup('/justice/news/news_list.ju')">관련 news</button>
 	<td>인덱스</td>
 	<td>주제</td>
 	<td>제목</td>
@@ -38,6 +46,8 @@ function button_click(s) {
 	<td>참여인원</td>
 	<td>답변여부</td>	
 </tr>
+
+
 <c:forEach var="i" items="${list2}">
 <tr>
 	<td>${i.p_no}</td>

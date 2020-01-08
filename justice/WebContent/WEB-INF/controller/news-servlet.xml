@@ -13,6 +13,8 @@
  	
  <bean id="dto" class="project.justice.news.NewsDTO"/>
  <bean id="dao" class="project.justice.news.NewsDAO">
+
+
  	<property name="sqlSession" ref="sqlSession"> </property>
  </bean>
 
