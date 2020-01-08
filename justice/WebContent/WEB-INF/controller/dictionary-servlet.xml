@@ -26,6 +26,5 @@
 	<bean id="vtDAO" class="project.justice.dictionary.VoteDAO">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
-	
 </beans>
 

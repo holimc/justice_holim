@@ -64,6 +64,16 @@
 			return false;
 		}
 	}
+	$(function(){
+		$(document).on('click','#searchBtn',function(){
+			var url = "adminpage.ju";
+			var category = $("#category").val();
+			url = url + "?category=" + category;
+			var keyword = $("#keyword").val();
+			url = url + "&keyword=" + keyword
+			location.href=url;
+		})
+	})
 	
 </script>
 

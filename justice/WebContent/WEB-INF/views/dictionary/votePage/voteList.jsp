@@ -69,13 +69,20 @@
 </script>
 </head>
 <body>
+<jsp:include page="../../member/header.jsp" />
+
+<div class="container-fluid">
+<div class="row">
+<jsp:include page="../dictionary_view/dic_side.jsp"/>
+<div id="container">
+
 <c:if test="${count==0 }">
 	<h1>현재 진행중인 투표가 없습니다.</h1>
 </c:if>
 <c:if test="${count>0}">
 	<center>글 개수 : ${count}</center>
 	<center>
-	<table id="vote_table">
+	<table id="vote_table" class="table">
 		<tr onclick="event.cancelBubble=true">
 			<c:if test="${admin!=null }">
 			<td> <input type="checkbox" id="selectAll" /> </td>
@@ -128,6 +135,7 @@
 	</c:if>
 </tr>
 </center>
+</div>
 
 </body>
 </html>
