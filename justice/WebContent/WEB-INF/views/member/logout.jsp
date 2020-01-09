@@ -3,5 +3,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
 alert("로그아웃되었습니다.")
-location.href="main.ju"
+location.href="list.ju"
 </script>

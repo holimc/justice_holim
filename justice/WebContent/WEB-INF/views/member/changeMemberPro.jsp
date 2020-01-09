@@ -9,7 +9,7 @@
 <body>
 <script>
 alert("수정 완료");
-location.href="main.ju"
+location.href="list.ju"
 </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +47,9 @@
 				<td id="open_content">${board_article.prompt }</td>
 				<td id="open_content">${board_article.meaning }</td>
 				<td onclick="event.cancelBubble=true">${board_article.b_recommend }</td>
-				<td onclick="event.cancelBubble=true">${board_article.board_reg }</td>
+				<td onclick="event.cancelBubble=true">
+					<fmt:formatDate value="${board_article.board_reg}" pattern="yyyy-MM-dd HH:mm"/>
+				</td>
 				<c:if test="${memId != null }">
 				<td>
 					<input type="button" class="myButton" value="추천" id="recommendBtn"/>
