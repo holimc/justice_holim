@@ -102,7 +102,10 @@ public class InfoAction {
 	@RequestMapping("content.ju")
 	public String content(String num,Model model) {
 		PetitionContentDTO dto = petitionDAO.getContent(Integer.parseInt(num));
-		model.addAttribute("content", dto);		
+		String t = dto.getP_content();
+		t=t.replaceAll("\n", "<br/>");		
+		dto.setP_content(t);
+		model.addAttribute("content", dto);	
 		return "petitions/content";
 		
 	}

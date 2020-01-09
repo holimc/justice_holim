@@ -14,8 +14,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Info</title>
-<jsp:include page="../member/header.jsp"/>
-<jsp:include page="header.jsp"/>
 </head>
 <body>
 <div class="container" >
