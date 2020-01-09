@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import project.justice.petition.PetitionContentDTO;
 import project.justice.petition.PetitionDAO;
 import project.justice.petition.PetitionDTO;
 import project.justice.petition.PetitionSubjectDTO;
@@ -98,4 +99,12 @@ public class InfoAction {
 
 		return "petitions/subject";
 	}
+	@RequestMapping("content.ju")
+	public String content(String num,Model model) {
+		PetitionContentDTO dto = petitionDAO.getContent(Integer.parseInt(num));
+		model.addAttribute("content", dto);		
+		return "petitions/content";
+		
+	}
+	
 }

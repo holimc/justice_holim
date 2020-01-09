@@ -125,5 +125,9 @@ public class PetitionDAO {
 		List<PetitionDTO> list = sqlSession.selectList("petition.getToday");
 		return list;
 	}
+	public PetitionContentDTO getContent(int num) {
+		PetitionContentDTO dto = sqlSession.selectOne("petition.getContent",num);
+		return dto;
+	}
 }
 
