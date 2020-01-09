@@ -82,7 +82,7 @@
 <c:if test="${count>0}">
 	<center>글 개수 : ${count}</center>
 	<center>
-	<table id="vote_table" class="table" style="width:1300px">
+	<table id="vote_table" class="table" style="width:1000px">
 		<tr onclick="event.cancelBubble=true">
 			<c:if test="${admin!=null }">
 			<td> <input type="checkbox" id="selectAll" /> </td>

@@ -40,5 +40,6 @@ ${content.p_content}<br/>
 
 </div>
 
+<div id="tooltip"></div>
 </body>
 </html>
