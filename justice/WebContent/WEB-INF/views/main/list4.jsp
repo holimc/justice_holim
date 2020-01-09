@@ -38,7 +38,7 @@ function button_click(s) {
 <tr>
 	<td>${i.p_no}</td>
 	<td>${i.p_subject}</td>
-	<td style="width: 40%"><a href="info.ju?num=${i.p_no}">${i.p_title}</a></td>
+	<td style="width: 40%"><a href="petitions/content.ju?num=${i.p_no}">${i.p_title}</a></td>
 	<td style="width: 10%"><button onclick="button_click(${i.p_no})" class="btn btn-secondary">청원</button></td>
 	<td><fmt:formatDate value="${i.p_date}" pattern="yyyy-MM-dd"/></td>
 	<td>${i.p_person}명</td>

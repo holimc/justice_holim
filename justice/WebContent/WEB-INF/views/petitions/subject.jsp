@@ -44,16 +44,17 @@ function getParameterByName(name) {
 </script>
 <jsp:include page="../member/header.jsp"></jsp:include>
 <jsp:include page="header.jsp"/>
+<div class="container">
 <h2>주제별 조회</h2>
 
-<table>
-<c:forEach var="i" items="${list}">
-	<c:if test="${i.s_id%5==0}"><tr></c:if>
-	<td><a href="subject.ju?cg=${i.s_id}">${i.p_subject}</a></td>
-	<c:if test="${i.s_id%5==4}"></tr></c:if>
-</c:forEach>
 
-</table>
+<c:forEach var="i" items="${list}">
+	<c:if test="${i.s_id%5==0}"></c:if>
+	<button class="btn btn-light" onclick="window.location.href='subject.ju?cg=${i.s_id}'" style="width: 200px; text-align: left">${i.p_subject}</button>
+	<c:if test="${i.s_id%5==4}"><br/></c:if>
+</c:forEach><br/>
+</div>
+
 <h4 style="display:inline">${subject}</h4>
 <select id="order" onchange="orderChange()" style="float: right">
 	<option value="1" <c:if test="${order==1}"> selected</c:if>> 오래된순 정렬</option>
@@ -61,8 +62,9 @@ function getParameterByName(name) {
 	<option value="3" <c:if test="${order==3}"> selected</c:if>>최신순 정렬</option>
 	
 </select>
+<button onclick="newPopup('/justice/news/news_list.ju')">관련 news</button>
 <table class="table">
-<button href="#" onclick="newPopup('/justice/news/news_list.ju')">관련 news</button>
+<tr>
 	<td>인덱스</td>
 	<td>주제</td>
 	<td>제목</td>
@@ -77,7 +79,7 @@ function getParameterByName(name) {
 <tr>
 	<td>${i.p_no}</td>
 	<td style="width: 10%">${i.p_subject}</td>
-	<td style="width: 60%"><a href="info.ju?num=${i.p_no}">${i.p_title}</a></td>
+	<td style="width: 60%"><a href="content.ju?num=${i.p_no}">${i.p_title}</a></td>
 	<td style="width: 10%"><button onclick="button_click(${i.p_no})" class="btn btn-secondary">청원바로가기</button></td>
 	<td><fmt:formatDate value="${i.p_date}" pattern="yyyy-MM-dd"/></td>
 	<td>${i.p_person}명</td>
@@ -100,9 +102,21 @@ function getParameterByName(name) {
     </li>
 
 <c:forEach begin="${startPage}" end="${lastPage}" var="i">
-	<li class="page-item">
+<c:if test="${page!= i}">
+<li class="page-item">
 		<a href="subject.ju?pg=${i}&cg=${cg}&order=${order}" class="page-link">${i}</a>
 	</li>
+</c:if>
+<c:if test="${page==i}">
+	<li class="page-item active" aria-current="page">
+      <span class="page-link">${i}        
+        <span class="sr-only">(current)</span>
+      </span>
+    </li>
+</c:if>
+	
+	   
+	
 </c:forEach>
 <c:if test="${lastPage!=pageAll}">
 	<li class="page-item">

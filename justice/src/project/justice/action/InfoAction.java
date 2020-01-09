@@ -96,6 +96,7 @@ public class InfoAction {
 		model.addAttribute("pageAll", pageAll);
 		model.addAttribute("cg", cg);
 		model.addAttribute("order", order);
+		model.addAttribute("page", pg);
 
 		return "petitions/subject";
 	}

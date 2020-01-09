@@ -16,8 +16,9 @@
 <title>Info</title>
 </head>
 <body>
+<jsp:include page="../member/header.jsp"/>
+<jsp:include page="header.jsp"/>
 <div class="container" >
-
 ${lines}
 </div>
 </body>
