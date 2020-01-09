@@ -16,8 +16,6 @@ $(document).on('mousedown', function(e){
 		$("#tooltip").removeClass("show");
 		
 	}
-	// if($('.tooltip').is(e.target) || $('.tooltip').has(e.target).length > 0) return false;
-	// $('.tooltip').removeClass('show');
 });
 
 
