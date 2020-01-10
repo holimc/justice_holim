@@ -8,7 +8,7 @@
 </head>
 <body>
 	<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-		<div class="sidebar-sticky" style="height:1000px">
+		<div class="sidebar-sticky" style="width:150px; height:1000px;">
 			<ul class="nav flex-column">
 				<li></li>
 				<li class="nav-item"><a class="nav-link" href="../dictionary/list.ju">단어 사전</a></li>

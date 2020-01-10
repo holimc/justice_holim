@@ -12,7 +12,7 @@
 <c:if test="${result==0}">
 <script>
 	alert("삭제완료")
-	location.href="main.ju"
+	location.href="list.ju"
 </script>
 </c:if>
 <c:if test="${result!=0}">
