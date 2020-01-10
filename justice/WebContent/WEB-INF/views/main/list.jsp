@@ -19,7 +19,7 @@ function button_click(s) {
 <div class="container-fluid">
 <div class="row">
 <jsp:include page="side.jsp"/>
-<div id="container">
+<div id="container" style="width: 70%">
 <h2>전날 대비 청원수 증가 TOP 10</h2>
 <table class="table">
  <thead class="thead-light">

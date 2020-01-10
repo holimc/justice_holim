@@ -1,5 +1,6 @@
 package project.justice.action;
 
+import java.util.Date;
 import java.util.List;
 
 import org.rosuda.REngine.Rserve.RConnection;
@@ -32,14 +33,18 @@ public class InfoAction {
 		r.eval("conn<- dbConnect(dri,\"jdbc:oracle:thin:@nullmaster.iptime.org:1521:xe\",\"final01\",\"final01\")");
 		r.eval("query <- \"select * from petition p,petition_data p2 where p.p_no=p2.p_no and p.p_no=?\"");
 		r.eval("tmp<-dbGetQuery(conn,query,"+num+")");
-		r.eval("g1<-plot_ly(tmp,x=c(1:3),y=c(tmp$P_DATA2,tmp$P_DATA1,tmp$P_DATA),mode  = \"lines\")%>%\n" + 
+		r.eval("tdate<-strptime(tmp$P_UPDATE,\"%Y-%m-%d %H:%M:%S\")");
+		r.eval("tdate<-Sys.time()-tdate");
+		r.eval("tdate<-floor(tdate)");
+		r.eval("tdate<-paste0(tdate,\"시간전\")");	
+		r.eval("g1<-plot_ly(tmp,x=c(1:4),y=c(tmp$P_DATA2,tmp$P_DATA1,tmp$P_DATA,tmp$P_PERSON),mode  = \"lines\")%>%\n" + 
 				"  layout(\n" + 
 				"    title= tmp$P_TITLE,\n" + 
 				"    xaxis = list(\n" + 
 				"      showexponent = \"all\",\n" + 
 				"      exponentformat = \"e\",\n" + 
-				"      ticktext = list(\"2일전\", \"어제\", \"오늘\"), \n" + 
-				"      tickvals = list(1, 2, 3),\n" + 
+				"      ticktext = list(\"2일전\", \"어제\",tdate,\"현재\"), \n" + 
+				"      tickvals = list(1, 2, 3,4),\n" + 
 				"      tickmode = \"array\"\n" + 
 				"    ),\n" + 
 				"    yaxis = list(\n" + 
@@ -106,7 +111,8 @@ public class InfoAction {
 		String t = dto.getP_content();
 		t=t.replaceAll("\n", "<br/>");		
 		dto.setP_content(t);
-		model.addAttribute("content", dto);	
+		model.addAttribute("content", dto);
+		model.addAttribute("now", new Date());
 		return "petitions/content";
 		
 	}

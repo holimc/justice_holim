@@ -18,8 +18,9 @@ public class MemberDAO implements MemberImpl{
 	public void insertMember(MemberVO vo) throws Exception {
 		sqlSession.insert("member.insertMember",vo);
 	}
-	public int confirmId(MemberVO vo) throws Exception {
-		return 0;
+	public int confirmId(String id) throws Exception {
+		int check = sqlSession.selectOne("member.checkId",id);
+		return check;
 	}
 	public MemberVO getMember(String id) throws Exception {
 		MemberVO vo = sqlSession.selectOne("member.memberId",id);

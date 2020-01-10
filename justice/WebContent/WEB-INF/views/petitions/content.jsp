@@ -36,7 +36,10 @@ ${content.p_content}<br/>
 
 <button>이전으로</button>
 <button onclick="button_click(${content.p_no})">청원바로가기</button>
+<c:if test="${content.p_date> now}">
 <button onclick="location.href='info.ju?num=${content.p_no}'">그래프보기</button>
+</c:if>
+
 
 </div>
 

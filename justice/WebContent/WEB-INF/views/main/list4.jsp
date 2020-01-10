@@ -13,7 +13,7 @@
 <div class="container-fluid">
 <div class="row">
 <jsp:include page="side.jsp"/>
-<div id="container">
+<div id="container" style="width: 70%">
 <h2>청원수 돌파/미답변</h2>
 <script type="text/javascript">
 function button_click(s) {
