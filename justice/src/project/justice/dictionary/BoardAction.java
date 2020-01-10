@@ -81,10 +81,13 @@ public class BoardAction {
 	}
 	
 	@RequestMapping("boardWrite.ju")
-	public String boardWrite(Model model, String word_no, HttpSession session) throws Exception {
+	public String boardWrite(String keyword, Model model, String word_no, HttpSession session) throws Exception {
 		String memId = (String)session.getAttribute("memId");
 		model.addAttribute("user_id",memId);
 		
+		if(keyword!=null) {
+			model.addAttribute("wname",keyword);
+		}
 		if(word_no!=null) {
 			String wname = brdDAO.getWordData(Integer.parseInt(word_no));
 			model.addAttribute("wname",wname);

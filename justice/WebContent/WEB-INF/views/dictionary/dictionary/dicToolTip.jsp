@@ -23,9 +23,10 @@
 	</table>
 </c:if>
 <c:if test="${fn:length(toolTipList)==0 && lengthError == null}">
-	<table>
+	<table >
 		<tr><td>${keyword}</td></tr>
 		<tr><td>해당 단어는 아직 사전에 등재되지 않은 단어입니다.</td></tr>
+		<tr><td><a href="../dboard/boardWrite.ju?keyword=${keyword}">등재하기</a></td></tr>
 	</table>
 </c:if>
 <c:if test="${lengthError!=null }">
