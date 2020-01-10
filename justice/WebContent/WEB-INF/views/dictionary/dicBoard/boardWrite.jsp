@@ -62,7 +62,7 @@
 	<input type="hidden" value="${user_id}" name="user_id" id="user_id"/>
 	<tr>
 		<td>단어 명 : </td>
-		<c:if test="${word_no==null }"> <td> <input type="text" name="wname" id="wname" size="30" style="width:300px"/> </td> </c:if>
+		<c:if test="${word_no==null }"> <td> <input type="text" name="wname" id="wname" <c:if test="${wname!=null}">value="${wname}"</c:if> size="30" style="width:300px"/> </td></c:if>
 		<c:if test="${word_no!=null }"> 
 		<td> <input type="text" name="wname" id="wname" value="${wname}" readonly/> <input type="hidden" value="${word_no}" name="word_no"/></td>
 		</c:if>
