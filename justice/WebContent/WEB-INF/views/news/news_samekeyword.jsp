@@ -10,25 +10,28 @@
 <script src= https://code.jquery.com/jquery-3.4.1.min.js></script>   
 
 <script>
+	function page(idx,news_keyword){
+		var pagenum= idx;		
+		var contentnum = $("#contentnum option:selected").val();
+		location.href="${pageContext.request.contextPath}/news/news_samekeyword.ju?keyword="+news_keyword+"&pagenum="+pagenum+"&contentnum="+contentnum; 
+	}
+</script>
+<script>
 	function newPopup(url){
 		var pop_url = url
 		var pop_option = "top=10,left=10,width=500,height=600, status=no, menubar=no, toolbar=no, resizable=no"
 		window.open(pop_url,pop_option);
 	}
 </script>
-<script>
-	function page(idx){
-		var pagenum= idx;
-		var contentnum = $("#contentnum option:selected").val();
-		location.href="${pageContext.request.contextPath}/news/news_categoryAll.ju?pagenum="+pagenum+"&contentnum="+contentnum; 
-	}
-</script>
-	<strong>${method}</strong> 관련 뉴스 <br/>
-		<h4> 관련 기사 글 갯수 ${cnt1} </h4>
-		<c:if test="${cnt1<=0}">
+
+	<strong>${news_keyword}</strong> 관련 뉴스 <br/>
+		<h4> 관련 기사 글 갯수 ${cl_cnt} </h4>
+		
+		
+		<c:if test="${cl_cnt<=0}">
 			<h4> 관련 기사가 없습니다</h4>
 		</c:if>
-		<c:if test="${cnt1>0}">
+		<c:if test="${cl_cnt>0}">
 		<select name="contentnum" id="contentnum">
 			<option value="10">10</option>
 			<option value="20">20</option>
@@ -42,7 +45,6 @@
 					<td>기사 제목</td>  
 					<td>언론사</td>
 					<td>시간</td> 
-					<td>연관단어</td>
 				</tr>
 			</thread>
 			<tbody>
@@ -51,28 +53,31 @@
 						<td><a href="#" onclick="newPopup('${k.news_url}')">${k.news_title}</a></td>
 						<td>${k.news_date}</td>	
 						<td>${k.news_press}</td>
-						<td><a href="/justice/news/news_samekeyword.ju?keyword=${k.news_keyword}" >${k.news_keyword}</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 			</table>
 			<tfoot>
 				<tr>
-					<td colspan="2">
+			<td colspan="2">
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination">
 			    <c:if test="${page.prev}">
-			   		<li class="page-item"><a class="page-link" href="javascript:page(${page.getStartPage()-1});">Previous</a></li>
+			   		<li class="page-item"><a class="page-link" href="javascript:page(${page.getStartPage()-1},'${news_keyword}');">Previous</a></li>
 			   	</c:if>	
 			    <c:forEach begin="${page.getStartPage()}" end="${page.getEndPage()}" var="idx">
 			    	<li class="page-item"><a class="page-link" href="javascript:page(${idx},'${news_keyword}');">${idx}</a></li>
 				</c:forEach>
 				<c:if test="${page.next}">
-			    	<li class="page-item"><a class="page-link" href="javascript:page(${page.getEndPage()+1});">Next</a></li>
+			    	<li class="page-item"><a class="page-link" href="javascript:page(${page.getEndPage()+1},'${news_keyword}');">Next</a></li>
 			    </c:if>	
 			  </ul>
 			</nav>
-					</td>
-				</tr>
+			</td>
+			</tr>
 			</tfoot>
+
 			</c:if>
+			
+			
+			

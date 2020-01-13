@@ -1,5 +1,6 @@
 package project.justice.news;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,9 +48,33 @@ public class NewsDAO implements NewsImpl {
 
 		return testlist;
 	}
+	
+	
+	public List<NewsDTO> testlist1(String keyword_save, @Param("pagenum") int pagenum, @Param("contentnum") int contentnum){
+		HashMap map = new HashMap();
+		map.put("keyword_save",keyword_save);
+		map.put("pagenum", pagenum);
+		map.put("contentnum",contentnum);
+		List<NewsDTO> testlist = sqlSession.selectList("news.testlist1",map);
+
+		return testlist;
+	}
 	public int testcount(){
 
 		return 1;
 	}
-
+	//연관 키워드 리스트 가져오기 
+	public List<NewsDTO> getSamekeywordNews(String samekeyword){
+		List<NewsDTO> samekeywordList = sqlSession.selectList("news.samekeyword",samekeyword);
+		return samekeywordList;
+	}
+	//연관 키워드 뉴스 갯수 가져오기 
+	public int getConnectedcount(String samekeyword) {
+		int kcl = sqlSession.selectOne("news.getConnectedcount",samekeyword);
+		return kcl;
+	}
 }
+
+
+
+

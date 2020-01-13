@@ -149,11 +149,6 @@ public class newsAction {
 
 			pagemaker.prevnext(cpagenum);//현재 페이지 번호로 화살표를 나타낼지 정함
 			pagemaker.setStartPage(pagemaker.getCurrentblock()); // 시작 페이지를 페이지 블록 번호 정함
-			System.out.println("cpagenum>>"+cpagenum);
-			System.out.println("currentblock>>"+pagemaker.getCurrentblock());
-			System.out.println("Lastblock>>"+pagemaker.getCurrentblock());
-			System.out.println("startpage>>"+pagemaker.getStartPage());
-			System.out.println("전체페이지수>>"+ pagemaker.calcpage(pagemaker.getTotalcount(),pagemaker.getContentnum()));
 			pagemaker.setEndPage(pagemaker.getLastblock(),pagemaker.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현제 페이지 블록으로 정함
 			
 			List<NewsDTO> testlist = new ArrayList();
@@ -174,6 +169,48 @@ public class newsAction {
 		return "news/news_categoryAll";
 	}	
 
-	
+	@RequestMapping("news_samekeyword.ju")
+	public String new_connectedlist(Model model, String keyword, HttpServletRequest request,@RequestParam(defaultValue="1")String pagenum) {
+		try {
+			String connectedword = request.getParameter("keyword");
+			System.out.println(connectedword);
+			int cl_cnt = dao.getConnectedcount(connectedword);
+			List samelist = dao.getSamekeywordNews(connectedword);	
+			
+			//pagination 작성중
+			PageMaker pagemaker = new PageMaker();
+			String contentnum = request.getParameter("contentnum");
+			if(contentnum == null) {
+				contentnum = "10"; 
+			}
+			
+			int cpagenum = Integer.parseInt(pagenum);
+			int ccontentnum = Integer.parseInt(contentnum);
+			pagemaker.setTotalcount(cl_cnt);
+			pagemaker.setPagenum(cpagenum-1); //현재 페이지를 페이지 객체에 지정 . -1를 해야 쿼리에서 사용 가능
+			pagemaker.setContentnum(ccontentnum); // 한 페이지에 몇개씩 게시글을 보여줄지 정함
+			pagemaker.setCurrentblock(cpagenum);//현재 페이지 블록이 몇번인지 현제 페이지 번호를 통해 지정 
+			pagemaker.setLastblock(pagemaker.getTotalcount());//마지막 블록 번호를 전체 게시글 수를 통해 정함 ;
+			pagemaker.prevnext(cpagenum);//현재 페이지 번호로 화살표를 나타낼지 정함
+			pagemaker.setStartPage(pagemaker.getCurrentblock()); // 시작 페이지를 페이지 블록 번호 정함
+			pagemaker.setEndPage(pagemaker.getLastblock(),pagemaker.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현제 페이지 블록으로 정함
+			List<NewsDTO> testlist = new ArrayList();
+			System.out.println("pagenum>>"+pagemaker.getPagenum());
+			System.out.println("contentnum>>"+pagemaker.getContentnum());
+			System.out.println("connectedword>>"+connectedword);
+			testlist = dao.testlist1(connectedword, pagemaker.getPagenum()*10-1, pagemaker.getContentnum()+pagemaker.getPagenum()*10+1);
+			//
 
+			model.addAttribute("list",testlist);
+			model.addAttribute("page",pagemaker);
+			model.addAttribute("samelist",samelist);
+			model.addAttribute("news_keyword",connectedword);
+			model.addAttribute("cl_cnt",cl_cnt);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "news/news_samekeyword";
+	}	
 }
