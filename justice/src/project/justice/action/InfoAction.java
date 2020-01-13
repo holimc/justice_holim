@@ -54,6 +54,7 @@ public class InfoAction {
 		r.eval("pie_html<-renderTags(g1)");
 		String lines= r.eval("pie<-pie_html$html").asString();
 		model.addAttribute("lines", lines);
+		model.addAttribute("index", num);
 		r.close();
 		return "petitions/info";
 	}

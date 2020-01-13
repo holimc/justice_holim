@@ -10,29 +10,20 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script src='../resources/js/list.js'></script>
 <script type="text/javascript">
-function button_click(s) {
-	var url = "https://www1.president.go.kr/petitions/"+s;
-	window.open(url);
-}
 function orderChange(){
 	var order = document.getElementById("order");
 	var orderValue = order.options[order.selectedIndex].value;
-	var page = getParameterByName("pg");
+	var page = getParam("pg");
 	if(page==""){
 		page=1;
 		}
-	var subject = getParameterByName("cg");
+	var subject = getParam("cg");
 	if(subject==""){
 		subject=0;
 		}
 	window.location.href="subject.ju?pg="+page+"&cg="+subject+"&order="+orderValue
-}
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 </script>
 <script>
@@ -79,7 +70,7 @@ function getParameterByName(name) {
 <tr>
 	<td>${i.p_no}</td>
 	<td style="width: 10%">${i.p_subject}</td>
-	<td style="width: 60%"><a href="content.ju?num=${i.p_no}">${i.p_title}</a></td>
+	<td style="width: 40%"><a href="#" onclick="url2(${i.p_no})">${i.p_title}</a></td>
 	<td style="width: 10%"><button onclick="button_click(${i.p_no})" class="btn btn-secondary">청원바로가기</button></td>
 	<td><fmt:formatDate value="${i.p_date}" pattern="yyyy-MM-dd"/></td>
 	<td>${i.p_person}명</td>

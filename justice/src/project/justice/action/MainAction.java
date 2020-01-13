@@ -21,7 +21,11 @@ public class MainAction {
 
 
 	@RequestMapping("login.ju")
-	public String login() {		
+	public String login(HttpSession session,Model model) {
+		String memId = (String)session.getAttribute("memId");
+		if(memId!=null) {
+			model.addAttribute("memId", memId);
+		}
 		return "member/login";
 	}
 	@RequestMapping("loginPro.ju")
@@ -102,6 +106,7 @@ public class MainAction {
 		try {
 			int result = memberDAO.deleteMember(id, passwd);
 			model.addAttribute("result", result);
+			session.invalidate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

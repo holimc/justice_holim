@@ -6,11 +6,13 @@
 
 <html>
 <head>
+<script src='../resources/js/list.js'></script>
 <script type="text/javascript">
 function button_click(s) {
 	var url = "https://www1.president.go.kr/petitions/"+s;
 	window.open(url);
 }
+
 </script>
 <meta charset="UTF-8">
 <title>content</title>
@@ -34,7 +36,7 @@ ${content.p_content}<br/>
   </div>
 </div>
 
-<button>이전으로</button>
+<button onclick="redirect()">이전으로</button>
 <button onclick="button_click(${content.p_no})">청원바로가기</button>
 <c:if test="${content.p_date> now}">
 <button onclick="location.href='info.ju?num=${content.p_no}'">그래프보기</button>
