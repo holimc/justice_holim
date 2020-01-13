@@ -146,6 +146,20 @@ public class BoardDAO implements BoardDAOImpl {
 		return check;
 	}
 	
+	public int insertDictionary(BoardDTO brdDTO) throws Exception {
+		int check = 0;
+		int confirmCheck = 0;
+		HashMap map = new HashMap();
+		map.put("wname", brdDTO.getWname());
+		map.put("meaning",brdDTO.getMeaning());
+		map.put("substitute", brdDTO.getPrompt());
+		confirmCheck = sqlSession.selectOne("d_board_DB.dictionaryConfirm",map);
+		if(confirmCheck==0) {
+			check = sqlSession.insert("d_board_DB.dictionaryInsert", brdDTO);
+		}
+		return check;
+	}
+	
 	@Override
 	public int deletePostAdmin(List chkArr) throws Exception{
 		int check = 0;
@@ -154,6 +168,7 @@ public class BoardDAO implements BoardDAOImpl {
 		}
 		return check;
 	}
+	
 	
 	
 	
