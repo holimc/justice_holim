@@ -1,5 +1,6 @@
 package project.justice.action;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import project.justice.petition.AnswerContentDTO;
 import project.justice.petition.AnswerDTO;
+import project.justice.petition.PetitionContentDTO;
 import project.justice.petition.PetitionDAO;
 import project.justice.petition.PetitionDTO;
 import project.justice.petition.PetitionDataDTO;
@@ -93,7 +96,21 @@ public class PetitionAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		return "petitions/main2";
+		return "petitions/answer";
 	}
-	
+	@RequestMapping("ansContent.ju")
+	public String ansContent(String num,Model model) {
+		PetitionContentDTO dto = petitionDAO.getContent(Integer.parseInt(num));
+		AnswerContentDTO adto = petitionDAO.getAnswerContent(Integer.parseInt(num));
+		String t = dto.getP_content();
+		t=t.replaceAll("\n", "<br/>");
+		dto.setP_content(t);
+		t = adto.getA_content();
+		t=t.replaceAll("\n", "<br/>");
+		adto.setA_content(t);
+		model.addAttribute("content", dto);
+		model.addAttribute("now", new Date());		
+		model.addAttribute("answer", adto);
+		return "petitions/anscontent";
+	}
 }

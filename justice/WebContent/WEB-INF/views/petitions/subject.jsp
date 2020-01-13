@@ -7,23 +7,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>주제별 조회</title>
 </head>
 <body>
 <script src='../resources/js/list.js'></script>
 <script type="text/javascript">
 function orderChange(){
 	var order = document.getElementById("order");
-	var orderValue = order.options[order.selectedIndex].value;
-	var page = getParam("pg");
-	if(page==""){
-		page=1;
-		}
+	var orderValue = order.options[order.selectedIndex].value;	
 	var subject = getParam("cg");
 	if(subject==""){
 		subject=0;
 		}
-	window.location.href="subject.ju?pg="+page+"&cg="+subject+"&order="+orderValue
+	window.location.href="subject.ju?&cg="+subject+"&order="+orderValue
 }
 </script>
 <script>

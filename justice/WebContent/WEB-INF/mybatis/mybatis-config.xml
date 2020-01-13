@@ -14,7 +14,7 @@
 		<typeAlias type="project.justice.petition.AnswerDTO" alias="answerDTO"/>
 		<typeAlias type="project.justice.petition.PetitionSubjectDTO" alias="subjectDTO"/>
 		<typeAlias type="project.justice.petition.PetitionContentDTO" alias="contentDTO"/>
-		
+		<typeAlias type="project.justice.petition.AnswerContentDTO" alias="answerContentDTO"/>		
 		<typeAlias type="project.justice.dictionary.BoardDTO" alias="boardDTO"/>	
 		<typeAlias type="project.justice.dictionary.VoteDTO" alias="voteDTO"/>
 	</typeAliases>
