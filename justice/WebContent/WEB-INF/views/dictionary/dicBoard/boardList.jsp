@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 <c:if test="${count>0}">
 <div id="container">
 	<center>
-	<table class="table">
+	<table class="table" style="width:1300px">
 		<tr onclick="event.cancelBubble=true">
 			<c:if test="${admin!=null }">
 			<td> <input type="checkbox" id="selectAll" /> </td>
@@ -46,7 +47,9 @@
 				<td id="open_content">${board_article.prompt }</td>
 				<td id="open_content">${board_article.meaning }</td>
 				<td onclick="event.cancelBubble=true">${board_article.b_recommend }</td>
-				<td onclick="event.cancelBubble=true">${board_article.board_reg }</td>
+				<td onclick="event.cancelBubble=true">
+					<fmt:formatDate value="${board_article.board_reg}" pattern="yyyy-MM-dd HH:mm"/>
+				</td>
 				<c:if test="${memId != null }">
 				<td>
 					<input type="button" class="myButton" value="추천" id="recommendBtn"/>
@@ -57,7 +60,7 @@
 				</td>
 				</c:if>
 			</tr>
-			<tr class="detail_content" id="${board_article.d_board_no}">
+			<tr class="detail_content" id="${board_article.d_board_no}" style="background-color: #FAFAFA;" border="1">
 				<td colspan="7" colspan="7" margin-left="auto" margin-right="auto" text-align="center"><span>${board_article.detail_content}</span></td>
 			</tr>
 		</c:forEach>

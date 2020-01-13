@@ -1,6 +1,9 @@
 package project.justice.dictionary;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -87,6 +90,33 @@ public class VoteDAO implements VoteDAOimpl {
 		return voteStatus;
 	}
 	
-	
+	public void scheduleVote() {
+		List list = null;
+		list = sqlSession.selectList("dictionary_vote.getOpenVoteList");
+		if(list != null) {
+			Date date = new Date();
+			for(int i=0; i<list.size();i++) {
+				int check = 0;
+				VoteDTO vtDTO = (VoteDTO)list.get(i);
+				long currentTime = date.getTime();
+				long voteRegTime = vtDTO.getVote_reg().getTime();
+				long difTime = currentTime - voteRegTime;
+				
+				int timeLap = (int)(difTime/(1000*60));
+				if(timeLap >= 10080) {
+					check = sqlSession.update("dictionary_vote.closingVote",vtDTO.getVote_no());
+					if(check!=0) {
+						if(vtDTO.getAgree()>vtDTO.getDisagree()) {
+							BoardDTO brdDTO = sqlSession.selectOne("d_board_DB.getPost",vtDTO.getD_board_no());
+							sqlSession.insert("dictionary_vote.insertDictionary",brdDTO);
+						}
+					}
+					System.out.println(vtDTO.getWname()+"은 "+timeLap + "만큼 차이납니다.");
+					
+				}
+			}
+		}
+		System.out.println("메서드 실행");
+	}
 	
 }

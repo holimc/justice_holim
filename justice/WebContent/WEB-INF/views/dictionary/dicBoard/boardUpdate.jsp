@@ -32,7 +32,7 @@
 <div id="container">
 	<center>
 	<form action="boardUpdatePro.ju">
-		<table class="table">
+		<table class="table" style="width:600px">
 			<tr>
 				<input type="hidden" name="user_id" value="${brdDTO.user_id}"/>
 				<input type="hidden" name="d_board_no" value="${brdDTO.d_board_no}"/>
@@ -43,11 +43,11 @@
 			</tr>
 			<tr>
 				<td>단어뜻 : </td>
-				<td><input type="text" name="meaning" value="${brdDTO.meaning }"/></td>
+				<td><input type="text" name="meaning" value="${brdDTO.meaning }" style="width:300px"/></td>
 			</tr>
 			<tr>
 				<td>제시어 : </td>
-				<td><input type="text" name="prompt" value="${brdDTO.prompt }"/></td>
+				<td><input type="text" name="prompt" value="${brdDTO.prompt }" style="width:300px"/></td>
 			</tr>
 			<tr>
 				<td>내용 : </td>
@@ -56,7 +56,7 @@
 			<tr>
 				<td>
 				<input type="submit" value="수정하기" class="myButton"/>
-				<input type="button" value="돌아가기" class="myButton"/>
+				<input type="button" value="돌아가기" class="myButton" onclick="history.go(-1);"/>
 				</td>
 			</tr>
 		</table>

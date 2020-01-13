@@ -13,11 +13,10 @@ function selectText() {
 //show를 닫는 함수
 $(document).on('mousedown', function(e){
 	if($("#tooltip").hasClass("show")){
-		$("#tooltip").removeClass("show");
-		
+		setTimeout(function(){
+			$("#tooltip").removeClass("show");
+		},100);
 	}
-	// if($('.tooltip').is(e.target) || $('.tooltip').has(e.target).length > 0) return false;
-	// $('.tooltip').removeClass('show');
 });
 
 
@@ -25,30 +24,33 @@ $(document).on('mousedown', function(e){
 $(function(){
 	$(document).mouseup(function(e){
 	 	var text = selectText();
-		if(text!=null && text!=""){
-			var webWidth = window.innerWidth;
-			var webHeight = window.innerHeight;
-
-			var popupWidth = $('#tooltip').width();
-			var popupHeight = $('#tooltip').height();
-			
-			var tooltipLeft = e.pageX;
-			var tooltipTop = e.pageY;
-			
-			if(tooltipLeft + popupWidth > webWidth) { tooltipLeft -= popupWidth; }
-			if(tooltipTop + popupHeight > webHeight) { tooltipTop -= popupHeight; }
-			
-			$('#tooltip').css({
-				left: tooltipLeft,
-				top: tooltipTop
-			}).addClass('show').text('loading...');
-			$.ajax({
-				type : 'post',
-				url : '/justice/dictionary/dicToolTip.ju?keyword='+text,
-				success : function(data){
-					$('#tooltip').html(data);
-				}
-			})
-		}
+	 	setTimeout(function(){
+			if(text!=null && text!=""){
+				
+				var webWidth = window.innerWidth;
+				var webHeight = window.innerHeight;
+	
+				var popupWidth = $('#tooltip').width();
+				var popupHeight = $('#tooltip').height();
+				
+				var tooltipLeft = e.pageX;
+				var tooltipTop = e.pageY;
+				
+				if(tooltipLeft + popupWidth > webWidth) { tooltipLeft -= popupWidth; }
+				if(tooltipTop + popupHeight > webHeight) { tooltipTop -= popupHeight; }
+				
+				$('#tooltip').css({
+					left: tooltipLeft,
+					top: tooltipTop
+				}).addClass('show').text('loading...');
+				$.ajax({
+					type : 'post',
+					url : '/justice/dictionary/dicToolTip.ju?keyword='+text,
+					success : function(data){
+						$('#tooltip').html(data);
+					}
+				})
+			}
+	 	},100);
 	})
 })

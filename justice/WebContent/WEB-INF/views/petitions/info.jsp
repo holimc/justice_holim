@@ -10,17 +10,19 @@
 <script src='/justice/views/lib/plotly-latest.min.js'></script>
 <script src='/justice/views/lib/typedarray.min.js'></script>
 <link href='/justice/views/lib/plotly-htmlwidgets.css'rel="stylesheet">
+<script src='../resources/js/list.js'></script>
 
 <head>
 <meta charset="UTF-8">
 <title>Info</title>
-<jsp:include page="../member/header.jsp"/>
-<jsp:include page="header.jsp"/>
 </head>
 <body>
+<jsp:include page="../member/header.jsp"/>
+<jsp:include page="header.jsp"/>
 <div class="container" >
-
 ${lines}
+<button onclick="location.href='content.ju?num=${index}'">이전으로</button>
+<button onclick="button_click(${index})">청원바로가기</button>
 </div>
 </body>
 </html>

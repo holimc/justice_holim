@@ -8,18 +8,13 @@
 <meta charset="UTF-8">
 <title>메인페이지</title>
 </head>
+<script src='./resources/js/list.js'></script>
 <body>
-<script type="text/javascript">
-function button_click(s) {
-	var url = "https://www1.president.go.kr/petitions/"+s;
-	window.open(url);
-}
-</script>
 <jsp:include page="../member/header.jsp"/>
 <div class="container-fluid">
 <div class="row">
 <jsp:include page="side.jsp"/>
-<div id="container">
+<div id="container" style="width: 70%">
 <h2>전날 대비 청원수 증가 TOP 10</h2>
 <table class="table">
  <thead class="thead-light">
@@ -37,7 +32,7 @@ function button_click(s) {
 <tr>
 	<td>${i.p_no}</td>
 	<td style="width: 10%">${i.p_subject}</td>
-	<td style="width: 40%"><a href="petitions/info.ju?num=${i.p_no}">${i.p_title}</a></td>
+	<td style="width: 40%"><a href="#" onclick="url(${i.p_no})">${i.p_title}</a></td>
 	<td style="width: 10%"><button onclick="button_click(${i.p_no})" class="btn btn-secondary">청원</button></td>
 	<td><fmt:formatDate value="${i.p_date}" pattern="yyyy-MM-dd"/></td>
 	<td>${i.p_person}명</td>
