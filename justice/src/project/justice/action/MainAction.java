@@ -28,6 +28,7 @@ public class MainAction {
 		}
 		return "member/login";
 	}
+	
 	@RequestMapping("loginPro.ju")
 	public String loginPro(MemberVO vo,HttpSession session,Model model) {
 		try {
