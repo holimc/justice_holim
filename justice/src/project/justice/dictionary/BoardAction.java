@@ -219,7 +219,6 @@ public class BoardAction {
 			HttpSession session) throws Exception{
 		String admin = (String)session.getAttribute("admin");
 		if(admin!= null) {
-			int num = 0;
 			int check = 0;
 			if(chkArr!= null) {
 				check = brdDAO.insertVoting(chkArr);
@@ -245,6 +244,23 @@ public class BoardAction {
 			model.addAttribute("check",check);
 		}
 		return "/dictionary/dicBoard/deleteByAdmin";
+	}
+			
+	@RequestMapping("insertDictionary.ju")
+	public String insertDictionary(Model model,HttpSession session, int d_board_no) throws Exception {
+		String admin = (String)session.getAttribute("admin");
+		// 기본값. admin 이 아닐시 -2
+		int check = -2;
+		if(admin!= null) {
+			// admin일시 -1
+			check = -1;
+			BoardDTO brdDTO = brdDAO.getContent(d_board_no);
+			//메서드 동작후 에러 발생이 없을시 1, 에러시 0
+			check = brdDAO.insertDictionary(brdDTO);
+		}
+		model.addAttribute("check",check);
+		
+		return "/dictionary/dicBoard/insertDictionary";
 	}
 	
 		

@@ -56,6 +56,7 @@
 					<c:if test="${board_article.user_id == memId || admin!=null }">
 					<input type="button" class="myButton" value="수정" id="updateBtn"/>
 					<input type="button" class="myButton" value="삭제" id="deleteBtn"/>
+					<input type="button" class="myButton" value="등재" id="inputBtn"/>
 					</c:if>
 				</td>
 				</c:if>

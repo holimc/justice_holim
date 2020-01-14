@@ -64,7 +64,12 @@
 	<insert id="insertVote" parameterType="BoardDTO">
 		insert into vote_table values(vote_table_seq.nextval, #{d_board_no}, #{wname},0, 0, null, sysdate, 'open')
 	</insert>
-	
+	<insert id="dictionaryInsert" parameterType="BoardDTO">
+		insert into dictionary_table values(dictionary_table_seq.nextval,#{wname},#{meaning},#{prompt},#{user_id}, null,0,null,0)
+	</insert>
+	<select id="dictionaryConfirm" parameterType="hashmap" resultType="int">
+		select count(*) from dictionary_table where wname=#{wname} and meaning=#{meaning} and substitute=#{substitute} 
+	</select>
 	<sql id="search">
 		<choose>
 			<when test="category == 'all'">

@@ -83,6 +83,11 @@
 	<select id="getContent" parameterType="int" resultType="contentDTO">
 		select * from petition p, petition_content p2 where p.p_no=p2.p_no and p.p_no=#{p_no}	
 	</select>
+	
+	<select id="getAnswerContent" parameterType="int" resultType="answerContentDTO">
+		select * from answer a, answer_content a2 where a.p_no=a2.p_no and a.p_no=#{p_no}	
+	</select>
+	
 </mapper>
 
 

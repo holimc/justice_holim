@@ -129,5 +129,9 @@ public class PetitionDAO {
 		PetitionContentDTO dto = sqlSession.selectOne("petition.getContent",num);
 		return dto;
 	}
+	public AnswerContentDTO getAnswerContent(int num) {
+		AnswerContentDTO dto = sqlSession.selectOne("petition.getAnswerContent",num);
+		return dto;
+	}
 }
 

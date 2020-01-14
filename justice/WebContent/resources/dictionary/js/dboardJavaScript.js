@@ -117,6 +117,19 @@
 			
 		})
 	})
+	
+	//개별 사전등재
+	$(function(){
+		$(document).on('click', '#inputBtn', function(){
+			var btn = $(this);
+			var tr = btn.parent().parent();
+			var num = tr.find("#d_board_no").val();
+			url = "insertDictionary.ju?d_board_no=" + num;
+			location.href=url;
+		})
+	})
+	
+	
 	$(function(){
 		$(document).on('click','#releaseChk', function(){
 			$("#selectAll").prop("checked", false);
