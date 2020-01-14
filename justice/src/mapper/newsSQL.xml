@@ -12,7 +12,9 @@
  	</select>
  	<!-- 카테고리별 기사 갯수 가져오기 -->
  	<select id="getCategoryCount" resultType="int"> 
-		select count(*) from news_list where news_category=#{news_category}
+		<!-- select count(*) from news_list where news_category=#{news_category}   -->
+		select count(*) from news_list where news_category= #{news_category} AND rowid in (select max(rowid) from news_list group by news_title) ORDER BY NEWS_INDEX DESC-->
+		
  	</select>
  	<!-- 최신 5개 기사만 가져오기 -->
 	<select id="getRelatedList" parameterType="string" resultType="newsDTO">
@@ -39,7 +41,8 @@
 	
 	<!-- samekeywordcount -->
 	<select id="getConnectedcount" parameterType="string"  resultType="int">
-	 	select count(*) from news_list where news_keyword=#{samekeyword}
+		select count(*) from news_list where news_keyword= #{samekeyword} AND rowid in (select max(rowid) from news_list group by news_title) ORDER BY NEWS_INDEX DESC
+	 	<!--  select count(*) from news_list where news_keyword=#{samekeyword} -->
 	</select>
 	
 	<!--  connected word  -->

@@ -37,7 +37,8 @@
 		
 		<table>
 			<thread>
-			<table border="1">
+			<table class="table">
+			 <thead class="thead-light">
 				<tr>
 					<td>기사 제목</td>  
 					<td>언론사</td>
