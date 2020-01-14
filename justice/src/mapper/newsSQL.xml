@@ -16,7 +16,7 @@
 		select count(*) from news_list where news_category= #{news_category} AND rowid in (select max(rowid) from news_list group by news_title) ORDER BY NEWS_INDEX DESC-->
 		
  	</select>
- 	<!-- 최신 5개 기사만 가져오기 -->
+ 	<!-- 최신1 5개 기사만 가져오기 -->
 	<select id="getRelatedList" parameterType="string" resultType="newsDTO">
 		 select * from (select * from NEWS_LIST where news_category=#{news_category} ORDER BY NEWS_INDEX DESC) where rownum between 1 and 5
 		 <!--select * from news_list where news_category = #{news_category}-->
