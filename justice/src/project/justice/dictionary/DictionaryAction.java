@@ -264,18 +264,21 @@ public class DictionaryAction {
 		return "dictionary/dictionary/test";
 	}
 	
+	// 사전 기능을 위한 dicToolTip 
 	@RequestMapping("dicToolTip")
 	public String dicToolTip(Model model,String keyword) {
+		// selection으로 받아오는 keyword에 대한 유효성검사. null값인지 확인한다.
 		if(keyword!=null && keyword!="") {
+			// 정규식을 통해 숫자 혹은 특수문자를 제외하고, 공백을 없앤다.
 			String regexp = "[^가-힣]";
 			keyword = keyword.replaceAll(regexp, "");
 			keyword = keyword.replace(" ", "");
 		}
-		
+		// 단어의 길이가 너무 길 경우 dicToolTip에서 에러메세지 출력을 위한 처리
 		if(keyword.length()>10) {
 			model.addAttribute("lengthError","error");
 		}
-		
+		// 단어의 길이가 적당하며, 공백값이 아닐때 DAO에서 값을 꺼내오고 이를 view페이지로 보낸다
 		if(keyword!=null && keyword!="" && keyword.length()>0 && keyword.length()<10 ) {
 			List toolTipList = dicDAO.showToolTip(keyword);
 			model.addAttribute("toolTipList",toolTipList);
