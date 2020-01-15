@@ -10,10 +10,13 @@
 </head>
 <jsp:include page="../member/header.jsp"></jsp:include>
 <jsp:include page="header.jsp"></jsp:include>
+<script src='../resources/js/list.js'></script>
+
 <script type="text/javascript">
-function button_click(s) {
-	var url = "https://www1.president.go.kr/petitions/"+s;
-	window.open(url);
+function url3(s){
+	var now = window.location.href;
+	var url = "ansContent.ju?num="+s+"&redirect="+now;
+	window.location.href=url;
 }
 function button_click2(s) {	
 	var tmp = s.substring(30);
@@ -22,6 +25,7 @@ function button_click2(s) {
 	
 }
 </script>
+
 <body>
 <h2>${title}</h2>
 <table class="table">
@@ -42,7 +46,7 @@ function button_click2(s) {
 <tr>
 	<td>${i.a_no}</td>
 	<td>${i.p_subject}</td>
-	<td style="width: 50%"><a href="ansContent.ju?num=${i.p_no}">${i.p_title}</a></td>
+	<td style="width: 50%"><a href="#" onclick="url3(${i.p_no})">${i.p_title}</a></td>
 	<td style="width: 10%"><button onclick="button_click(${i.p_no})" class="btn btn-secondary">청원바로가기</button></td>
 	<td><button onclick="button_click2('${i.a_link}')">유튜브링크</button></td>	
 	<td><fmt:formatDate value="${i.p_date}" pattern="yyyy-MM-dd"/></td>
