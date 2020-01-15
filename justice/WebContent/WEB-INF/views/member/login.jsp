@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src='<c:url value="/resources/js/login.js"/>'></script>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -18,7 +19,7 @@
 <c:if test="${memId==null }">
 <body>
 	<div class="container">
-		<form action="loginPro.ju" method="post">
+		<form action="loginPro.ju?path=${path}" method="post">
 			<table>
 				<tr>
 					<td>아이디</td>

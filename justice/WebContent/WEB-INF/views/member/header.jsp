@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Header</title>
+<script src='<c:url value="/resources/js/login.js"/>'></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
@@ -27,16 +28,16 @@
 				</li>
 			</ul>
 			<c:if test="${memId==null}">
-				<button onclick="location.href='/justice/login.ju'">로그인</button>
+				<button onclick="loginURL()">로그인</button>
 				<button onclick="location.href='/justice/registForm.ju'">회원가입</button>
 			</c:if>
 			<c:if test="${memId!=null && admin == null}">
-				<button onclick="location.href='/justice/logout.ju'">로그아웃</button>
+				<button onclick="logoutURL()">로그아웃</button>
 				<button onclick="location.href='/justice/memberEdit2.ju'">회원정보 수정</button>
 			</c:if>
 			<!-- 관리자 추가 -->
 			<c:if test="${memId!=null && admin != null}">
-				<button onclick="location.href='/justice/logout.ju'">로그아웃</button>
+				<button onclick="logoutURL()">로그아웃</button>
 				<button onclick="location.href='/justice/adminpage.ju'">관리자페이지</button>
 			</c:if>
 		</div>
