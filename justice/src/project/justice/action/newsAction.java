@@ -47,12 +47,13 @@ public class newsAction {
 	public String rnews_list(Model model, HttpServletRequest request,HttpSession session) {
 		RConnection r=null;
 		try {
+			r = new RConnection();
 			String keyword = request.getParameter("keyword");
 			session.setAttribute("keyword_save",keyword);
 			String add_url = request.getParameter("add_url");
 			int cnt1 = dao.getCategoryCount(keyword);
-			r = new RConnection();
-			r.eval("source('C://Users//pc//Documents//R//test2.R')");
+			r.eval("source('C://test//test2.R')");
+		
 
 			
 			//error 占싸ㅡ븝옙 
@@ -104,15 +105,14 @@ public class newsAction {
 			//String query1 = "category<-("+add_url+")";
 			//r.eval(query1);
 			//r.eval("url<-paste(category_url,category,sep='')");
-			r.eval("source('C://Users//pc//Documents//R//test4.R')");
+			r.eval("source('C://test//test4.R')");
 			List rlst = dao.rnewsList(keyword);
 			model.addAttribute("cnt1",cnt1);
 			model.addAttribute("add_url",add_url);
 			model.addAttribute("rlst",rlst);
 			model.addAttribute("method",keyword);
 		}catch(Exception e) {			
-			//e.printStackTrace();
-			return "/WEB-INF/error";
+			e.printStackTrace();
 		}finally {
 			if(r != null) {r.close();}
 		}
