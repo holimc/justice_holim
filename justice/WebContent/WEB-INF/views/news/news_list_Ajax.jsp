@@ -23,11 +23,12 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	  <a href="/justice/news/news_categoryAll.ju">더보기</a>
-	  	<c:if test="${cnt1<=0}">
+
+	   	<c:if test="${cnt1<=0}">
 		<h4> 관련 기사가 없습니다</h4>
 		</c:if>
 	  <c:if test="${cnt1>0}">
+	   <a href="/justice/news/news_categoryAll.ju">더보기</a>
 	  <c:forEach var="newslist" items="${rlst}">
 	    <tr>
 	      <td><a href="#" onclick="newPopup('${newslist.news_url}')">${newslist.news_title}</a></td>

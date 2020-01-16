@@ -84,7 +84,7 @@ public class newsAction {
 			}else if(add_url.equals("&sid2=250")) {//占쏙옙占싣깍옙占쏙옙
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=250')");
 				r.eval("remDr$navigate(url)");
-			}else if(add_url.equals("&sid2=250")) {//占쏙옙占쏙옙/환占쏙옙
+			}else if(add_url.equals("&sid2=252")) {//占쏙옙占쏙옙/환占쏙옙
 				r.eval("url<-('https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=102&sid2=252')");
 				r.eval("remDr$navigate(url)");
 			}else if(add_url.equals("&sid2=266")) {//占쏙옙占쏙옙
@@ -111,12 +111,13 @@ public class newsAction {
 			model.addAttribute("rlst",rlst);
 			model.addAttribute("method",keyword);
 		}catch(Exception e) {			
-			e.printStackTrace();
+			//e.printStackTrace();
+			return "/WEB-INF/error";
 		}finally {
 			if(r != null) {r.close();}
 		}
 		return "news/news_list_Ajax";
-	}
+		}
 	
 	
 	@RequestMapping("news_categoryAll.ju")
@@ -164,7 +165,9 @@ public class newsAction {
 			model.addAttribute("method",keyword_save);
 
 		} catch (Exception e) {
+			
 			e.printStackTrace();
+			//error처리 
 		}
 		return "news/news_categoryAll";
 	}	

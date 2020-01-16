@@ -17,7 +17,11 @@ public class PageMaker {
 	public void prevnext(int pagenum){
 		if(pagenum>0 && pagenum<6) {
 			setPrev(false);
-			setNext(true);
+		  if(getLastblock() == 1) {
+			setNext(false);	
+			}else{
+				setNext(true);
+			}
 		}else if(getLastblock() == getCurrentblock()) {
 			setPrev(true);
 			setNext(false);

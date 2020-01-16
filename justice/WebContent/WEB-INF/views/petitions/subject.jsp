@@ -49,7 +49,6 @@ function orderChange(){
 	<option value="3" <c:if test="${order==3}"> selected</c:if>>최신순 정렬</option>
 	
 </select>
-<button onclick="newPopup('/justice/news/news_list.ju')">관련 news</button>
 <table class="table">
 <tr>
 	<td>인덱스</td>

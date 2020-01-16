@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src= https://code.jquery.com/jquery-3.4.1.min.js></script>   
-
+<jsp:include page="../member/header.jsp"/>
 <script>
 	function newPopup(url){
 		var pop_url = url
@@ -24,7 +24,7 @@
 	}
 </script>
 	<strong>${method}</strong> 관련 뉴스 <br/>
-		<h4> 관련 기사 글 갯수 ${cnt1} </h4>
+	<!-- <h4> 관련 기사 글 갯수 ${cnt1} </h4>  -->	
 		<c:if test="${cnt1<=0}">
 			<h4> 관련 기사가 없습니다</h4>
 		</c:if>
@@ -59,7 +59,7 @@
 			</table>
 			<tfoot>
 				<tr>
-					<td colspan="2">
+			<td colspan="2">
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination">
 			    <c:if test="${page.prev}">
