@@ -83,6 +83,7 @@
 		</tr>
 	</table>
 </center>
+<br>
 </c:if>
 <c:if test="${count>0}">
 <div id="container">

@@ -21,9 +21,9 @@
 				$("#wname").focus();
 				return false;
 			}
-			if(meaning == null || meaning ==""){
-				alert("단어 의미를 입력하지 않았습니다.");
-				$("#meaning").focus();
+			if(wname.length>20){
+				alert("단어의 길이가 너무 깁니다.");
+				$("wname").focus();
 				return false;
 			}
 			if(prompt == null|| prompt == ""){
@@ -31,11 +31,28 @@
 				$("#prompt").focus();
 				return false;
 			}
+			if(prompt.length>20){
+				alert("제시어가 너무 깁니다.");
+				$("prompt").focus();
+				return false;
+			}
+			if(meaning == null || meaning ==""){
+				alert("단어 의미를 입력하지 않았습니다.");
+				$("#meaning").focus();
+				return false;
+			}
+			if(meaning.length>200){
+				alert("뜻이 너무 깁니다.");
+				$("meaning").focus();
+				return false;
+			}
 			if(detail_content == null|| detail_content == ""){
 				alert("설명을 입력하지 않았습니다.");
 				$("#detail_content").focus();
 				return false;
 			}
+			
+			
 		})	
 	})
 </script>

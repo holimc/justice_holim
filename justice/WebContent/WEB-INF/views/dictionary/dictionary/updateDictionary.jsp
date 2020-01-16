@@ -14,13 +14,28 @@
 			$("#wname").focus();
 			return false;
 		}
+		if($("#wname").val().length>20){
+			alert("단어가 너무 깁니다");
+			$("#wname").focus();
+			return false;
+		}
 		if($("#substitute").val()==""){
 			alert("대체어를 써주세요");
 			$("#substitute").focus();
 			return false;
 		}
+		if($("#substitute").val().length>20){
+			alert("대체어가 너무 깁니다");
+			$("#substitute").focus();
+			return false;
+		}
 		if($("#meaning").val()==""){
 			alert("뜻을 써주세요");
+			$("#meaning").focus();
+			return false;
+		}
+		if($("#meaning").val().length>200){
+			alert("설명이 너무 깁니다");
 			$("#meaning").focus();
 			return false;
 		}

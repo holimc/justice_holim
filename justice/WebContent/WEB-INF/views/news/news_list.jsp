@@ -9,7 +9,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src= https://code.jquery.com/jquery-3.4.1.min.js></script>   
 <jsp:include page="../member/header.jsp"/>
-
+<script src='<c:url value="/resources/dictionary/js/dictionaryJavaScript.js"/>'></script>
+<link href="<c:url value="/resources/dictionary/css/dictionaryStyle.css"/>" rel="stylesheet" />
 <body>
 	<center><b>${news_keword}==최신 뉴스==</b></center>	 <h4> 현재 기사 글  ${cnt} 개</h4>
 	
@@ -181,5 +182,6 @@ function search(v,add_url){
 </div>
 
 
+<div id="tooltip"></div>
 </body>
 
