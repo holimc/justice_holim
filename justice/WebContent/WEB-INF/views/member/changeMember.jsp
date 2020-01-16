@@ -16,7 +16,7 @@
 			<h2>회원정보수정</h2>
 			<form action="changeMemberPro.ju" method="post">
 				<input type="hidden" name="id" value="${memId}"> 
-				비밀번호 <input type="password" name="passwd"><br />
+				비밀번호 <input type="password" name="passwd"><br />	
 				이메일 <input type="text"	name="email" value="${email}"><br /> 
 				<input type="submit"value="변경"> 
 				<input type="button" id="main" value="메인">

@@ -168,9 +168,5 @@ public class BoardDAO implements BoardDAOImpl {
 		}
 		return check;
 	}
-	
-	
-	
-	
-	
+		
 }

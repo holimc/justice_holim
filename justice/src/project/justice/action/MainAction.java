@@ -21,11 +21,12 @@ public class MainAction {
 
 
 	@RequestMapping("login.ju")
-	public String login(HttpSession session,Model model) {
+	public String login(HttpSession session,Model model,String path) {
 		String memId = (String)session.getAttribute("memId");
 		if(memId!=null) {
 			model.addAttribute("memId", memId);
 		}
+		model.addAttribute("path",path);
 		return "member/login";
 	}
 	

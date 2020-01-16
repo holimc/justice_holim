@@ -43,6 +43,7 @@
 </head>
 <body>
 <jsp:include page="../../member/header.jsp" />
+<script src='<c:url value="/resources/js/login.js"/>'></script>
 
 <div class="container-fluid">
 <div class="row">
@@ -51,7 +52,7 @@
 <c:if test="${user_id== null}">
 	<script>
 		alert("로그인후 이용해주세요");
-		history.go(-1);
+		loginURL();
 	</script>
 </c:if>
 <c:if test="${user_id!=null}">
